@@ -6,6 +6,7 @@
 
 ## General Info
 This browser based web application to ...
+* Edmond's bullet point goes here. 
 	
 ## Technologies
 Technologies used for this project:
