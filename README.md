@@ -8,6 +8,7 @@
 This browser based web application to ...
 * Edmond's bullet point goes here. 
 * Hi my name is Jason. I'm excited about this project because ...
+* Hi, I am Andy. I'm excited about this project because.
 	
 ## Technologies
 Technologies used for this project:
