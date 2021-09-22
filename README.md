@@ -6,7 +6,8 @@
 
 ## General Info
 This browser based web application to ...
-* Edmond's bullet point goes here. 
+* Edmond's bullet point goes here.
+* Edmond added a new line here
 * Hi my name is Jason. I'm excited about this project because ...
 * Hi, I am Andy. I'm excited about this project because.
 * Andy added in another line.
