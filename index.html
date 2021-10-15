@@ -16,7 +16,6 @@
     <!-- Optional styles and scripts of your own -->
     <link type="text/css" href="styles/my_style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.css' rel='stylesheet' />
 </head>
 
 <body>
@@ -57,23 +56,16 @@
 
     <!-- welcome and main part of the page -->
     <div class="container">
-        <section class="w-100 p-4 pb-4 d-flex justify-content-center align-items-center flex-column">
-            <div>
-                <div class="input-group rounded">
-                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                        aria-describedby="search-addon">
-                    <span class="input-group-text border-0" id="search-addon">
-                        <i class="material-icons">search</i>
-                    </span>
-                </div>
-            </div>
-        </section>
-
-        <!-------------------------------------->
-        <!-- Add map thing here -->
-
-        <img src="/images/map.PNG" class="img-fluid" alt="Responsive image">
-        <!-------------------------------------->
+        <br>    
+        <h1 class="display-4"> welcome to <span id="username">Communiti</span> </h1>
+        <div class="w-25 p-3">
+            <img src="images/logo.jpg" class="img-fluid" alt="community logo">
+        </div>
+        <p>Our Mission Statement: <br>
+            We believe that through volunteering, a sense of community develops within our neighbourhoods. 
+            <br><br>
+            for BCIT students, by BCIT students. Get started now!</p>
+        <a href="login.html" class="btn btn-info">Login/Signup</a>
     </div>
 
     <!-- Footer Navigation Bar -->
@@ -102,11 +94,8 @@
     <!-- Link to the api keys for your firebase project -->
     <script src="scripts/firebase_api_elmo.js"></script>
 
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js'></script>
-
     <!--------------------------------------------------------------------->
     <!-- JS files: Your own JavaScript functions included here    -->
-
     <!--------------------------------------------------------------------->
 
 </body>
