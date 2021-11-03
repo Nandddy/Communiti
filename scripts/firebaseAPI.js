@@ -6,8 +6,15 @@ const firebaseConfig = {
   storageBucket: "communiti-4ea70.appspot.com",
   messagingSenderId: "229395775259",
   appId: "1:229395775259:web:d5ddd528406bc102751dbe"
+
 };
 
 
 const app = firebase.initializeApp(firebaseConfig);
+
+  };
+  
+  
+ 
+  
 
