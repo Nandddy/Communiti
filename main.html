@@ -16,7 +16,19 @@
     <!-- Optional styles and scripts of your own -->
     <link type="text/css" href="styles/my_style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.css' rel='stylesheet' />
+
+
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
+    <style>
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            height: 50%;
+        }
+    </style>
 </head>
 
 <body>
@@ -72,12 +84,16 @@
         <!-------------------------------------->
         <!-- Add map thing here -->
 
-        <img src="/images/map.PNG" class="img-fluid" alt="Responsive image">
+        <div class="map-container">
+            <div id="map" style="border: 1px solid black; display: flex; margin-top: 15em; margin-left: 22em;">
+            </div>
+        </div>
+
         <!-------------------------------------->
     </div>
 
     <!-- Footer Navigation Bar -->
-    <footer class="py-3 bg-info m-3 rounded">
+    <footer class="py-3 bg-info m-3 rounded position-absolute bottom-0 w-100">
         <div class="container d-flex justify-content-around">
             <i class="material-icons">home</i>
             <i class="material-icons">star</i>
@@ -106,6 +122,40 @@
 
     <!--------------------------------------------------------------------->
     <!-- JS files: Your own JavaScript functions included here    -->
+
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1Ijoidndnb2xmZ3RpIiwiYSI6ImNrcHJhcHhwOTAyM28ydXBpMWlranpwOGkifQ.JtdxQSekLtejtN-cjEIg_A';
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/mapbox/streets-v11', // style URL
+            center: [-123.11, 49.24], // starting position [lng, lat]
+            zoom: 10 // starting zoom
+        });
+
+        const marker = new mapboxgl.Marker({
+            color: "#FFFFFF",
+            draggable: true
+        }).setLngLat([-123.1, 49.21])
+            .addTo(map);
+
+        const marker1 = new mapboxgl.Marker()
+            .setLngLat([-124, 50])
+            .addTo(map);
+
+
+
+        map.on('style.load', function () {
+            map.on('click', function (e) {
+                var coordinates = e.lngLat;
+                new mapboxgl.Popup()
+                    .setLngLat(coordinates)
+                    .setHTML('there is a volunteering opportunity here <br>' + coordinates)
+                    .addTo(map);
+            });
+        });
+
+
+    </script>
 
     <!--------------------------------------------------------------------->
 
