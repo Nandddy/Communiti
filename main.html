@@ -15,15 +15,20 @@
     <script src="scripts/firebaseAPI.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.js%22%3E"> </script>
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.css" />
-    
+
+    <!--database stuff goes here -->
+    <script src="./scripts/firebaseAPI.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
 
     <!-- Optional styles and scripts of your own -->
     <link type=" text/css" href="styles/my_style.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
-            <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css" rel="stylesheet">
-                <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
+
     <style>
         #map {
             position: absolute;
@@ -33,6 +38,7 @@
             height: 50%;
         }
     </style>
+
 </head>
 
 <body>
@@ -137,56 +143,84 @@
     <!-- JS files: Your own JavaScript functions included here    -->
 
     <script>
-                mapboxgl.accessToken = 'pk.eyJ1Ijoidndnb2xmZ3RpIiwiYSI6ImNrcHJhcHhwOTAyM28ydXBpMWlranpwOGkifQ.JtdxQSekLtejtN-cjEIg_A';
-                const map = new mapboxgl.Map({
-                    container: 'map', // container ID
-                style: 'mapbox://styles/mapbox/streets-v11', // style URL
-                center: [-123.11, 49.24], // starting position [lng, lat]
-                zoom: 10 // starting zoom
+        mapboxgl.accessToken = 'pk.eyJ1Ijoidndnb2xmZ3RpIiwiYSI6ImNrcHJhcHhwOTAyM28ydXBpMWlranpwOGkifQ.JtdxQSekLtejtN-cjEIg_A';
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/mapbox/streets-v11', // style URL
+            center: [-123.11, 49.24], // starting position [lng, lat]
+            zoom: 10 // starting zoom
         });
 
-                const marker = new mapboxgl.Marker({
-                    color: "#FFFFFF",
-                draggable: true
+        const marker = new mapboxgl.Marker({
+            color: "#FFFFFF",
+            draggable: true
         }).setLngLat([-123.1, 49.21])
-                .addTo(map);
+            .addTo(map);
 
-                const marker1 = new mapboxgl.Marker()
-                .setLngLat([-124, 50])
-                .addTo(map);
+        const marker1 = new mapboxgl.Marker()
+            .setLngLat([-124, 50])
+            .addTo(map);
 
 
 
-                map.on('style.load', function () {
-                    map.on('click', function (e) {
-                        var coordinates = e.lngLat;
-                        new mapboxgl.Popup()
-                            .setLngLat(coordinates)
-                            .setHTML('there is a volunteering opportunity here <br>' + coordinates)
-                            .addTo(map);
-                    });
+        map.on('style.load', function () {
+            map.on('click', function (e) {
+                var coordinates = e.lngLat;
+                new mapboxgl.Popup()
+                    .setLngLat(coordinates)
+                    .setHTML('there is a volunteering opportunity here <br>' + coordinates)
+                    .addTo(map);
+            });
         });
 
-                const btn = document.querySelectorAll("button");
+        const btn = document.querySelectorAll("button");
         btn.forEach((b) => {
-                    b.addEventListener("click", (e) => {
-                        if (e.target.id === "retrieve-from-db") {
-                            dataBaseFunction();
-                        }
+            b.addEventListener("click", (e) => {
+                if (e.target.id === "retrieve-from-db") {
+                    dataBaseFunction();
+                }
 
-                        if (e.target.id === "populate-to-map") {
-                            populateMap();
-                        }
-                    })
-                })
+                if (e.target.id === "populate-to-map") {
+                    populateMap();
+                }
+            })
+        })
 
         dataBaseFunction = () => {
 
-                }
+        }
 
         populateMap = () => {
 
+        }
+
+        function insertName() {
+            firebase.auth().onAuthStateChanged(user => {
+                // Check if user is signed in:
+                if (user) {
+                    // Do something for the current logged-in user here: 
+                    console.log(user.uid);
+                    //go to the correct user document by referencing to the user uid
+                    currentUser = db.collection("users").doc(user.uid);
+                    //get the document for current user.
+                    currentUser.get()
+                        .then(userDoc => {
+                            var user_Name = userDoc.data().name;
+                            console.log(user_Name);
+                            //method #1:  insert with html only
+                            //document.getElementById("name-goes-here").innerText = n;    //using javascript
+                            //method #2:  insert using jquery
+                            $("#name-goes-here").text(user_Name);                         //using jquery
+                        })
+                } else {
+                    // No user is signed in.
                 }
+            });
+        }
+
+        insertName();
+
+
 
 
 
