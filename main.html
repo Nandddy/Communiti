@@ -17,7 +17,6 @@
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.css" />
 
     <!--database stuff goes here -->
-    <script src="./scripts/firebaseAPI.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
 
@@ -135,7 +134,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
     <!-- Link to the api keys for your firebase project -->
-    <script src="scripts/firebase_api_elmo.js"></script>
+    <script src="scripts/firebaseAPI.js"></script>
 
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js'></script>
 
@@ -173,6 +172,7 @@
             });
         });
 
+        // 
         const btn = document.querySelectorAll("button");
         btn.forEach((b) => {
             b.addEventListener("click", (e) => {
