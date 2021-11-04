@@ -15,7 +15,7 @@
     <!-- <script src="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.js%22%3E"> </script> -->
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.css" />
 
-    
+
     <!--database stuff goes here -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
@@ -102,12 +102,15 @@
 
         <!-------------------------------------->
 
-        <button id="retrieve-from-db">
-            click to retrieve from database
-        </button>
-        <button id="populate-to-map">
-            click to populate onto map
-        </button>
+        <div style="display: grid; grid-template-columns: 100%; width: 10%">
+            <button id="retrieve-from-db">
+                click to retrieve from database
+            </button>
+            <button id="populate-to-map">
+                click to populate onto map
+            </button>
+        </div>
+
     </div>
 
 
@@ -128,17 +131,18 @@
     <!-- JS: Boostrap, Firebase, API related, add Jquery    -->
     <!----------------------------------------------->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
-        </script>
+        </script> -->
     <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+
     <!-- Link to the api keys for your firebase project -->
     <script src="scripts/firebaseAPI.js"></script>
 
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js'></script>
+    <!-- <script src='https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js'></script> -->
 
     <!--------------------------------------------------------------------->
     <!-- JS files: Your own JavaScript functions included here    -->
@@ -152,15 +156,15 @@
             zoom: 10 // starting zoom
         });
 
-        const marker = new mapboxgl.Marker({
-            color: "#FFFFFF",
-            draggable: true
-        }).setLngLat([-123.1, 49.21])
-            .addTo(map);
+        // const marker = new mapboxgl.Marker({
+        //     color: "#FFFFFF",
+        //     draggable: true
+        // }).setLngLat([-123.1, 49.21])
+        //     .addTo(map);
 
-        const marker1 = new mapboxgl.Marker()
-            .setLngLat([-124, 50])
-            .addTo(map);
+        //  const marker1 = new mapboxgl.Marker()
+        //      .setLngLat([-123.11, 49.23])
+        //      .addTo(map);
 
 
 
@@ -180,6 +184,7 @@
             b.addEventListener("click", (e) => {
                 if (e.target.id === "retrieve-from-db") {
                     dataBaseFunction();
+                    getCoordinate();
                 }
 
                 if (e.target.id === "populate-to-map") {
@@ -188,13 +193,49 @@
             })
         })
 
-        dataBaseFunction = () => {
-            console.log("retrieve from db")
+        let tempCoorStorage = [];
+
+        getCoordinate = () => {
+            let test;
+            db.collection("pins").get()
+                .then(users => {
+                    users.forEach(u => {
+                        console.log(u.data());
+                        //populateMap();
+                        tempCoorStorage.push(u.data());
+                    })
+
+                })
+
+            console.log(tempCoorStorage);
         }
 
-        populateMap = () => {
-            console.log("populate to map")
+        // this function retrieves from db
+        dataBaseFunction = () => {
+            db.collection("users").get()
+                .then(users => {
+                    users.forEach(u => {
+                        console.log(u.data());
+                    })
+                })
+
         }
+
+        // flow: first retrieve from db -> drop map pins
+
+        
+        // this populates pins onto map
+        populateMap = () => {
+            for (let i = 0; i < tempCoorStorage.length; i++) {
+                //console.log(tempCoorStorage[i].long);
+                //console.log(tempCoorStorage[i].lat);
+
+                new mapboxgl.Marker()
+                    .setLngLat([tempCoorStorage[i].long, tempCoorStorage[i].lat])
+                    .addTo(map);
+            }
+        }
+
 
         function insertName() {
             firebase.auth().onAuthStateChanged(user => {
