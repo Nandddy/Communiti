@@ -1,7 +1,12 @@
 // Your web app's Firebase configuration
 const firebaseConfig = {
-//please stop
-};
+    apiKey:"",
+    authDomain:"",
+    projectId:"",
+    storageBucket:"",
+    messagingSenderId:"",
+    appId:"",
+  };
 
 
 const app = firebase.initializeApp(firebaseConfig);
