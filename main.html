@@ -102,21 +102,31 @@
 
         <!-------------------------------------->
 
-        <div style="display: grid; grid-template-columns: 100%; width: 10%">
+        <!-- these are the debugging buttons for some of the js functions  -->
+        <!-- <div style="display: grid; grid-template-columns: 100%; width: 10%">
             <button id="retrieve-from-db">
                 click to retrieve from database
             </button>
             <button id="populate-to-map">
                 click to populate onto map
             </button>
-        </div>
+        </div> -->
+
+        <!-- search debugging bar -->
+        <!-- <div>
+            <form>
+                <label for="location-search">Enter search query</label>
+                <input type="text" id="location-search" name="location-search">
+                <input type="submit" value="Search">
+            </form>
+        </div> -->
 
     </div>
 
 
 
     <!-- Footer Navigation Bar -->
-    <footer class="py-3 bg-info m-3 rounded position-absolute bottom-0 w-100">
+    <!-- <footer class="py-3 bg-info m-3 rounded position-absolute bottom-0 w-100">
         <div class="container d-flex justify-content-around">
             <i class="material-icons">home</i>
             <i class="material-icons">star</i>
@@ -124,7 +134,7 @@
             <i class="material-icons">map</i>
             <i class="material-icons">more_horiz</i>
         </div>
-    </footer>
+    </footer> -->
 
 
     <!----------------------------------------------->
@@ -148,6 +158,26 @@
     <!-- JS files: Your own JavaScript functions included here    -->
 
     <script>
+
+        // DON"T DELETE THIS!!! THIS IS THE SEARCH FUNCTIONALITY!!!
+        // document.querySelector("form").addEventListener("submit", (e) => {
+        //     e.preventDefault();
+        //     let test = document.getElementById("location-search").value;
+
+        //     //console.log(test);
+
+        //     // append location text after slash and before question mark
+        //     $.ajax({
+        //         url: "https://api.mapbox.com/geocoding/v5/mapbox.places/" + test + ".json?access_token=pk.eyJ1Ijoidndnb2xmZ3RpIiwiYSI6ImNrcHJhcHhwOTAyM28ydXBpMWlranpwOGkifQ.JtdxQSekLtejtN-cjEIg_A",
+        //         contentType: "application/json",
+        //         dataType: 'json',
+        //         success: function (result) {
+        //             console.log(result);
+        //         }
+        //     })
+        // })
+
+
         mapboxgl.accessToken = 'pk.eyJ1Ijoidndnb2xmZ3RpIiwiYSI6ImNrcHJhcHhwOTAyM28ydXBpMWlranpwOGkifQ.JtdxQSekLtejtN-cjEIg_A';
         const map = new mapboxgl.Map({
             container: 'map', // container ID
@@ -167,16 +197,22 @@
         //      .addTo(map);
 
 
-
         map.on('style.load', function () {
             map.on('click', function (e) {
                 var coordinates = e.lngLat;
-                new mapboxgl.Popup()
-                    .setLngLat(coordinates)
-                    .setHTML('there is a volunteering opportunity here <br>' + coordinates)
-                    .addTo(map);
+                console.log(coordinates);
+                popUpBox();
+                // new mapboxgl.Popup()
+                //     .setLngLat(coordinates)
+                //     .setHTML('there is a volunteering opportunity here <br>' + coordinates)
+                //     .addTo(map);
             });
         });
+
+        popUpBox = () => {
+            console.log("is this working");
+
+        }
 
         // 
         const btn = document.querySelectorAll("button");
@@ -223,7 +259,7 @@
 
         // flow: first retrieve from db -> drop map pins
 
-        
+
         // this populates pins onto map
         populateMap = () => {
             for (let i = 0; i < tempCoorStorage.length; i++) {
@@ -262,11 +298,6 @@
         }
 
         insertName();
-
-
-
-
-
 
 
     </script>
