@@ -22,7 +22,7 @@ var uiConfig = {
                     email: user.email                          //with authenticated user's ID (user.uid)
                 }).then(function () {
                     console.log("New user added to firestore");
-                    window.location.assign("main.html");       //re-direct to main.html after signup
+                    window.location.assign("signup.html");       //re-direct to main.html after signup
                 })
                     .catch(function (error) {
                         console.log("Error adding new user: " + error);
@@ -56,7 +56,5 @@ var uiConfig = {
     privacyPolicyUrl: 'login.html'
 };
 
-      // The start method will wait until the DOM is loaded.
-      ui.start('#firebaseui-auth-container', uiConfig);
-
-      
+// The start method will wait until the DOM is loaded.
+ui.start('#firebaseui-auth-container', uiConfig);
