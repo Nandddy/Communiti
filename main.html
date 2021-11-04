@@ -6,20 +6,29 @@
     <title>My BCIT Project</title>
     <meta name="comp1800 boilerplate code" content="my bcit project">
     <meta name="author" content="BCIT">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap, firebase-auth-ui -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
+    <!-- <script src="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.js%22%3E"> </script> -->
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.css" />
+
+
+    <!--database stuff goes here -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
 
     <!-- Optional styles and scripts of your own -->
-    <link type="text/css" href="styles/my_style.css">
+    <link type=" text/css" href="styles/my_style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
+    <!--Mapbox Stuff-->
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
+
     <style>
         #map {
             position: absolute;
@@ -29,6 +38,7 @@
             height: 50%;
         }
     </style>
+
 </head>
 
 <body>
@@ -45,6 +55,7 @@
             </button>
 
             <a class="navbar-brand" href="#">Communiti</a>
+            <span id="name"></span>
 
             <i class="material-icons">person_outline</i>
 
@@ -90,10 +101,32 @@
         </div>
 
         <!-------------------------------------->
+
+        <!-- these are the debugging buttons for some of the js functions  -->
+        <!-- <div style="display: grid; grid-template-columns: 100%; width: 10%">
+            <button id="retrieve-from-db">
+                click to retrieve from database
+            </button>
+            <button id="populate-to-map">
+                click to populate onto map
+            </button>
+        </div> -->
+
+        <!-- search debugging bar -->
+        <!-- <div>
+            <form>
+                <label for="location-search">Enter search query</label>
+                <input type="text" id="location-search" name="location-search">
+                <input type="submit" value="Search">
+            </form>
+        </div> -->
+
     </div>
 
+
+
     <!-- Footer Navigation Bar -->
-    <footer class="py-3 bg-info m-3 rounded position-absolute bottom-0 w-100">
+    <!-- <footer class="py-3 bg-info m-3 rounded position-absolute bottom-0 w-100">
         <div class="container d-flex justify-content-around">
             <a href=""><i class="material-icons">home</i></a>
             <a href="./html/saved.html"><i class="material-icons">star</i></a>
@@ -101,29 +134,50 @@
             <a href="./html/active.html"><i class="material-icons">map</i></a>
             <i class="material-icons">more_horiz</i>
         </div>
-    </footer>
+    </footer> -->
 
 
     <!----------------------------------------------->
     <!-- JS: Boostrap, Firebase, API related, add Jquery    -->
     <!----------------------------------------------->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
-        </script>
+        </script> -->
     <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
-    <!-- Link to the api keys for your firebase project -->
-    <script src="scripts/firebase_api_elmo.js"></script>
 
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js'></script>
+    <!-- Link to the api keys for your firebase project -->
+    <script src="scripts/firebaseAPI.js"></script>
+
+    <!-- <script src='https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js'></script> -->
 
     <!--------------------------------------------------------------------->
     <!-- JS files: Your own JavaScript functions included here    -->
 
     <script>
+
+        // DON"T DELETE THIS!!! THIS IS THE SEARCH FUNCTIONALITY!!!
+        // document.querySelector("form").addEventListener("submit", (e) => {
+        //     e.preventDefault();
+        //     let test = document.getElementById("location-search").value;
+
+        //     //console.log(test);
+
+        //     // append location text after slash and before question mark
+        //     $.ajax({
+        //         url: "https://api.mapbox.com/geocoding/v5/mapbox.places/" + test + ".json?access_token=pk.eyJ1Ijoidndnb2xmZ3RpIiwiYSI6ImNrcHJhcHhwOTAyM28ydXBpMWlranpwOGkifQ.JtdxQSekLtejtN-cjEIg_A",
+        //         contentType: "application/json",
+        //         dataType: 'json',
+        //         success: function (result) {
+        //             console.log(result);
+        //         }
+        //     })
+        // })
+
+
         mapboxgl.accessToken = 'pk.eyJ1Ijoidndnb2xmZ3RpIiwiYSI6ImNrcHJhcHhwOTAyM28ydXBpMWlranpwOGkifQ.JtdxQSekLtejtN-cjEIg_A';
         const map = new mapboxgl.Map({
             container: 'map', // container ID
@@ -132,27 +186,118 @@
             zoom: 10 // starting zoom
         });
 
-        const marker = new mapboxgl.Marker({
-            color: "#FFFFFF",
-            draggable: true
-        }).setLngLat([-123.1, 49.21])
-            .addTo(map);
+        // const marker = new mapboxgl.Marker({
+        //     color: "#FFFFFF",
+        //     draggable: true
+        // }).setLngLat([-123.1, 49.21])
+        //     .addTo(map);
 
-        const marker1 = new mapboxgl.Marker()
-            .setLngLat([-124, 50])
-            .addTo(map);
-
+        //  const marker1 = new mapboxgl.Marker()
+        //      .setLngLat([-123.11, 49.23])
+        //      .addTo(map);
 
 
         map.on('style.load', function () {
             map.on('click', function (e) {
                 var coordinates = e.lngLat;
-                new mapboxgl.Popup()
-                    .setLngLat(coordinates)
-                    .setHTML('there is a volunteering opportunity here <br>' + coordinates)
-                    .addTo(map);
+                console.log(coordinates);
+                popUpBox();
+                // new mapboxgl.Popup()
+                //     .setLngLat(coordinates)
+                //     .setHTML('there is a volunteering opportunity here <br>' + coordinates)
+                //     .addTo(map);
             });
         });
+
+        popUpBox = () => {
+            console.log("is this working");
+
+        }
+
+        // 
+        const btn = document.querySelectorAll("button");
+        btn.forEach((b) => {
+            b.addEventListener("click", (e) => {
+                if (e.target.id === "retrieve-from-db") {
+                    dataBaseFunction();
+                    getCoordinate();
+                }
+
+                if (e.target.id === "populate-to-map") {
+                    populateMap();
+                }
+            })
+        })
+
+        let tempCoorStorage = [];
+
+        getCoordinate = () => {
+            let test;
+            db.collection("pins").get()
+                .then(users => {
+                    users.forEach(u => {
+                        console.log(u.data());
+                        //populateMap();
+                        tempCoorStorage.push(u.data());
+                    })
+
+                })
+
+            console.log(tempCoorStorage);
+        }
+
+        // this function retrieves from db
+        dataBaseFunction = () => {
+            db.collection("users").get()
+                .then(users => {
+                    users.forEach(u => {
+                        console.log(u.data());
+                    })
+                })
+
+        }
+
+        // flow: first retrieve from db -> drop map pins
+
+
+        // this populates pins onto map
+        populateMap = () => {
+            for (let i = 0; i < tempCoorStorage.length; i++) {
+                //console.log(tempCoorStorage[i].long);
+                //console.log(tempCoorStorage[i].lat);
+
+                new mapboxgl.Marker()
+                    .setLngLat([tempCoorStorage[i].long, tempCoorStorage[i].lat])
+                    .addTo(map);
+            }
+        }
+
+
+        function insertName() {
+            firebase.auth().onAuthStateChanged(user => {
+                // Check if user is signed in:
+                if (user) {
+                    // Do something for the current logged-in user here: 
+                    console.log(user.uid);
+                    //go to the correct user document by referencing to the user uid
+                    currentUser = db.collection("users").doc(user.uid);
+                    //get the document for current user.
+                    currentUser.get()
+                        .then(userDoc => {
+                            var user_Name = userDoc.data().name;
+                            console.log(user_Name);
+                            //method #1:  insert with html only
+                            //document.getElementById("name-goes-here").innerText = n;    //using javascript
+                            //method #2:  insert using jquery
+                            $("#name").text(user_Name);                         //using jquery
+                        })
+                } else {
+                    // No user is signed in.
+                }
+            });
+        }
+
+        insertName();
 
 
     </script>
