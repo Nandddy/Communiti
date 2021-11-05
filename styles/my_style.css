@@ -1,12 +1,12 @@
-#map-container {
+.map-container {
     border: 1px solid black;
+    display: flex;
+    justify-items: center;
 }
 
 p {
     border: 1px solid black;
 }
 
-#searchbar {
-    position: absolute;
-    margin-top: 5em;
-}
+
+
