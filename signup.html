@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS and styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -73,19 +73,20 @@
         <h1 class="largecentertext">Welcome to Communiti, <span id="name-goes-here"></span>!</h1>
         <p>Before you start using this application, we need to know a few more things about you:</p>
         <br>
-        <form id="studentchecker" style="display:block">
+        <form id="studentchecker" style="display:block;margin-top:0pt;margin-bottom:50px;">
             <h4>Are you a BCIT student?</h4>
-            <!--             <input type="radio" id="is_student" name="stu1" value="true">
-            <label for="is_student" style="margin-right:20pt">Yes</label>
-            <input type="radio" id="not_student" name="stu1" value="false">
-            <label for="not_student">No</label><br> -->
-            <button type="button" id="is_student" style="margin-right:40pt;margin-top:10pt;">Yes</button>
-            <button type="button" id="not_student">No</button>
-        </form>
-        <div id="form-here"></div>
 
-        <button type="button" id="backbutton" style="text-align:left;display:none;margin-left:25%;">Back</button>
-        <!-------------------------------------------------------->
+<!--             <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off">
+            <label class="btn btn-primary" for="btn-check">Single toggle</label>
+ -->
+
+            <input type="radio" class="btn-check" id="is_student" name="studentradio" autocomplete="off">
+            <label class="btn btn-primary" for="is_student" style="margin-right:40pt;">Yes</label>
+            <input type="radio" class="btn-check" id="not_student" name="studentradio" autocomplete="off">
+            <label class="btn btn-primary" for="not_student">No</label>
+        </form>
+
+       <!-------------------------------------------------------->
         <!-------------------------STUDENT FORM------------------->
         <div id="student-form" style="display:none">
             <form style="margin-top: 0pt;">
@@ -93,12 +94,13 @@
                 <label for="student_number">What is your student number? </label> <br>
                 A<input id="student_number" type="number" name="student_number" required><br><br>
                 Are you vaccinated? <br>
-                <input type="radio" id="is_vax" name="vax" value="true" required>
+                <input class="form-check-input" type="radio" id="is_vax" name="vax" value="true" required>
                 <label for="is_vax" style="margin-right:20pt">Yes</label>
-                <input type="radio" id="not_vax" name="vax" value="false" required>
+                <input class="form-check-input" type="radio" id="not_vax" name="vax" value="false" required>
                 <label for="not_vax">No</label><br><br>
-                <!-- <input id="student-submit" type="submit" value="Submit"> -->
-                <button type="button" onclick="studentSubmit()">Submit</button>
+                
+                <input type="button" class="btn-check" name="studentsubmit" autocomplete="off">
+                <label class="btn btn-primary" for="studentsubmit" onclick="studentSubmit()">Submit</label>
             </form>
         </div>
 
@@ -111,17 +113,19 @@
                 <input id="phoneNumber1" type="number" name="phoneNumber1" required><br><br>
 
                 Are you vaccinated? <br>
-                <input type="radio" id="is_vax2" name="vax1" value="true" required>
+                <input class="form-check-input" type="radio" id="is_vax2" name="vax1" value="true" required>
                 <label for="is_vax2" style="margin-right:20pt">Yes</label>
-                <input type="radio" id="not_vax2" name="vax1" value="false" required>
+                <input class="form-check-input" type="radio" id="not_vax2" name="vax1" value="false" required>
                 <label for="not_vax2">No</label><br><br>
-                <!-- <input id="public-submit" type="button" value="Submit"> -->
-                <button type="button" onclick="publicSubmit()">Submit</button>
+
+                <input type="button" class="btn-check" name="publicsubmit" autocomplete="off">
+                <label class="btn btn-primary" for="publicsubmit" onclick="publicSubmit()">Submit</label>
             </form>
         </div>
     </section>
 
     <!---------JS STUFF--------->
+    <!--Note: Moving this code to an external js script will cause errors and i don't want to deal with it-->
     <script>
 
 
@@ -159,10 +163,6 @@
             studentForm.style.display = "block";
             let formDiv = document.getElementById("public-form");
             formDiv.style.display = "none";
-            let studentCheck = document.getElementById("studentchecker");
-            studentCheck.style.display = "none";
-            let b_button = document.getElementById("backbutton");
-            b_button.style.display = "block";
         });
 
         document.querySelector("#not_student").addEventListener("click", function (e) {
@@ -171,23 +171,8 @@
             studentForm.style.display = "none";
             let formDiv = document.getElementById("public-form");
             formDiv.style.display = "block";
-            let studentCheck = document.getElementById("studentchecker");
-            studentCheck.style.display = "none";
-            let b_button = document.getElementById("backbutton");
-            b_button.style.display = "block";
         });
 
-        document.querySelector("#backbutton").addEventListener("click", function (e) {
-            e.preventDefault();
-            let studentForm = document.getElementById("student-form");
-            studentForm.style.display = "none";
-            let formDiv = document.getElementById("public-form");
-            formDiv.style.display = "none";
-            let studentCheck = document.getElementById("studentchecker");
-            studentCheck.style.display = "block";
-            let b_button = document.getElementById("backbutton");
-            b_button.style.display = "none";
-        });
 
 
         function studentSubmit() {
@@ -216,14 +201,12 @@
                         window.location.assign("main.html");
                     })
                         .catch(function (error) {
-                            console.log("Error adding new user: " + error);
+                            console.log("Error adding new student information: " + error);
                         });
                 } else {
                     // No user is signed in.
                 }
             });
-
-            /* window.location.assign("main.html"); */
         }
 
 
@@ -254,14 +237,12 @@
                         window.location.assign("main.html");
                     })
                         .catch(function (error) {
-                            console.log("Error adding new user: " + error);
+                            console.log("Error adding new public user: " + error);
                         });
                 } else {
                     // No user is signed in.
                 }
             });
-
-            /* window.location.assign("main.html"); */
         }
     </script>
 </body>
