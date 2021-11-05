@@ -34,8 +34,7 @@
             position: absolute;
             top: 0;
             bottom: 0;
-            width: 50%;
-            height: 50%;
+            width: 100%;
         }
     </style>
 
@@ -95,8 +94,8 @@
         <!-------------------------------------->
         <!-- Add map thing here -->
 
-        <div class="map-container">
-            <div id="map" style="border: 1px solid black; display: flex; margin-top: 15em; margin-left: 22em;">
+        <div class="mapboxgl-canvas-container">
+            <div id="map" style="border: 1px solid black; display: flex; margin-top: 15em;">
             </div>
         </div>
 
@@ -126,7 +125,7 @@
 
 
     <!-- Footer Navigation Bar -->
-    <!-- <footer class="py-3 bg-info m-3 rounded position-absolute bottom-0 w-100">
+    <footer class="py-3 bg-info rounded position-absolute bottom-0 w-100">
         <div class="container d-flex justify-content-around">
             <i class="material-icons">home</i>
             <i class="material-icons">star</i>
@@ -134,7 +133,7 @@
             <i class="material-icons">map</i>
             <i class="material-icons">more_horiz</i>
         </div>
-    </footer> -->
+    </footer>
 
 
     <!----------------------------------------------->
@@ -158,6 +157,7 @@
     <!-- JS files: Your own JavaScript functions included here    -->
 
     <script>
+
 
         // DON"T DELETE THIS!!! THIS IS THE SEARCH FUNCTIONALITY!!!
         // document.querySelector("form").addEventListener("submit", (e) => {
