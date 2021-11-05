@@ -80,15 +80,18 @@
     <!-- welcome and main part of the page -->
     <div class="container">
         <section class="w-100 p-4 pb-4 d-flex justify-content-center align-items-center flex-column">
-            <div>
+            <!-- <div>
                 <div class="input-group rounded">
                     <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
                         aria-describedby="search-addon">
                     <span class="input-group-text border-0" id="search-addon">
                         <i class="material-icons">search</i>
                     </span>
+                    <button class="input-group-text border-0" id="search-addon" type="submit">
+                        <i class="material-icons">search</i>
+                    </button>
                 </div>
-            </div>
+            </div> -->
         </section>
 
         <!-------------------------------------->
@@ -150,6 +153,11 @@
 
     <!-- Link to the api keys for your firebase project -->
     <script src="scripts/firebaseAPI.js"></script>
+    <script
+        src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet"
+        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css"
+        type="text/css">
 
     <!-- <script src='https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js'></script> -->
 
@@ -185,6 +193,13 @@
             center: [-123.11, 49.24], // starting position [lng, lat]
             zoom: 10 // starting zoom
         });
+
+        map.addControl(
+            new MapboxGeocoder({
+                accessToken: mapboxgl.accessToken,
+                mapboxgl: mapboxgl
+            })
+        );
 
         // const marker = new mapboxgl.Marker({
         //     color: "#FFFFFF",
