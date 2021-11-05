@@ -32,10 +32,15 @@
     <style>
         #map {
             position: absolute;
+            margin-left: auto;
+            margin-right: auto;
+            left: 0;
+            right: 0;
             top: 0;
             bottom: 0;
-            width: 50%;
-            height: 50%;
+            width: 90%;
+            height: auto;
+            border-radius: 3.5em;
         }
     </style>
 
@@ -65,13 +70,13 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="#">About Us Us</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="login.html">Login/Signup</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        <a class="nav-link" href="#">Contact Us</a>
                     </li>
                 </ul>
             </div>
@@ -79,14 +84,14 @@
     </nav>
 
     <!-- welcome and main part of the page -->
-    <div class="container">
+    <div class="container" id="searchbar">
         <section class="w-100 p-4 pb-4 d-flex justify-content-center align-items-center flex-column">
             <div>
                 <div class="input-group rounded">
                     <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
                         aria-describedby="search-addon">
                     <span class="input-group-text border-0" id="search-addon">
-                        <i class="material-icons">search</i>
+                        <a href=""><i class="material-icons">search</i></a>
                     </span>
                 </div>
             </div>
@@ -96,7 +101,7 @@
         <!-- Add map thing here -->
 
         <div class="map-container">
-            <div id="map" style="border: 1px solid black; display: flex; margin-top: 15em; margin-left: 22em;">
+            <div id="map" style="border: 1px solid white; display: flex; margin-top: 13em; margin-bottom: 8em;">
             </div>
         </div>
 
@@ -123,18 +128,16 @@
 
     </div>
 
-
-
     <!-- Footer Navigation Bar -->
-    <!-- <footer class="py-3 bg-info m-3 rounded position-absolute bottom-0 w-100">
+    <footer class="navbar fixed-bottom py-3 bg-info m-3 rounded">
         <div class="container d-flex justify-content-around">
-            <a href=""><i class="material-icons">home</i></a>
+            <a href="main.html"><i class="material-icons">home</i></a>
             <a href="./html/saved.html"><i class="material-icons">star</i></a>
             <a href="./html/request/1_location.html"><i class="material-icons">add_circle</i></a>
             <a href="./html/active.html"><i class="material-icons">map</i></a>
             <i class="material-icons">more_horiz</i>
         </div>
-    </footer> -->
+    </footer>
 
 
     <!----------------------------------------------->
