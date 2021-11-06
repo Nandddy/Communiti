@@ -234,62 +234,90 @@
         }
 
         // 
-        const btn = document.querySelectorAll("button");
-        btn.forEach((b) => {
-            b.addEventListener("click", (e) => {
-                if (e.target.id === "retrieve-from-db") {
-                    dataBaseFunction();
-                    getCoordinate();
-                }
+        // const btn = document.querySelectorAll("button");
+        // btn.forEach((b) => {
+        //     b.addEventListener("click", (e) => {
+        //         if (e.target.id === "retrieve-from-db") {
+        //             dataBaseFunction();
+        //             getCoordinate();
+        //         }
 
-                if (e.target.id === "populate-to-map") {
-                    populateMap();
-                }
-            })
-        })
+        //         if (e.target.id === "populate-to-map") {
+        //             populateMap();
+        //         }
+        //     })
+        // })
 
         let tempCoorStorage = [];
 
-        getCoordinate = () => {
-            let test;
-            db.collection("pins").get()
-                .then(users => {
-                    users.forEach(u => {
-                        console.log(u.data());
-                        //populateMap();
-                        tempCoorStorage.push(u.data());
-                    })
+        // storeCoordinate = () => {
+        //     let test;
+        //     db.collection("pins").get()
+        //         .then(users => {
+        //             users.forEach(u => {
+        //                 console.log(u.data());
+        //                 //populateMap();
+        //                 tempCoorStorage.push(u.data());
+        //             })
 
-                })
+        //         })
 
-            console.log(tempCoorStorage);
+        //     console.log(tempCoorStorage);
+        // }
+
+        function updatePins() {
+            firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                    //console.log(user.uid);
+                    currentUser = db.collection("users").doc(user.uid).collection("volunteering_saved");
+                    currentUser
+                        .get()
+                        .then(a => {
+                            a.forEach(d => {
+                                //console.log(d.data().address);
+                                //tempCoorStorage.push(d.data());
+                                new mapboxgl.Marker()
+                                    .setLngLat([d.data().lng, d.data().lat])
+                                    .addTo(map);
+                            })
+                        })
+                }
+            })
+            //console.log(tempCoorStorage);
         }
+        updatePins();
 
         // this function retrieves from db
-        dataBaseFunction = () => {
-            db.collection("users").get()
-                .then(users => {
-                    users.forEach(u => {
-                        console.log(u.data());
-                    })
-                })
+        // dataBaseFunction = () => {
+        //     db.collection("users").doc(user.uid).get()
+        //         .then(users => {
+        //             users.forEach(u => {
+        //                 console.log(u.data());
+        //             })
+        //         })
 
-        }
+        // }
+        // dataBaseFunction();
 
         // flow: first retrieve from db -> drop map pins
 
 
         // this populates pins onto map
         populateMap = () => {
-            for (let i = 0; i < tempCoorStorage.length; i++) {
-                //console.log(tempCoorStorage[i].long);
-                //console.log(tempCoorStorage[i].lat);
+            //console.log(tempCoorStorage);
+            // new mapboxgl.Marker()
+            //     .setLngLat([tempCoorStorage[0].lng, tempCoorStorage[0].lat])
+            //     .addTo(map);
+            // for (let i = 0; i < tempCoorStorage.length; i++) {
+            //     console.log(tempCoorStorage[i].lng);
+            //     console.log(tempCoorStorage[i].lat);
 
-                new mapboxgl.Marker()
-                    .setLngLat([tempCoorStorage[i].long, tempCoorStorage[i].lat])
-                    .addTo(map);
-            }
+            //     // new mapboxgl.Marker()
+            //     //     .setLngLat([tempCoorStorage[i].lng, tempCoorStorage[i].lat])
+            //     //     .addTo(map);
+            // }
         }
+        populateMap();
 
 
         function insertName() {
@@ -297,14 +325,14 @@
                 // Check if user is signed in:
                 if (user) {
                     // Do something for the current logged-in user here: 
-                    console.log(user.uid);
+                    //console.log(user.uid);
                     //go to the correct user document by referencing to the user uid
                     currentUser = db.collection("users").doc(user.uid);
                     //get the document for current user.
                     currentUser.get()
                         .then(userDoc => {
                             var user_Name = userDoc.data().name;
-                            console.log(user_Name);
+                            //console.log(user_Name);
                             //method #1:  insert with html only
                             //document.getElementById("name-goes-here").innerText = n;    //using javascript
                             //method #2:  insert using jquery
