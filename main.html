@@ -105,8 +105,13 @@
         <!-- Add map thing here -->
 
         <div class="map-container">
-            <div id="map" style="border: 1px solid white; display: flex; margin-top: 13em; margin-bottom: 8em;">
+            <div id="map"
+                style="border: 1px solid white; display: flex; margin-top: 13em; margin-bottom: 8em; height: 40%;">
             </div>
+        </div>
+
+        <div id="volunteering-listing" style="margin-top: 26em; overflow: auto; height: 300px; border: 1px solid black">
+
         </div>
 
         <!-------------------------------------->
@@ -220,18 +225,18 @@
             map.on('click', function (e) {
                 var coordinates = e.lngLat;
                 console.log(coordinates);
-                popUpBox();
-                // new mapboxgl.Popup()
-                //     .setLngLat(coordinates)
-                //     .setHTML('there is a volunteering opportunity here <br>' + coordinates)
-                //     .addTo(map);
+                //popUpBox();
+                new mapboxgl.Popup()
+                    .setLngLat(coordinates)
+                    // .setHTML('there is a volunteering opportunity here <br>' + coordinates)
+                    .addTo(map);
             });
         });
 
-        popUpBox = () => {
-            console.log("is this working");
+        // popUpBox = () => {
+        //     console.log("is this working");
 
-        }
+        // }
 
         // 
         // const btn = document.querySelectorAll("button");
@@ -250,6 +255,7 @@
 
         let tempCoorStorage = [];
 
+
         // storeCoordinate = () => {
         //     let test;
         //     db.collection("pins").get()
@@ -265,6 +271,7 @@
         //     console.log(tempCoorStorage);
         // }
 
+        // update pins on map
         function updatePins() {
             firebase.auth().onAuthStateChanged(user => {
                 if (user) {
@@ -317,8 +324,149 @@
             //     //     .addTo(map);
             // }
         }
-        populateMap();
+        //populateMap();
 
+        // get data from firebase regardless of user id
+        function getAllData() {
+            firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                    //console.log(user.uid);
+                    currentUser = db.collection("all_volunteering");
+                    console.log(currentUser);
+                    // currentUser
+                    //     .get()
+                    //     .then(a => {
+                    //         a.forEach(d => {
+                    //             console.log(d.data());
+                    //             //tempCoorStorage.push(d.data());
+                    //             // new mapboxgl.Marker()
+                    //             //     .setLngLat([d.data().lng, d.data().lat])
+                    //             //     .addTo(map);
+                    //             locationList(d.data());
+                    //             //flyToLocation(d.data());
+                    //         })
+                    //     })
+                }
+
+            })
+            //console.log(tempCoorStorage);
+        }
+        getAllData();
+
+        // get data from firebase
+        function getData() {
+            firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                    //console.log(user.uid);
+                    currentUser = db.collection("users").doc(user.uid).collection("volunteering_saved");
+                    currentUser
+                        .get()
+                        .then(a => {
+                            a.forEach(d => {
+                                //console.log(d.data());
+                                //tempCoorStorage.push(d.data());
+                                // new mapboxgl.Marker()
+                                //     .setLngLat([d.data().lng, d.data().lat])
+                                //     .addTo(map);
+                                locationList(d.data());
+                                //flyToLocation(d.data());
+                            })
+                        })
+                }
+
+                if (user) {
+                    //console.log(user.uid);
+                    currentUser = db.collection("users").doc(user.uid);
+                    currentUser
+                        .get()
+                        .then(a => {
+                            console.log(a.data());
+                        })
+                }
+            })
+            //console.log(tempCoorStorage);
+        }
+        getData();
+
+
+        function locationList(data) {
+            // address, category, description, number_volunteers
+            console.log(data);
+
+            const listings = document.getElementById('volunteering-listing');
+            const listing = listings.appendChild(document.createElement('div'));
+            /* Assign a unique `id` to the listing. */
+            //listing.id = `listing-${store.properties.id}`;
+            /* Assign the `item` class to each listing for styling. */
+            listing.className = 'item';
+            listing.style = "border: 1px solid black; margin: 1em"
+
+            /* Add the link to the individual listing created above. */
+            const link = listing.appendChild(document.createElement('a'));
+            link.href = '#';
+            link.className = 'title';
+            //link.id = `link-${store.properties.id}`;
+            link.innerHTML = `${data.address}`;
+
+            /* Add details to the individual listing. */
+            const details = listing.appendChild(document.createElement('div'));
+            // const volCategory = data.category;
+            // const volDescript = data.description;
+            // const numVol = data.number_volunteers;
+
+            //const volContainer = document.createElement("div");
+            //volContainer.innerText = volCategory;
+
+            //listing.appendChild(volCategory);
+            details.innerHTML = `Description: ${data.description}`;
+            details.innerHTML += `<br>`;
+            details.innerHTML += `Category: ${data.category}`;
+            details.innerHTML += `<br>`;
+            details.innerHTML += `Volunteers Needed: ${data.number_volunteers}`;
+
+            link.addEventListener('click', function () {
+
+                // for (const feature of stores.features) {
+                //     if (this.id === `link-${feature.properties.id}`) {
+                flyToLocation(data);
+                createPopUp(data);
+                //     }
+                // }
+                // const activeItem = document.getElementsByClassName('active');
+                // if (activeItem[0]) {
+                //     activeItem[0].classList.remove('active');
+                // }
+                // this.parentNode.classList.add('active');
+            });
+
+        }
+
+        // structure of coordinates
+        //"coordinates": [
+        //  -77.049766,
+        //  38.900772
+        // ]
+        function flyToLocation(data) {
+            //console.log({data});
+            let tempArr = [];
+            tempArr.push(data.lng);
+            tempArr.push(data.lat);
+            map.flyTo({
+                center: tempArr,
+                zoom: 15
+            });
+        }
+
+        function createPopUp(data) {
+            const popUps = document.getElementsByClassName('mapboxgl-popup');
+            /** Check if there is already a popup on the map and if so, remove it */
+            if (popUps[0]) popUps[0].remove();
+
+            const popup = new mapboxgl.Popup({ closeOnClick: false })
+                .setLngLat([data.lng, data.lat])
+                .setHTML(`User profile goes here`)
+                .addTo(map);
+        }
 
         function insertName() {
             firebase.auth().onAuthStateChanged(user => {
