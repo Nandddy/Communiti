@@ -76,7 +76,7 @@
         <form id="studentchecker" style="display:block;margin-top:0pt;margin-bottom:50px;">
             <h4>Are you a BCIT student?</h4>
 
-<!--             <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off">
+            <!--             <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off">
             <label class="btn btn-primary" for="btn-check">Single toggle</label>
  -->
 
@@ -86,21 +86,25 @@
             <label class="btn btn-primary" for="not_student">No</label>
         </form>
 
-       <!-------------------------------------------------------->
+        <!-------------------------------------------------------->
         <!-------------------------STUDENT FORM------------------->
         <div id="student-form" style="display:none">
             <form style="margin-top: 0pt;">
                 <h4>For students</h4>
-                <label for="student_number">What is your student number? </label> <br>
-                A<input id="student_number" type="number" name="student_number" required><br><br>
-                Are you vaccinated? <br>
+                <label id="stu_num_label" for="student_number">What is your student number? </label> <br>
+                A<input id="student_number" type="number" name="student_number" required><br>
+                <span id="errorS"> </span> <br><br>
+                <span id="stu_vax_label">Are you vaccinated?</span> <br>
                 <input class="form-check-input" type="radio" id="is_vax" name="vax" value="true" required>
                 <label for="is_vax" style="margin-right:20pt">Yes</label>
                 <input class="form-check-input" type="radio" id="not_vax" name="vax" value="false" required>
-                <label for="not_vax">No</label><br><br>
-                
+                <label for="not_vax">No</label><br>
+                <span id="errorS2"> </span> <br><br>
+
                 <input type="button" class="btn-check" name="studentsubmit" autocomplete="off">
+
                 <label class="btn btn-primary" for="studentsubmit" onclick="studentSubmit()">Submit</label>
+
             </form>
         </div>
 
@@ -109,14 +113,15 @@
         <div id="public-form" style="display:none">
             <form style="margin-top: 0pt;" action="main.html">
                 <h4>For the general public</h4>
-                <label for="phoneNumber1">What is your phone number? </label> <br>
-                <input id="phoneNumber1" type="number" name="phoneNumber1" required><br><br>
-
-                Are you vaccinated? <br>
+                <label id="pub_phone_label" for="phoneNumber1">What is your phone number? </label> <br>
+                <input id="phoneNumber1" type="number" name="phoneNumber1" required><br>
+                <span id="errorP"> </span> <br><br>
+                <span id="pub_vax_label">Are you vaccinated?</span> <br>
                 <input class="form-check-input" type="radio" id="is_vax2" name="vax1" value="true" required>
                 <label for="is_vax2" style="margin-right:20pt">Yes</label>
                 <input class="form-check-input" type="radio" id="not_vax2" name="vax1" value="false" required>
-                <label for="not_vax2">No</label><br><br>
+                <label for="not_vax2">No</label><br>
+                <span id="errorP2"></span><br><br>
 
                 <input type="button" class="btn-check" name="publicsubmit" autocomplete="off">
                 <label class="btn btn-primary" for="publicsubmit" onclick="publicSubmit()">Submit</label>
@@ -127,7 +132,6 @@
     <!---------JS STUFF--------->
     <!--Note: Moving this code to an external js script will cause errors and i don't want to deal with it-->
     <script>
-
 
         //Printing name for DB to check if its connected
         function insertName() {
@@ -179,34 +183,40 @@
             console.log("Hello!");
             let stuNum = document.getElementById("student_number").value;
             let vaxStat = document.getElementsByName("vax");
-            let vaxx = "";
+            let vaxx;
             for (i = 0; i < vaxStat.length; i++) {
                 if (vaxStat[0].checked) {
                     vaxx = true;
+                } else if (vaxStat[1].checked) {
+                    vaxx = false;
                 }
 
             }
             let isStudent = true;
 
+            if (studentFormChecker(stuNum, vaxx)) {
+                firebase.auth().onAuthStateChanged(user => {
+                    // Check if user is signed in:
+                    if (user) {
+                        db.collection("users").doc(user.uid).update({
+                            studentNumber: stuNum,
+                            vaxStatus: vaxx,
+                            studentStatus: isStudent
+                        }).then(function () {
+                            window.location.assign("main.html");
+                        })
+                            .catch(function (error) {
+                                console.log("Error adding new student information: " + error);
+                            });
+                    } else {
+                        // No user is signed in.
+                    }
+                });
+            } else {
+                //
+            }
 
 
-            firebase.auth().onAuthStateChanged(user => {
-                // Check if user is signed in:
-                if (user) {
-                    db.collection("users").doc(user.uid).update({
-                        studentNumber: stuNum,
-                        vaxStatus: vaxx,
-                        studentStatus: isStudent
-                    }).then(function () {
-                        window.location.assign("main.html");
-                    })
-                        .catch(function (error) {
-                            console.log("Error adding new student information: " + error);
-                        });
-                } else {
-                    // No user is signed in.
-                }
-            });
         }
 
 
@@ -214,19 +224,19 @@
             console.log("Hello!");
             let phoneNum = document.getElementById("phoneNumber1").value;
             let vaxStat = document.getElementsByName("vax1");
-            let vaxx = "";
+            let vaxx;
             for (i = 0; i < vaxStat.length; i++) {
                 if (vaxStat[0].checked) {
                     vaxx = true;
-                } else {
+                } else if (vaxStat[1].checked) {
                     vaxx = false;
                 }
 
             }
             let isStudent = false;
 
-
-            firebase.auth().onAuthStateChanged(user => {
+            if (publicFormChecker(phoneNum,vaxx)) {
+                firebase.auth().onAuthStateChanged(user => {
                 // Check if user is signed in:
                 if (user) {
                     db.collection("users").doc(user.uid).update({
@@ -243,6 +253,78 @@
                     // No user is signed in.
                 }
             });
+            }
+
+        }
+
+        function studentFormChecker(toCheckNum, toCheckVax) {
+            var error = document.getElementById("errorS");
+            var numLabel = document.getElementById("stu_num_label");
+            var error2 = document.getElementById("errorS2");
+            var numLabel2 = document.getElementById("stu_vax_label");
+            var returnVal = true;
+
+            //Student number checker
+            if (toCheckNum.length == 8) {
+                console.log("Student number is valid");
+                error.textContent = "";
+                numLabel.style.color = "black";
+            } else {
+                console.log("Student number is invalid");
+                error.innerText = "Please enter a valid student number";
+                error.style.color = "red";
+                numLabel.style.color = "red";
+                returnVal = false;
+            }
+
+            //Vax status checker
+            if (!(toCheckVax == undefined)) {
+                console.log("Vax stat is valid");
+                error2.textContent = "";
+                numLabel2.style.color = "black";
+            } else {
+                console.log("Vax stat is invalid");
+                error2.innerText = "Please press an option";
+                error2.style.color = "red";
+                numLabel2.style.color = "red";
+                returnVal = false;
+            }
+            return returnVal;
+        }
+
+        function publicFormChecker(toCheckNum, toCheckVax) {
+            var error = document.getElementById("errorP");
+            var numLabel = document.getElementById("pub_phone_label");
+            var error2 = document.getElementById("errorP2");
+            var numLabel2 = document.getElementById("pub_vax_label");
+            var returnVal = true;
+
+            //Phone number checker
+            if (toCheckNum.length == 10) {
+                console.log("Student number is valid");
+                error.textContent = "";
+                numLabel.style.color = "black";
+            } else {
+                console.log("Phone number is invalid");
+                error.innerText = "Please enter a valid phone number";
+                error.style.color = "red";
+                numLabel.style.color = "red";
+                returnVal = false;
+            }
+
+            //Vax status checker
+            if (!(toCheckVax == undefined)) {
+                console.log("Vax stat is valid");
+                error2.textContent = "";
+                numLabel2.style.color = "black";
+            } else {
+                console.log("Vax stat is invalid");
+                error2.innerText = "Please press an option";
+                error2.style.color = "red";
+                numLabel2.style.color = "red";
+                returnVal = false;
+            }
+            return returnVal;
         }
     </script>
 </body>
