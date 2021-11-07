@@ -293,18 +293,38 @@
                         .catch(function error() {
                             console.log("Error");
                         })
-                    //console.log(currentUser);
-                    //get the document for current user.
-                    // currentUser.set({
-                    //     name: "did this work one",
-                    //     email: "did this work 3"
-                    // }).then(function() {
-                    //     console.log("added to firebase");
-
-                    //  })
                 } else {
                     // No user is signed in.
                 }
+
+                if (user) {
+                    // Do something for the current logged-in user here: 
+                    console.log(user.uid);
+                    //go to the correct user document by referencing to the user uid
+                    currentUser = db.collection("all_volunteering").doc(user.uid).collection("volunteering_saved");
+                    currentUser
+                        // .doc sets the name for the sub collection
+                        .doc("volunteering_profile: " + date)
+                        // you set the fields here
+                        .set({
+                            category: cat,
+                            number_volunteers: numVolunteers,
+                            description: volDescription,
+                            address: volAddress,
+                            lat: latitude,
+                            lng: longitude
+                        })
+                        .then(function () {
+                            console.log("Document added");
+                            window.location.assign("../../main.html");
+                        })
+                        .catch(function error() {
+                            console.log("Error");
+                        })
+                } else {
+                    // No user is signed in.
+                }
+
             });
         }
 
