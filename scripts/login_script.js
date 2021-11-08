@@ -58,3 +58,41 @@ var uiConfig = {
 
 // The start method will wait until the DOM is loaded.
 ui.start('#firebaseui-auth-container', uiConfig);
+
+
+//Credits to C.Lee on Stackoverflow
+//checks to make sure email is in the form anystring@anystring.anystring
+function validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
+
+function validatePassword(password) {
+    return (password.length > 5);
+}
+
+
+//THIS FUNCTION CURRENTLY DOES NOT WORK.
+function createNewUser() {
+    //var displayName = document.getElementById("typeDisplayName");
+    var displayName = "Test";
+    var email = document.getElementById("typeEmailX").value;
+    var password = document.getElementById("typePasswordX").value;
+    if (validateEmail(email) && validatePassword(password)) {
+        console.log("Okay");
+        
+        firebase.auth().createUserWithEmailAndPassword(email, password) //something is wrong starting from here
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                window.location.assign("signup.html");
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // ..
+            });
+
+    }
+}
+//create new user

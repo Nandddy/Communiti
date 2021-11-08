@@ -301,7 +301,7 @@
                     // Do something for the current logged-in user here: 
                     console.log(user.uid);
                     //go to the correct user document by referencing to the user uid
-                    currentUser = db.collection("all_volunteering").doc(user.uid).collection("volunteering_saved");
+                    currentUser = db.collection("all_volunteering").doc("all_details").collection("volunteering_saved");
                     currentUser
                         // .doc sets the name for the sub collection
                         .doc("volunteering_profile: " + date)

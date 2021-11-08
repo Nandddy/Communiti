@@ -71,7 +71,7 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About Us Us</a>
+                        <a class="nav-link" href="#">About Us</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="login.html">Login/Signup</a>
@@ -272,7 +272,8 @@
         // }
 
         // update pins on map
-        function updatePins() {
+        //NOTE: MIGHT NOT BE NEEDED ANYMORE, POSSIBLY DELETE?
+/*         function updatePins() {
             firebase.auth().onAuthStateChanged(user => {
                 if (user) {
                     //console.log(user.uid);
@@ -292,7 +293,7 @@
             })
             //console.log(tempCoorStorage);
         }
-        updatePins();
+        updatePins(); */
 
         // this function retrieves from db
         // dataBaseFunction = () => {
@@ -328,24 +329,25 @@
 
         // get data from firebase regardless of user id
         function getAllData() {
+            //console.log("Init alldata");
             firebase.auth().onAuthStateChanged(user => {
                 if (user) {
                     //console.log(user.uid);
-                    currentUser = db.collection("all_volunteering");
-                    console.log(currentUser);
-                    // currentUser
-                    //     .get()
-                    //     .then(a => {
-                    //         a.forEach(d => {
-                    //             console.log(d.data());
-                    //             //tempCoorStorage.push(d.data());
-                    //             // new mapboxgl.Marker()
-                    //             //     .setLngLat([d.data().lng, d.data().lat])
-                    //             //     .addTo(map);
-                    //             locationList(d.data());
-                    //             //flyToLocation(d.data());
-                    //         })
-                    //     })
+                    currentUser = db.collection("all_volunteering").doc("all_details").collection("volunteering_saved");
+                    //console.log(currentUser);
+                     currentUser
+                         .get()
+                         .then(a => {
+                             a.forEach(d => {
+                                 //console.log(d.data());
+                                 //tempCoorStorage.push(d.data());
+                                  new mapboxgl.Marker()
+                                      .setLngLat([d.data().lng, d.data().lat])
+                                      .addTo(map);
+                                 //locationList(d.data());
+                                 //flyToLocation(d.data());
+                             })
+                         })
                 }
 
             })
@@ -358,7 +360,7 @@
             firebase.auth().onAuthStateChanged(user => {
                 if (user) {
                     //console.log(user.uid);
-                    currentUser = db.collection("users").doc(user.uid).collection("volunteering_saved");
+                    currentUser = db.collection("all_volunteering").doc("all_details").collection("volunteering_saved");
                     currentUser
                         .get()
                         .then(a => {
@@ -391,7 +393,7 @@
 
         function locationList(data) {
             // address, category, description, number_volunteers
-            console.log(data);
+            //console.log(data);
 
             const listings = document.getElementById('volunteering-listing');
             const listing = listings.appendChild(document.createElement('div'));
