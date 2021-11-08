@@ -29,6 +29,7 @@
 
     <!-- Link to the api keys for your firebase project -->
     <script src="/scripts/firebaseAPI.js"></script>
+    <script src="/scripts/signup_script.js" async></script>
 
     <style>
         input::-webkit-inner-spin-button,
@@ -76,7 +77,7 @@
         <form id="studentchecker" style="display:block;margin-top:0pt;margin-bottom:50px;">
             <h4>Are you a BCIT student?</h4>
 
-<!--             <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off">
+            <!--             <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off">
             <label class="btn btn-primary" for="btn-check">Single toggle</label>
  -->
 
@@ -86,21 +87,25 @@
             <label class="btn btn-primary" for="not_student">No</label>
         </form>
 
-       <!-------------------------------------------------------->
+        <!-------------------------------------------------------->
         <!-------------------------STUDENT FORM------------------->
         <div id="student-form" style="display:none">
             <form style="margin-top: 0pt;">
                 <h4>For students</h4>
-                <label for="student_number">What is your student number? </label> <br>
-                A<input id="student_number" type="number" name="student_number" required><br><br>
-                Are you vaccinated? <br>
+                <label id="stu_num_label" for="student_number">What is your student number? </label> <br>
+                A<input id="student_number" type="number" name="student_number" required><br>
+                <span id="errorS"> </span> <br><br>
+                <span id="stu_vax_label">Are you vaccinated?</span> <br>
                 <input class="form-check-input" type="radio" id="is_vax" name="vax" value="true" required>
                 <label for="is_vax" style="margin-right:20pt">Yes</label>
                 <input class="form-check-input" type="radio" id="not_vax" name="vax" value="false" required>
-                <label for="not_vax">No</label><br><br>
-                
+                <label for="not_vax">No</label><br>
+                <span id="errorS2"> </span> <br><br>
+
                 <input type="button" class="btn-check" name="studentsubmit" autocomplete="off">
+
                 <label class="btn btn-primary" for="studentsubmit" onclick="studentSubmit()">Submit</label>
+
             </form>
         </div>
 
@@ -109,142 +114,21 @@
         <div id="public-form" style="display:none">
             <form style="margin-top: 0pt;" action="main.html">
                 <h4>For the general public</h4>
-                <label for="phoneNumber1">What is your phone number? </label> <br>
-                <input id="phoneNumber1" type="number" name="phoneNumber1" required><br><br>
-
-                Are you vaccinated? <br>
+                <label id="pub_phone_label" for="phoneNumber1">What is your phone number? </label> <br>
+                <input id="phoneNumber1" type="number" name="phoneNumber1" required><br>
+                <span id="errorP"> </span> <br><br>
+                <span id="pub_vax_label">Are you vaccinated?</span> <br>
                 <input class="form-check-input" type="radio" id="is_vax2" name="vax1" value="true" required>
                 <label for="is_vax2" style="margin-right:20pt">Yes</label>
                 <input class="form-check-input" type="radio" id="not_vax2" name="vax1" value="false" required>
-                <label for="not_vax2">No</label><br><br>
+                <label for="not_vax2">No</label><br>
+                <span id="errorP2"></span><br><br>
 
                 <input type="button" class="btn-check" name="publicsubmit" autocomplete="off">
                 <label class="btn btn-primary" for="publicsubmit" onclick="publicSubmit()">Submit</label>
             </form>
         </div>
     </section>
-
-    <!---------JS STUFF--------->
-    <!--Note: Moving this code to an external js script will cause errors and i don't want to deal with it-->
-    <script>
-
-
-        //Printing name for DB to check if its connected
-        function insertName() {
-            firebase.auth().onAuthStateChanged(user => {
-                // Check if user is signed in:
-                if (user) {
-                    // Do something for the current logged-in user here: 
-                    //console.log(user.uid);
-                    //go to the correct user document by referencing to the user uid
-                    currentUser = db.collection("users").doc(user.uid);
-                    //get the document for current user.
-                    currentUser.get()
-                        .then(userDoc => {
-                            var user_Name = userDoc.data().name;
-                            //console.log(user_Name);
-                            //method #1:  insert with html only
-                            //document.getElementById("name-goes-here").innerText = n;    //using javascript
-                            //method #2:  insert using jquery
-                            $("#name-goes-here").text(user_Name);                         //using jquery
-                        })
-                } else {
-                    document.getElementById("name-goes-here").innerText = "friend!";
-                    // No user is signed in.
-                }
-            });
-        }
-        insertName();
-
-
-        document.querySelector("#is_student").addEventListener("click", function (e) {
-            e.preventDefault();
-            let studentForm = document.getElementById("student-form");
-            studentForm.style.display = "block";
-            let formDiv = document.getElementById("public-form");
-            formDiv.style.display = "none";
-        });
-
-        document.querySelector("#not_student").addEventListener("click", function (e) {
-            e.preventDefault();
-            let studentForm = document.getElementById("student-form");
-            studentForm.style.display = "none";
-            let formDiv = document.getElementById("public-form");
-            formDiv.style.display = "block";
-        });
-
-
-
-        function studentSubmit() {
-            console.log("Hello!");
-            let stuNum = document.getElementById("student_number").value;
-            let vaxStat = document.getElementsByName("vax");
-            let vaxx = "";
-            for (i = 0; i < vaxStat.length; i++) {
-                if (vaxStat[0].checked) {
-                    vaxx = true;
-                }
-
-            }
-            let isStudent = true;
-
-
-
-            firebase.auth().onAuthStateChanged(user => {
-                // Check if user is signed in:
-                if (user) {
-                    db.collection("users").doc(user.uid).update({
-                        studentNumber: stuNum,
-                        vaxStatus: vaxx,
-                        studentStatus: isStudent
-                    }).then(function () {
-                        window.location.assign("main.html");
-                    })
-                        .catch(function (error) {
-                            console.log("Error adding new student information: " + error);
-                        });
-                } else {
-                    // No user is signed in.
-                }
-            });
-        }
-
-
-        function publicSubmit() {
-            console.log("Hello!");
-            let phoneNum = document.getElementById("phoneNumber1").value;
-            let vaxStat = document.getElementsByName("vax1");
-            let vaxx = "";
-            for (i = 0; i < vaxStat.length; i++) {
-                if (vaxStat[0].checked) {
-                    vaxx = true;
-                } else {
-                    vaxx = false;
-                }
-
-            }
-            let isStudent = false;
-
-
-            firebase.auth().onAuthStateChanged(user => {
-                // Check if user is signed in:
-                if (user) {
-                    db.collection("users").doc(user.uid).update({
-                        phoneNumber: phoneNum,
-                        vaxStatus: vaxx,
-                        studentStatus: isStudent
-                    }).then(function () {
-                        window.location.assign("main.html");
-                    })
-                        .catch(function (error) {
-                            console.log("Error adding new public user: " + error);
-                        });
-                } else {
-                    // No user is signed in.
-                }
-            });
-        }
-    </script>
 </body>
 
 </html>

@@ -300,7 +300,30 @@
                     // }).then(function() {
                     //     console.log("added to firebase");
 
-                    //  })
+                if (user) {
+                    // Do something for the current logged-in user here: 
+                    console.log(user.uid);
+                    //go to the correct user document by referencing to the user uid
+                    currentUser = db.collection("all_volunteering").doc("all_details").collection("volunteering_saved");
+                    currentUser
+                        // .doc sets the name for the sub collection
+                        .doc("volunteering_profile: " + date)
+                        // you set the fields here
+                        .set({
+                            category: cat,
+                            number_volunteers: numVolunteers,
+                            description: volDescription,
+                            address: volAddress,
+                            lat: latitude,
+                            lng: longitude
+                        })
+                        .then(function () {
+                            console.log("Document added");
+                            window.location.assign("../../main.html");
+                        })
+                        .catch(function error() {
+                            console.log("Error");
+                        })
                 } else {
                     // No user is signed in.
                 }
