@@ -49,6 +49,9 @@
             console.log("Hello!");
             let stuNum = document.getElementById("student_number").value;
             let vaxStat = document.getElementsByName("vax");
+            let stu_description = document.getElementById("stu_description").value;
+            let isStudent = true;
+
             let vaxx;
             for (i = 0; i < vaxStat.length; i++) {
                 if (vaxStat[0].checked) {
@@ -58,7 +61,12 @@
                 }
 
             }
-            let isStudent = true;
+
+            //Default description if the student didn't enter anything
+            if (stu_description == "") {
+                stu_description = "Hello, nice to meet you!";
+            }
+
 
             if (studentFormChecker(stuNum, vaxx)) {
                 firebase.auth().onAuthStateChanged(user => {
@@ -67,7 +75,8 @@
                         db.collection("users").doc(user.uid).update({
                             studentNumber: stuNum,
                             vaxStatus: vaxx,
-                            studentStatus: isStudent
+                            studentStatus: isStudent,
+                            aboutUser: stu_description
                         }).then(function () {
                             window.location.assign("main.html");
                         })
@@ -90,6 +99,9 @@
             console.log("Hello!");
             let phoneNum = document.getElementById("phoneNumber1").value;
             let vaxStat = document.getElementsByName("vax1");
+            let pub_description = document.getElementById("pub_description").value;
+            let isStudent = false;
+
             let vaxx;
             for (i = 0; i < vaxStat.length; i++) {
                 if (vaxStat[0].checked) {
@@ -99,7 +111,10 @@
                 }
 
             }
-            let isStudent = false;
+
+            if (pub_description == "") {
+                pub_description = "Hello, nice to meet you!";
+            }
 
             if (publicFormChecker(phoneNum,vaxx)) {
                 firebase.auth().onAuthStateChanged(user => {
@@ -108,7 +123,8 @@
                     db.collection("users").doc(user.uid).update({
                         phoneNumber: phoneNum,
                         vaxStatus: vaxx,
-                        studentStatus: isStudent
+                        studentStatus: isStudent,
+                        aboutUser: pub_description
                     }).then(function () {
                         window.location.assign("main.html");
                     })

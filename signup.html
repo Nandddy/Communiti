@@ -101,6 +101,11 @@
                 <input class="form-check-input" type="radio" id="not_vax" name="vax" value="false" required>
                 <label for="not_vax">No</label><br>
                 <span id="errorS2"> </span> <br><br>
+                <div>
+                    <label for="stu_description" class="form-label">About you (optional)</label><br>
+                    <textarea id="stu_description" rows="5" style="width:25%; min-width:250px;"
+                        placeholder="Hello, nice to meet you!"></textarea>
+                </div>
 
                 <input type="button" class="btn-check" name="studentsubmit" autocomplete="off">
 
@@ -123,6 +128,11 @@
                 <input class="form-check-input" type="radio" id="not_vax2" name="vax1" value="false" required>
                 <label for="not_vax2">No</label><br>
                 <span id="errorP2"></span><br><br>
+                <div>
+                    <label for="pub_description" class="form-label">About you (optional)</label><br>
+                    <textarea id="pub_description" rows="5" style="width:25%; min-width:250px;"
+                        placeholder="Hello, nice to meet you!"></textarea>
+                </div>
 
                 <input type="button" class="btn-check" name="publicsubmit" autocomplete="off">
                 <label class="btn btn-primary" for="publicsubmit" onclick="publicSubmit()">Submit</label>
