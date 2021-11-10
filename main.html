@@ -49,6 +49,15 @@
 
 <body>
 
+    <style>
+        .mapboxgl-popup-content {
+            border: 1px solid black;
+            max-width: 400px;
+            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            
+        }
+    </style>
+
     <!-------------------------------------->
     <!-- The following is HTML for layout -->
     <!-------------------------------------->
@@ -197,6 +206,7 @@
 
 
         mapboxgl.accessToken = 'pk.eyJ1Ijoidndnb2xmZ3RpIiwiYSI6ImNrcHJhcHhwOTAyM28ydXBpMWlranpwOGkifQ.JtdxQSekLtejtN-cjEIg_A';
+
         const map = new mapboxgl.Map({
             container: 'map', // container ID
             style: 'mapbox://styles/mapbox/streets-v11', // style URL
@@ -217,21 +227,21 @@
         //     .addTo(map);
 
         // const marker1 = new mapboxgl.Marker()
-        //     .setLngLat([-123.11, 49.23])
+        //     .setLngLat([-123.11, 49.23]) 
         //     .addTo(map);
 
 
-        map.on('style.load', function () {
-            map.on('click', function (e) {
-                var coordinates = e.lngLat;
-                console.log(coordinates);
-                //popUpBox();
-                new mapboxgl.Popup()
-                    .setLngLat(coordinates)
-                    // .setHTML('there is a volunteering opportunity here <br>' + coordinates)
-                    .addTo(map);
-            });
-        });
+        // map.on('style.load', function () {
+        //     map.on('click', function (e) {
+        //         var coordinates = e.lngLat;
+        //         //console.log(coordinates);
+        //         //popUpBox();
+        //         new mapboxgl.Popup()
+        //             .setLngLat(coordinates)
+        //             // .setHTML('there is a volunteering opportunity here <br>' + coordinates)
+        //             .addTo(map);
+        //     });
+        // });
 
         // popUpBox = () => {
         //     console.log("is this working");
@@ -273,27 +283,28 @@
 
         // update pins on map
         //NOTE: MIGHT NOT BE NEEDED ANYMORE, POSSIBLY DELETE?
-/*         function updatePins() {
-            firebase.auth().onAuthStateChanged(user => {
-                if (user) {
-                    //console.log(user.uid);
-                    currentUser = db.collection("users").doc(user.uid).collection("volunteering_saved");
-                    currentUser
-                        .get()
-                        .then(a => {
-                            a.forEach(d => {
-                                //console.log(d.data().address);
-                                //tempCoorStorage.push(d.data());
-                                new mapboxgl.Marker()
-                                    .setLngLat([d.data().lng, d.data().lat])
-                                    .addTo(map);
-                            })
-                        })
+        // YES we will go over everything at the end and delete code
+        /*         function updatePins() {
+                    firebase.auth().onAuthStateChanged(user => {
+                        if (user) {
+                            //console.log(user.uid);
+                            currentUser = db.collection("users").doc(user.uid).collection("volunteering_saved");
+                            currentUser
+                                .get()
+                                .then(a => {
+                                    a.forEach(d => {
+                                        //console.log(d.data().address);
+                                        //tempCoorStorage.push(d.data());
+                                        new mapboxgl.Marker()
+                                            .setLngLat([d.data().lng, d.data().lat])
+                                            .addTo(map);
+                                    })
+                                })
+                        }
+                    })
+                    //console.log(tempCoorStorage);
                 }
-            })
-            //console.log(tempCoorStorage);
-        }
-        updatePins(); */
+                updatePins(); */
 
         // this function retrieves from db
         // dataBaseFunction = () => {
@@ -335,19 +346,23 @@
                     //console.log(user.uid);
                     currentUser = db.collection("all_volunteering").doc("all_details").collection("volunteering_saved");
                     //console.log(currentUser);
-                     currentUser
-                         .get()
-                         .then(a => {
-                             a.forEach(d => {
-                                 //console.log(d.data());
-                                 //tempCoorStorage.push(d.data());
-                                  new mapboxgl.Marker()
-                                      .setLngLat([d.data().lng, d.data().lat])
-                                      .addTo(map);
-                                 //locationList(d.data());
-                                 //flyToLocation(d.data());
-                             })
-                         })
+                    currentUser
+                        .get()
+                        .then(a => {
+                            a.forEach(d => {
+                                //console.log(d.data());
+                                //tempCoorStorage.push(d.data());
+
+                                new mapboxgl.Marker()
+                                    .setLngLat([d.data().lng, d.data().lat])
+                                    .addTo(map);
+
+                                //locationList(d.data());
+                                //flyToLocation(d.data());
+
+
+                            })
+                        })
                 }
 
             })
@@ -376,19 +391,20 @@
                         })
                 }
 
-                if (user) {
-                    //console.log(user.uid);
-                    currentUser = db.collection("users").doc(user.uid);
-                    currentUser
-                        .get()
-                        .then(a => {
-                            console.log(a.data());
-                        })
-                }
+                // if (user) {
+                //     //console.log(user.uid);
+                //     currentUser = db.collection("users").doc(user.uid);
+                //     currentUser
+                //         .get()
+                //         .then(a => {
+                //             //console.log(a.data());
+                //         })
+                // }
             })
             //console.log(tempCoorStorage);
         }
         getData();
+
 
 
         function locationList(data) {
@@ -425,6 +441,8 @@
             details.innerHTML += `Category: ${data.category}`;
             details.innerHTML += `<br>`;
             details.innerHTML += `Volunteers Needed: ${data.number_volunteers}`;
+            details.innerHTML += `<br>`;
+            details.innerHTML += `<button>View more</button>`;
 
             link.addEventListener('click', function () {
 
@@ -460,14 +478,17 @@
         }
 
         function createPopUp(data) {
+            //console.log(data)
             const popUps = document.getElementsByClassName('mapboxgl-popup');
             /** Check if there is already a popup on the map and if so, remove it */
             if (popUps[0]) popUps[0].remove();
 
-            const popup = new mapboxgl.Popup({ closeOnClick: false })
+            const popup = new mapboxgl.Popup({ closeOnClick: false, offset: [0, -35], className: 'my-class' })
                 .setLngLat([data.lng, data.lat])
-                .setHTML(`User profile goes here`)
+                .setHTML(`<div>${data.name}</div>` + `<div>Vaccinated: ${data.vaccine_status}</div>` + `<div>Hi I'm a 4th year student and I like to meet new people!</div>`)
                 .addTo(map);
+
+
         }
 
         function insertName() {
