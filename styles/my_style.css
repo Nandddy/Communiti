@@ -17,3 +17,12 @@ p {
     margin: 1em;
 }
 
+.test-class {
+    border: 1px solid black;
+}
+
+.mapboxgl-popup-content {
+    border: 1px solid black;
+    max-width: 400px;
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
