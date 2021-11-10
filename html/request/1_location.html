@@ -221,18 +221,6 @@
         }
 
 
-        const getFormInfo = () => {
-            document.querySelector("form").addEventListener("submit", (e) => {
-                e.preventDefault();
-                let category = document.getElementById("volunteering-category").value;
-                let numVolunteers = document.getElementById("num-volunteering").value;
-                let description = document.getElementById("volunteering-description").value;
-                let address = document.getElementById("location-confirmation").innerText;
-                sendToDB(category, numVolunteers, description, address);
-            })
-        }
-        getFormInfo();
-
         function insertName() {
             firebase.auth().onAuthStateChanged(user => {
                 // Check if user is signed in:
@@ -244,8 +232,10 @@
                     //get the document for current user.
                     currentUser.get()
                         .then(userDoc => {
+                            console.log(userDoc.data());
                             var user_Name = userDoc.data().name;
-                            console.log(user_Name);
+                            getFormInfo(userDoc.data().name, userDoc.data().vaxStatus);
+                            //console.log(user_Name);
                             //method #1:  insert with html only
                             //document.getElementById("name-goes-here").innerText = n;    //using javascript
                             //method #2:  insert using jquery
@@ -258,7 +248,23 @@
         }
         insertName();
 
-        function sendToDB(cat, num, desc, addr) {
+        const getFormInfo = (name, vax) => {
+            document.querySelector("form").addEventListener("submit", (e) => {
+                e.preventDefault();
+                let category = document.getElementById("volunteering-category").value;
+                let numVolunteers = document.getElementById("num-volunteering").value;
+                let description = document.getElementById("volunteering-description").value;
+                let address = document.getElementById("location-confirmation").innerText;
+                sendToDB(category, numVolunteers, description, address, name, vax);
+            })
+        }
+        getFormInfo();
+
+
+        
+
+
+        function sendToDB(cat, num, desc, addr, name, vax) {
             let volCategory = cat;
             let numVolunteers = num;
             let volDescription = desc;
@@ -292,13 +298,14 @@
                         .catch(function error() {
                             console.log("Error");
                         })
-                    //console.log(currentUser);
-                    //get the document for current user.
-                    // currentUser.set({
-                    //     name: "did this work one",
-                    //     email: "did this work 3"
-                    // }).then(function() {
-                    //     console.log("added to firebase");
+                }
+                //console.log(currentUser);
+                //get the document for current user.
+                // currentUser.set({
+                //     name: "did this work one",
+                //     email: "did this work 3"
+                // }).then(function() {
+                //     console.log("added to firebase");
 
                 if (user) {
                     // Do something for the current logged-in user here: 
@@ -315,7 +322,9 @@
                             description: volDescription,
                             address: volAddress,
                             lat: latitude,
-                            lng: longitude
+                            lng: longitude,
+                            name: name,
+                            vaccine_status: "true"
                         })
                         .then(function () {
                             console.log("Document added");
