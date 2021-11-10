@@ -234,7 +234,7 @@
                         .then(userDoc => {
                             console.log(userDoc.data());
                             var user_Name = userDoc.data().name;
-                            getFormInfo(userDoc.data().name, userDoc.data().vaxStatus);
+                            getFormInfo(userDoc.data().name, userDoc.data().vaxStatus, userDoc.data().aboutUser);
                             //console.log(user_Name);
                             //method #1:  insert with html only
                             //document.getElementById("name-goes-here").innerText = n;    //using javascript
@@ -248,14 +248,14 @@
         }
         insertName();
 
-        const getFormInfo = (name, vax) => {
+        const getFormInfo = (name, vax, about) => {
             document.querySelector("form").addEventListener("submit", (e) => {
                 e.preventDefault();
                 let category = document.getElementById("volunteering-category").value;
                 let numVolunteers = document.getElementById("num-volunteering").value;
                 let description = document.getElementById("volunteering-description").value;
                 let address = document.getElementById("location-confirmation").innerText;
-                sendToDB(category, numVolunteers, description, address, name, vax);
+                sendToDB(category, numVolunteers, description, address, name, vax, about);
             })
         }
         getFormInfo();
@@ -264,7 +264,7 @@
         
 
 
-        function sendToDB(cat, num, desc, addr, name, vax) {
+        function sendToDB(cat, num, desc, addr, name, vax, about) {
             let volCategory = cat;
             let numVolunteers = num;
             let volDescription = desc;
@@ -311,10 +311,13 @@
                     // Do something for the current logged-in user here: 
                     console.log(user.uid);
                     //go to the correct user document by referencing to the user uid
-                    currentUser = db.collection("all_volunteering").doc("all_details").collection("volunteering_saved");
+                    //currentUser = db.collection("all_volunteering").doc("all_details").collection("volunteering_saved");
+
+                    currentUser = db.collection("all_volunteering").doc();
+
                     currentUser
                         // .doc sets the name for the sub collection
-                        .doc("volunteering_profile: " + date)
+                        //.doc("volunteering_profile: " + date)
                         // you set the fields here
                         .set({
                             category: cat,
@@ -323,8 +326,9 @@
                             address: volAddress,
                             lat: latitude,
                             lng: longitude,
-                            name: name,
-                            vaccine_status: "true"
+                            uid: user.uid,
+                            vaccine_status: "true",
+                            user_description: about
                         })
                         .then(function () {
                             console.log("Document added");
