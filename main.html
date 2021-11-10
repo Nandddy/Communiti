@@ -54,7 +54,7 @@
             border: 1px solid black;
             max-width: 400px;
             font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-            
+
         }
     </style>
 
@@ -485,7 +485,11 @@
 
             const popup = new mapboxgl.Popup({ closeOnClick: false, offset: [0, -35], className: 'my-class' })
                 .setLngLat([data.lng, data.lat])
-                .setHTML(`<div>${data.name}</div>` + `<div>Vaccinated: ${data.vaccine_status}</div>` + `<div>Hi I'm a 4th year student and I like to meet new people!</div>`)
+                .setHTML(`<div>${data.name}</div>`
+                    + `<div>Vaccinated: ${data.vaccine_status}</div>`
+                    + `<div>Hi I'm a 4th year student and I like to meet new people!</div>`
+                    + `<div>description: ${data.description}</div>`
+                )
                 .addTo(map);
 
 
