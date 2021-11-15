@@ -1,0 +1,22 @@
+#content {
+    border-style:solid;
+    border-width:thin;
+    margin-top:5%;
+    margin-bottom:5%;
+    background-color:rgb(240,255,255);
+}
+
+#studentdiv {
+    display:none;
+}
+
+#publicdiv {
+    display:none;
+}
+
+#vaxxeddiv {
+    display:block;
+}
+#notvax {
+    display:none;
+}

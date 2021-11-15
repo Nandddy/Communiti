@@ -23,7 +23,7 @@
 
     <!-- Optional styles and scripts of your own -->
     <link type=" text/css" href="styles/my_style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
     <!--Mapbox Stuff-->
@@ -105,10 +105,9 @@
         <!-- Add map thing here -->
 
         <div class="map-container">
-            <div id="map" style="border: 1px solid white; display: flex; margin-top: 10em; margin-bottom: 50%;">
+            <div id="map" style="border: 1px solid white; display: flex; margin-top: 10em; margin-bottom: 400px;">
             </div>
         </div>
-
     </div>
 
     <div style="margin-left: 5em; margin-top: 27em;">
@@ -120,14 +119,16 @@
                 <option value="children">children</option>
                 <option value="computers">computers</option>
                 <option value="education">education</option>
+                <option value="other">other</option>
             </select>
             <br>
             <label for="">Volunteers needed</label>
-            <input type="text" id="num-volunteering">
+            <input type="text" id="num-volunteering" placeholder="1">
             <br>
-            <label for="">Write a description of the help</label>
+            <label id="desc-label" for="">Write a description of your request</label>
             <br>
-            <textarea name="" id="volunteering-description" cols="30" rows="5"></textarea>
+            <textarea name="" id="volunteering-description" cols="30" rows="5"></textarea><br>
+            <span style="margin:0;" id="desc-error"></span>
             <br>
             <input type="submit" id="volunteer-info">
         </form>
@@ -214,6 +215,7 @@
                 dataType: 'json',
                 success: function (result) {
                     let box = document.getElementById("location-confirmation");
+                    box.style.color = "black";
                     box.innerText = result.features[0].place_name
                     //console.log(result.features[0].place_name);
                 }
@@ -226,13 +228,13 @@
                 // Check if user is signed in:
                 if (user) {
                     // Do something for the current logged-in user here: 
-                    console.log(user.uid);
+                    //console.log(user.uid);
                     //go to the correct user document by referencing to the user uid
                     currentUser = db.collection("users").doc(user.uid);
                     //get the document for current user.
                     currentUser.get()
                         .then(userDoc => {
-                            console.log(userDoc.data());
+                            //console.log(userDoc.data());
                             var user_Name = userDoc.data().name;
                             getFormInfo(userDoc.data().name, userDoc.data().vaxStatus, userDoc.data().aboutUser);
                             //console.log(user_Name);
@@ -255,13 +257,30 @@
                 let numVolunteers = document.getElementById("num-volunteering").value;
                 let description = document.getElementById("volunteering-description").value;
                 let address = document.getElementById("location-confirmation").innerText;
-                sendToDB(category, numVolunteers, description, address, name, vax, about);
+
+                //Checking if the form is filled out
+                if (description == "") {
+                    document.getElementById("desc-error").innerText = "Please enter a description."
+                    document.getElementById("desc-error").style.color = "red";
+                    document.getElementById("desc-label").style.color = "red";
+                }
+                if (address == "") {
+                    document.getElementById("location-confirmation").innerText = "Please select the location of your request";
+                    document.getElementById("location-confirmation").style.color = "red";
+                }
+                if (numVolunteers == ""){
+                    numVolunteers = 1;
+                }
+                if (!(address == "" || address == "Please select the location of your request") && !(description == "")) {
+                    sendToDB(category, numVolunteers, description, address, name, vax, about);
+                }
+
             })
         }
         getFormInfo();
 
 
-        
+
 
 
         function sendToDB(cat, num, desc, addr, name, vax, about) {
@@ -271,13 +290,13 @@
             let volAddress = addr;
             let date = Date().toString().substring(0, 25);
 
-            console.log(cat);
+            //console.log(cat);
 
             firebase.auth().onAuthStateChanged(user => {
                 // Check if user is signed in:
                 if (user) {
                     // Do something for the current logged-in user here: 
-                    console.log(user);
+                    //console.log(user);
                     //go to the correct user document by referencing to the user uid
                     currentUser = db.collection("users").doc(user.uid).collection("volunteering_saved");
                     currentUser
@@ -309,12 +328,9 @@
 
                 if (user) {
                     // Do something for the current logged-in user here: 
-                    console.log(user.uid);
+                    //console.log(user.uid);
                     //go to the correct user document by referencing to the user uid
-                    //currentUser = db.collection("all_volunteering").doc("all_details").collection("volunteering_saved");
-
                     currentUser = db.collection("all_volunteering").doc();
-
                     currentUser
                         // .doc sets the name for the sub collection
                         //.doc("volunteering_profile: " + date)
@@ -327,7 +343,7 @@
                             lat: latitude,
                             lng: longitude,
                             uid: user.uid,
-                            vaccine_status: "true",
+                            vaccine_status: true,
                             user_description: about
                         })
                         .then(function () {
@@ -342,7 +358,6 @@
                 }
             });
         }
-
         //sendToDB();
 
 
