@@ -433,17 +433,19 @@
             //link.id = `link-${store.properties.id}`;
             link.innerHTML = `${data.address}`;
 
-            const btn = document.createElement("button");
+            const detailsBtn = document.createElement("button");
+            const requestBtn = document.createElement("button");
             
 
             /* Add details to the individual listing. */
             const details = listing.appendChild(document.createElement('div'));
-            listing.appendChild(btn);
-            btn.innerText = "view more";
+            listing.appendChild(detailsBtn);
+            detailsBtn.innerText = "view more";
+           
 
             //let arr = [data];
 
-            btn.addEventListener("click", () => {
+            detailsBtn.addEventListener("click", () => {
                 localStorage.setItem("t1", JSON.stringify(data));
                 window.location.assign("html/request_description.html")
 
@@ -453,6 +455,7 @@
 
                 //console.log(e);
             })
+
             // const volCategory = data.category;
             // const volDescript = data.description;
             // const numVol = data.number_volunteers;
