@@ -67,7 +67,11 @@
 
     <!-- welcome and main part of the page -->
     <div id="volunteering-listing">
-        current requests go here
+        requests that you've made go here
+    </div>
+
+    <div id="saved-listings">
+        saved requests go here
     </div>
 
     <!-- Footer Navigation Bar -->
@@ -104,8 +108,6 @@
 
     <script>
 
-        let category = [];
-        let backToArr = [];
 
         function getAllData() {
             //console.log("Init alldata");
@@ -131,6 +133,87 @@
             //console.log(tempCoorStorage);
         }
         getAllData();
+
+        function getSavedRequestData() {
+            firebase.auth().onAuthStateChanged(user => {
+                currentUser = db.collection("users").doc(user.uid).collection("volunteering_saved");
+
+                currentUser
+                .get()
+                .then(a => {
+                    a.forEach(d => {
+                        //savedRequestList(d.data());
+                        savedList(d.data());
+                    })
+                })
+            })
+        }
+        getSavedRequestData();
+
+
+        function savedList(data) {
+            //console.log(data);
+            // address, category, description, number_volunteers
+            //console.log(data);
+
+            const listings = document.getElementById('saved-listings');
+            const listing = listings.appendChild(document.createElement('div'));
+            /* Assign a unique `id` to the listing. */
+            //listing.id = `listing-${store.properties.id}`;
+            /* Assign the `item` class to each listing for styling. */
+            listing.className = 'item';
+            listing.style = "border: 1px solid black; margin: 1em";
+
+            /* Add the link to the individual listing created above. */
+            const link = listing.appendChild(document.createElement('div'));
+            link.href = '#';
+            link.className = 'title';
+            //link.id = `link-${store.properties.id}`;
+            link.innerHTML = `${data.address}`;
+
+            const btn = document.createElement("button");
+
+
+            /* Add details to the individual listing. */
+            const details = listing.appendChild(document.createElement('div'));
+            listing.appendChild(btn);
+            btn.innerText = "view more";
+
+            //let arr = [data];
+
+            btn.addEventListener("click", () => {
+                localStorage.setItem("t1", JSON.stringify(data));
+                window.location.assign("html/request_description.html")
+
+                //console.log(data);
+                //localStorage.getItem("t1", )
+                //getRequestID();
+
+                //console.log(e);
+            })
+            // const volCategory = data.category;
+            // const volDescript = data.description;
+            // const numVol = data.number_volunteers;
+
+            //const volContainer = document.createElement("div");
+            //volContainer.innerText = volCategory;
+
+            //listing.appendChild(volCategory);
+            details.innerHTML = `Description: ${data.description}`;
+            details.innerHTML += `<br>`;
+            details.innerHTML += `Category: ${data.category}`;
+            details.innerHTML += `<br>`;
+            details.innerHTML += `Volunteers Needed: ${data.number_volunteers}`;
+            details.innerHTML += `<br>`;
+            details.innerHTML += `${data.name_person} made this request`;
+            // details.innerHTML += `<br>`;
+            // details.innerHTML += `<button>View more</button>`;
+
+
+        }
+
+
+
         
 
         function locationList(data) {
