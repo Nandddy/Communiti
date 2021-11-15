@@ -13,10 +13,13 @@
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
 
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
     <!-- Optional styles and scripts of your own -->
     <link type="text/css" href="../styles/my_style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    
+
 </head>
 
 <body>
@@ -53,24 +56,22 @@
                 </ul>
             </div>
         </div>
+        <span id="name-verification"></span>
     </nav>
 
+    <div>
+        <select name="categories" id="categories"></select>
+    </div>
+
+
+
     <!-- welcome and main part of the page -->
-    <div class="container">
-        <br>
-        <h1 class="display-4"> welcome to <span id="username">Communiti</span> </h1>
-        <div class="w-25 p-3">
-            <img src="images/logo.jpg" class="img-fluid" alt="community logo">
-        </div>
-        <p>Our Mission Statement: <br>
-            We believe that through volunteering, a sense of community develops within our neighbourhoods.
-            <br><br>
-            for BCIT students, by BCIT students. Get started now!</p>
-        <a href="login.html" class="btn btn-info">Login/Signup</a>
+    <div id="volunteering-listing">
+        current requests go here
     </div>
 
     <!-- Footer Navigation Bar -->
-    <footer class="py-3 bg-info m-3 rounded">
+    <!-- <footer class="py-3 bg-info m-3 rounded fixed-bottom">
         <div class="container d-flex justify-content-around">
             <a href="../main.html"><i class="material-icons">home</i></a>
             <a href="saved.html"><i class="material-icons">star</i></a>
@@ -78,7 +79,7 @@
             <a href=""><i class="material-icons">map</i></a>
             <i class="material-icons">more_horiz</i>
         </div>
-    </footer>
+    </footer> -->
 
     <!----------------------------------------------->
     <!-- JS: Boostrap, Firebase, API related, add Jquery    -->
@@ -88,9 +89,147 @@
     <!-- Link to the api keys for your firebase project -->
 
 
+
     <!--------------------------------------------------------------------->
     <!-- JS files: Your own JavaScript functions included here    -->
     <!--------------------------------------------------------------------->
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+
+    <script src="/scripts/firebaseAPI.js"></script>
+
+
+
+    <script>
+
+        let category = [];
+        let backToArr = [];
+
+        function getAllData() {
+            //console.log("Init alldata");
+            firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                    //console.log(user.uid);
+                    currentUser = db.collection("users").doc(user.uid).collection("volunteering_saved");
+                    //console.log(currentUser);
+                    currentUser
+                        .get()
+                         .then(a => {
+                             //test(a);
+                            a.forEach(d => {
+                                locationList(d.data());
+                            })
+                        })
+                        
+                            
+                        
+                }
+
+            })
+            //console.log(tempCoorStorage);
+        }
+        getAllData();
+        
+
+        function locationList(data) {
+            //console.log(data);
+            // address, category, description, number_volunteers
+            //console.log(data);
+
+            const listings = document.getElementById('volunteering-listing');
+            const listing = listings.appendChild(document.createElement('div'));
+            /* Assign a unique `id` to the listing. */
+            //listing.id = `listing-${store.properties.id}`;
+            /* Assign the `item` class to each listing for styling. */
+            listing.className = 'item';
+            listing.style = "border: 1px solid black; margin: 1em";
+
+            /* Add the link to the individual listing created above. */
+            const link = listing.appendChild(document.createElement('div'));
+            link.href = '#';
+            link.className = 'title';
+            //link.id = `link-${store.properties.id}`;
+            link.innerHTML = `${data.address}`;
+
+            const btn = document.createElement("button");
+
+
+            /* Add details to the individual listing. */
+            const details = listing.appendChild(document.createElement('div'));
+            listing.appendChild(btn);
+            btn.innerText = "view more";
+
+            //let arr = [data];
+
+            btn.addEventListener("click", () => {
+                localStorage.setItem("t1", JSON.stringify(data));
+                window.location.assign("html/request_description.html")
+
+                //console.log(data);
+                //localStorage.getItem("t1", )
+                //getRequestID();
+
+                //console.log(e);
+            })
+            // const volCategory = data.category;
+            // const volDescript = data.description;
+            // const numVol = data.number_volunteers;
+
+            //const volContainer = document.createElement("div");
+            //volContainer.innerText = volCategory;
+
+            //listing.appendChild(volCategory);
+            details.innerHTML = `Description: ${data.description}`;
+            details.innerHTML += `<br>`;
+            details.innerHTML += `Category: ${data.category}`;
+            details.innerHTML += `<br>`;
+            details.innerHTML += `Volunteers Needed: ${data.number_volunteers}`;
+            // details.innerHTML += `<br>`;
+            // details.innerHTML += `<button>View more</button>`;
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        function insertName() {
+            firebase.auth().onAuthStateChanged(user => {
+                // Check if user is signed in:
+                if (user) {
+                    // Do something for the current logged-in user here: 
+                    //console.log(user.uid);
+                    //go to the correct user document by referencing to the user uid
+                    currentUser = db.collection("users").doc(user.uid);
+                    //get the document for current user.
+                    currentUser.get()
+                        .then(userDoc => {
+                            //console.log(userDoc.data().name);
+                            var user_Name = userDoc.data().name;
+                            //console.log(user_Name);
+                            //method #1:  insert with html only
+                            document.getElementById("name-verification").innerText = userDoc.data().name;    //using javascript
+                            //method #2:  insert using jquery
+                            //$("#name-verification").text(user_Name);                         //using jquery
+                        })
+                } else {
+                    // No user is signed in.
+                }
+            });
+        }
+        insertName();
+    </script>
 
 </body>
+
 </html>
