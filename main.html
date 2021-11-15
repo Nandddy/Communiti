@@ -477,6 +477,9 @@
             detailsBtn.innerText = "view more";
             saveBtn.innerText = "Save";
 
+            alreadySaved(data, saveBtn);
+
+
             //let arr = [data];
 
             detailsBtn.addEventListener("click", () => {
@@ -651,6 +654,25 @@
                     //done
                 })
         }
+
+
+        function alreadySaved(data, saveBtn) {
+
+            var returnVal = currentUser.collection("volunteering_saved").where("lat", "==", data.lat)
+                .get()
+                .then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        if (doc.data().lng == data.lng) {
+                            saveBtn.disabled = true;
+                            saveBtn.innerText = "Saved!";
+                        }
+                    });
+                })
+                .catch((error) => {
+                    console.log("Error getting documents: ", error);
+                });
+        }
+
     </script>
 
     <!--------------------------------------------------------------------->
