@@ -435,13 +435,15 @@
 
             const detailsBtn = document.createElement("button");
             const requestBtn = document.createElement("button");
-            
+            const saveBtn = document.createElement("button");
 
             /* Add details to the individual listing. */
             const details = listing.appendChild(document.createElement('div'));
+            const save = listing.appendChild(document.createElement('div'));
             listing.appendChild(detailsBtn);
+            listing.appendChild(saveBtn);
             detailsBtn.innerText = "view more";
-           
+            saveBtn.innerText = "Save";
 
             //let arr = [data];
 
@@ -454,6 +456,12 @@
                 //getRequestID();
 
                 //console.log(e);
+            })
+
+            saveBtn.addEventListener("click", () => {
+                saveRequest(data);
+                saveBtn.disabled = true;
+                saveBtn.innerText = "Saved!";
             })
 
             // const volCategory = data.category;
