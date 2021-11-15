@@ -111,8 +111,8 @@
             //console.log("Init alldata");
             firebase.auth().onAuthStateChanged(user => {
                 if (user) {
-                    //console.log(user.uid);
-                    currentUser = db.collection("users").doc(user.uid).collection("volunteering_saved");
+                    console.log(user.uid);
+                    currentUser = db.collection("users").doc(user.uid).collection("volunteering_made");
                     //console.log(currentUser);
                     currentUser
                         .get()
