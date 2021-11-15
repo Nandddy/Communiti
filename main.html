@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>My BCIT Project</title>
+    <title>Communiti</title>
     <meta name="comp1800 boilerplate code" content="my bcit project">
     <meta name="author" content="BCIT">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -70,9 +70,9 @@
             </button>
 
             <a class="navbar-brand" href="#">Communiti</a>
-            <span id="name"></span>
-
-            <i class="material-icons">person_outline</i>
+            <a class="nav-link" style="color:black;" href="html/user_profile.html">
+                <span id="name">Name</span> <i class="material-icons">person_outline</i>
+            </a>
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
@@ -150,7 +150,7 @@
     <footer class="navbar fixed-bottom py-3 bg-info m-3 rounded">
         <div class="container d-flex justify-content-around">
             <a href="main.html"><i class="material-icons">home</i></a>
-            <a href="./html/saved.html"><i class="material-icons">star</i></a>
+            <a href="./html/saved.html" style="text-decoration:none;color:darkblue;" class="badge"><i class="material-icons">star</i></a>
             <a href="./html/request/1_location.html"><i class="material-icons">add_circle</i></a>
             <a href="./html/active.html"><i class="material-icons">map</i></a>
             <i class="material-icons">more_horiz</i>
@@ -563,6 +563,21 @@
         insertName();
 
 
+        function saveRequest(data){
+
+            currentUser.collection("volunteering_saved").add({
+                address: data.address,
+                category: data.category,
+                description: data.description,
+                lat: data.lat,
+                lng: data.lng,
+                number_volunteers: data.number_volunteers,
+                requester_uid: data.uid
+            })
+                .then(() => {
+                    //done
+                })
+        }
     </script>
 
     <!--------------------------------------------------------------------->
