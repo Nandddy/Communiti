@@ -150,7 +150,8 @@
     <footer class="navbar fixed-bottom py-3 bg-info m-3 rounded">
         <div class="container d-flex justify-content-around">
             <a href="main.html"><i class="material-icons">home</i></a>
-            <a href="./html/saved.html" style="text-decoration:none;color:darkblue;" class="badge"><i class="material-icons">star</i></a>
+            <a href="./html/saved.html" style="text-decoration:none;color:darkblue;" class="badge"><i
+                    class="material-icons">star</i></a>
             <a href="./html/request/1_location.html"><i class="material-icons">add_circle</i></a>
             <a href="./html/active.html"><i class="material-icons">map</i></a>
             <i class="material-icons">more_horiz</i>
@@ -382,7 +383,7 @@
                         .get()
                         .then(a => {
                             a.forEach(d => {
-                                console.log(d.data());
+                                //console.log(d.data());
                                 //console.log(d.data());
                                 //tempCoorStorage.push(d.data());
 
@@ -445,6 +446,9 @@
             detailsBtn.innerText = "view more";
             saveBtn.innerText = "Save";
 
+            alreadySaved(data, saveBtn);
+
+
             //let arr = [data];
 
             detailsBtn.addEventListener("click", () => {
@@ -496,10 +500,10 @@
             });
 
         }
-        
+
         function getRequestID() {
-           firebase.auth().onAuthStateChanged(d => {
-                if(d) {
+            firebase.auth().onAuthStateChanged(d => {
+                if (d) {
                     currentId = db.collection("all_volunteering");
                     console.log(d);
 
@@ -571,7 +575,7 @@
         insertName();
 
 
-        function saveRequest(data){
+        function saveRequest(data) {
 
             currentUser.collection("volunteering_saved").add({
                 address: data.address,
@@ -586,6 +590,25 @@
                     //done
                 })
         }
+
+
+        function alreadySaved(data, saveBtn) {
+
+            var returnVal = currentUser.collection("volunteering_saved").where("lat", "==", data.lat)
+                .get()
+                .then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        if (doc.data().lng == data.lng) {
+                            saveBtn.disabled = true;
+                            saveBtn.innerText = "Saved!";
+                        }
+                    });
+                })
+                .catch((error) => {
+                    console.log("Error getting documents: ", error);
+                });
+        }
+
     </script>
 
     <!--------------------------------------------------------------------->
