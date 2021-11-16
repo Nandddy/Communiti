@@ -621,11 +621,11 @@
 
             let children = listing.children;
 
-            for(let i = 0; i < children.length; i++) {
+            for (let i = 0; i < children.length; i++) {
                 let child = children[i];
                 let defaultStyle = child.getAttribute("style");
 
-                if(defaultStyle !== "border: 1px solid black; margin: 1em;"){
+                if (defaultStyle !== "border: 1px solid black; margin: 1em;") {
                     child.setAttribute("style", "border: 1px solid black; margin: 1em;");
                 }
             }
