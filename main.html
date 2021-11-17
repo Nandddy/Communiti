@@ -43,15 +43,6 @@
             height: auto;
             border-radius: 3.5em;
         }
-
-        .mapboxgl-marker:hover {
-            cursor: pointer;
-        }
-
-        /* darken the marker on hover */
-        .mapboxgl-marker:hover svg>g>g:nth-child(2) {
-            fill: #7993a5;
-        }
     </style>
 
 </head>
@@ -231,24 +222,6 @@
             })
         );
 
-
-        // map.on('click', function (e) {
-        //     //console.log(e);
-        //      let coordinates = e.lngLat;
-        //     // //console.log(coordinates);
-        //     // //popUpBox();
-        //     new mapboxgl.Popup()
-        //         .setLngLat(coordinates)
-        //         .setHTML('there is a volunteering opportunity here <br>' + coordinates)
-        //         .addTo(map);
-        // });
-
-
-
-
-
-
-
         // const marker = new mapboxgl.Marker({
         //     draggable: true
         // }).setLngLat([-123.1, 49.21])
@@ -266,7 +239,7 @@
         //         //popUpBox();
         //         new mapboxgl.Popup()
         //             .setLngLat(coordinates)
-        //             .setHTML('there is a volunteering opportunity here <br>' + coordinates)
+        //             // .setHTML('there is a volunteering opportunity here <br>' + coordinates)
         //             .addTo(map);
         //     });
         // });
@@ -367,36 +340,36 @@
         //populateMap();
 
         // get data from firebase regardless of user id
-        // function getAllData() {
-        //     //console.log("Init alldata");
-        //     firebase.auth().onAuthStateChanged(user => {
-        //         if (user) {
-        //             //console.log(user.uid);
-        //             currentUser = db.collection("all_volunteering").doc("all_details").collection("volunteering_saved");
-        //             //console.log(currentUser);
-        //             currentUser
-        //                 .get()
-        //                 .then(a => {
-        //                     a.forEach(d => {
-        //                         //console.log(d.data());
-        //                         //tempCoorStorage.push(d.data());
+        function getAllData() {
+            //console.log("Init alldata");
+            firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                    //console.log(user.uid);
+                    currentUser = db.collection("all_volunteering").doc("all_details").collection("volunteering_saved");
+                    //console.log(currentUser);
+                    currentUser
+                        .get()
+                        .then(a => {
+                            a.forEach(d => {
+                                //console.log(d.data());
+                                //tempCoorStorage.push(d.data());
 
-        //                         // new mapboxgl.Marker()
-        //                         //     .setLngLat([d.data().lng, d.data().lat])
-        //                         //     .addTo(map);
+                                new mapboxgl.Marker()
+                                    .setLngLat([d.data().lng, d.data().lat])
+                                    .addTo(map);
 
-        //                         //locationList(d.data());
-        //                         //flyToLocation(d.data());
+                                //locationList(d.data());
+                                //flyToLocation(d.data());
 
 
-        //                     })
-        //                 })
-        //         }
+                            })
+                        })
+                }
 
-        //     })
-        //     //console.log(tempCoorStorage);
-        // }
-        // getAllData();
+            })
+            //console.log(tempCoorStorage);
+        }
+        getAllData();
 
         // get data from firebase
         function getData() {
@@ -414,15 +387,9 @@
                                 //console.log(d.data());
                                 //tempCoorStorage.push(d.data());
 
-                                const marker = new mapboxgl.Marker()
+                                new mapboxgl.Marker()
                                     .setLngLat([d.data().lng, d.data().lat])
                                     .addTo(map);
-
-                                marker.getElement().addEventListener("click", () => {
-                                    //console.log(d.data().lat);
-                                    clearAllStyling(d.data().lat);
-                                    searchList(d.data().lat);
-                                })
 
                                 locationList(d.data());
 
@@ -445,6 +412,8 @@
         }
         getData();
 
+
+
         function locationList(data) {
             //console.log(data);
             // address, category, description, number_volunteers
@@ -453,7 +422,7 @@
             const listings = document.getElementById('volunteering-listing');
             const listing = listings.appendChild(document.createElement('div'));
             /* Assign a unique `id` to the listing. */
-            listing.id = `listing-${data.lat}`;
+            //listing.id = `listing-${store.properties.id}`;
             /* Assign the `item` class to each listing for styling. */
             listing.className = 'item';
             listing.style = "border: 1px solid black; margin: 1em";
@@ -462,7 +431,7 @@
             const link = listing.appendChild(document.createElement('a'));
             link.href = '#';
             link.className = 'title';
-            link.id = `link-${data.lat}`;
+            //link.id = `link-${store.properties.id}`;
             link.innerHTML = `${data.address}`;
 
             const detailsBtn = document.createElement("button");
@@ -604,38 +573,6 @@
         }
 
         insertName();
-
-        function searchList(data) {
-
-            const listing = document.getElementById(
-                `listing-${data}`
-            );
-            listing.scrollIntoView();
-            listing.style = "border: 1px solid red; margin: 1em;"
-        }
-
-        function clearAllStyling(data) {
-            const listing = document.getElementById(
-                `volunteering-listing`
-            );
-
-            let children = listing.children;
-
-            for (let i = 0; i < children.length; i++) {
-                let child = children[i];
-                let defaultStyle = child.getAttribute("style");
-
-                if (defaultStyle !== "border: 1px solid black; margin: 1em;") {
-                    child.setAttribute("style", "border: 1px solid black; margin: 1em;");
-                }
-            }
-
-            //console.log(listing);
-
-            //let defaultStyle = listing.getAttribute("style");
-            //console.log(defaultStyle);
-            //console.log(defaultStyle === "border: 1px solid black; margin: 1em;");
-        }
 
 
         function saveRequest(data) {

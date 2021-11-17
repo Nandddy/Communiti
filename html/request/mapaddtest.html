@@ -23,6 +23,7 @@
 
     <!-- Optional styles and scripts of your own -->
     <link type=" text/css" href="styles/my_style.css">
+    <link rel="stylesheet" href="../../../test.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
@@ -40,7 +41,6 @@
             top: 0;
             bottom: 0;
             width: 90%;
-            min-height: 20em;
             height: auto;
             border-radius: 3.5em;
         }
@@ -62,15 +62,14 @@
             </button>
 
             <a class="navbar-brand" href="#">Communiti</a>
+            <span id="name"></span>
 
-            <a class="nav-link" style="color:black;" href="html/user_profile.html">
-                <span id="name">Name</span> <i class="material-icons">person_outline</i>
-            </a>
+            <i class="material-icons">person_outline</i>
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="../../main.html">Home</a>
+                        <a class="nav-link active" aria-current="page" href="../main.html">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">About Us Us</a>
@@ -82,13 +81,12 @@
                         <a class="nav-link" href="#">Contact Us</a>
                     </li>
                 </ul>
-
             </div>
         </div>
     </nav>
 
     <!-- welcome and main part of the page -->
-    <!-- <div class="container" id="searchbar">
+    <div class="container" id="searchbar">
         <section class="w-100 p-4 pb-4 d-flex justify-content-center align-items-center flex-column">
             <!-- <div>
                 <div class="input-group rounded">
@@ -102,41 +100,65 @@
                     </button>
                 </div>
             </div> -->
-        <!-- </section> -->
+        </section>
 
         <!-------------------------------------->
         <!-- Add map thing here -->
 
         <div class="map-container">
-            <div id="map" style="border: 1px solid white; display: flex; margin-top: 10em; margin-bottom: 450px;">
+            <div id="map" style="border: 1px solid white; display: flex; margin-top: 10em; margin-bottom: 50%;">
             </div>
         </div>
 
-    <!-- </div> -->
-
-    <div style="margin-left: 4em; margin-top: 19em;">
-        <form action="">
-            <div id="location-confirmation"></div>
-            <label for="">Category</label>
-            <select name="" id="volunteering-category">
-                <option value="animals">animals</option>
-                <option value="children">children</option>
-                <option value="computers">computers</option>
-                <option value="education">education</option>
-                <option value="other">other</option>
-            </select>
-            <br>
-            <label for="">Volunteers needed</label>
-            <input type="text" id="num-volunteering" placeholder="1">
-            <br>
-            <label id="desc-label" for="">Write a description of your request</label>
-            <br>
-            <textarea name="" id="volunteering-description" cols="45" rows="2.5"></textarea><br>
-            <span style="margin:0;" id="desc-error"></span>
-            <br>
-            <input type="submit" id="volunteer-info">
-        </form>
     </div>
+
+    <!-- input form -->
+    <section>
+        <div class="container" id="inputform">
+            <form>
+
+                <div class="step step-1 active">
+                    <div class="form-group">
+                        <div id="location-confirmation"></div>
+                    </div>
+                    <button type="button" class="next-btn">Next</button>
+                </div>
+
+                <div class="step step-2">
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select name="category" id="volunteering-category">
+                            <option value="animals">animals</option>
+                            <option value="children">children</option>
+                            <option value="computers">computers</option>
+                            <option value="education">education</option>
+                        </select>
+                        <div class="form-group">
+                            <label for="num-volunteering">Volunteers needed</label>
+                            <input type="text" id="num-volunteering" name="num-volunteering">
+                        </div>
+                    </div>
+                    <button type="button" class="previous-btn">Prev</button>
+                    <button type="button" class="next-btn">Next</button>
+                </div>
+
+                <div class="step step-3">
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" id="description" name="description" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pictures">Pictures</label>
+                        <input type="file" id="pictures" name="pictures">
+                    </div>
+                    <button type="button" class="previous-btn">Prev</button>
+                    <button type="submit" class="submit-btn">Submit</button>
+                </div>
+
+            </form>
+        </div>
+    </section>
+    <!--  -->
 
     <!-- Footer Navigation Bar -->
     <footer class="navbar fixed-bottom py-3 bg-info m-3 rounded">
@@ -219,7 +241,6 @@
                 dataType: 'json',
                 success: function (result) {
                     let box = document.getElementById("location-confirmation");
-                    box.style.color = "black";
                     box.innerText = result.features[0].place_name
                     //console.log(result.features[0].place_name);
                 }
@@ -232,15 +253,15 @@
                 // Check if user is signed in:
                 if (user) {
                     // Do something for the current logged-in user here: 
-                    //console.log(user.uid);
+                    console.log(user.uid);
                     //go to the correct user document by referencing to the user uid
                     currentUser = db.collection("users").doc(user.uid);
                     //get the document for current user.
                     currentUser.get()
                         .then(userDoc => {
-                            //console.log(userDoc.data());
+                            console.log(userDoc.data());
                             var user_Name = userDoc.data().name;
-                            getFormInfo(userDoc.data().name, userDoc.data().vaxStatus, userDoc.data().aboutUser);
+                            getFormInfo(userDoc.data().name, userDoc.data().vaxStatus);
                             //console.log(user_Name);
                             //method #1:  insert with html only
                             //document.getElementById("name-goes-here").innerText = n;    //using javascript
@@ -254,55 +275,38 @@
         }
         insertName();
 
-        const getFormInfo = (name, vax, about) => {
+        const getFormInfo = (name, vax) => {
             document.querySelector("form").addEventListener("submit", (e) => {
                 e.preventDefault();
+                let address = document.getElementById("location-confirmation").innerText;
                 let category = document.getElementById("volunteering-category").value;
                 let numVolunteers = document.getElementById("num-volunteering").value;
                 let description = document.getElementById("volunteering-description").value;
-                let address = document.getElementById("location-confirmation").innerText;
-
-                //Checking if the form is filled out
-                if (description == "") {
-                    document.getElementById("desc-error").innerText = "Please enter a description."
-                    document.getElementById("desc-error").style.color = "red";
-                    document.getElementById("desc-label").style.color = "red";
-                }
-                if (address == "") {
-                    document.getElementById("location-confirmation").innerText = "Please select the location of your request";
-                    document.getElementById("location-confirmation").style.color = "red";
-                }
-                if (numVolunteers == ""){
-                    numVolunteers = 1;
-                }
-                if (!(address == "" || address == "Please select the location of your request") && !(description == "")) {
-                    sendToDB(category, numVolunteers, description, address, name, vax, about);
-                }
-
+                sendToDB(category, numVolunteers, description, address, name, vax);
             })
         }
         getFormInfo();
 
 
+        
 
 
-
-        function sendToDB(cat, num, desc, addr, name, vax, about) {
+        function sendToDB(cat, num, desc, addr, name, vax) {
             let volCategory = cat;
             let numVolunteers = num;
             let volDescription = desc;
             let volAddress = addr;
             let date = Date().toString().substring(0, 25);
 
-            //console.log(cat);
+            console.log(cat);
 
             firebase.auth().onAuthStateChanged(user => {
                 // Check if user is signed in:
                 if (user) {
                     // Do something for the current logged-in user here: 
-                    //console.log(user);
+                    console.log(user);
                     //go to the correct user document by referencing to the user uid
-                    currentUser = db.collection("users").doc(user.uid).collection("volunteering_made");
+                    currentUser = db.collection("users").doc(user.uid).collection("volunteering_saved");
                     currentUser
                         // .doc sets the name for the sub collection
                         .doc("volunteering_profile: " + date)
@@ -332,12 +336,12 @@
 
                 if (user) {
                     // Do something for the current logged-in user here: 
-                    //console.log(user.uid);
+                    console.log(user.uid);
                     //go to the correct user document by referencing to the user uid
-                    currentUser = db.collection("all_volunteering").doc();
+                    currentUser = db.collection("all_volunteering").doc("all_details").collection("volunteering_saved");
                     currentUser
                         // .doc sets the name for the sub collection
-                        //.doc("volunteering_profile: " + date)
+                        .doc("volunteering_profile: " + date)
                         // you set the fields here
                         .set({
                             category: cat,
@@ -346,10 +350,8 @@
                             address: volAddress,
                             lat: latitude,
                             lng: longitude,
-                            uid: user.uid,
-                            vaccine_status: true,
-                            user_description: about,
-                            person_name: name
+                            name: name,
+                            vaccine_status: "true"
                         })
                         .then(function () {
                             console.log("Document added");
@@ -363,13 +365,72 @@
                 }
             });
         }
+
         //sendToDB();
 
+        const steps = Array.from(document.querySelectorAll("form .step"));
+        const nextBtn = document.querySelectorAll("form .next-btn");
+        const prevBtn = document.querySelectorAll("form .previous-btn");
+        const form = document.querySelector("form");
 
+        nextBtn.forEach((button) => {
+            button.addEventListener("click", () => {
+                changeStep("next");
+            });
+        });
+        prevBtn.forEach((button) => {
+            button.addEventListener("click", () => {
+                changeStep("prev");
+            });
+        });
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const inputs = [];
+            form.querySelectorAll('[name^="category"]').forEach((input) => {
+                const {
+                    name,
+                    value
+                } = input;
+                inputs.push({
+                    name,
+                    value
+                });
+            });
+            form.querySelectorAll("input").forEach((input) => {
+                const {
+                    name,
+                    value
+                } = input;
+                inputs.push({
+                    name,
+                    value
+                });
+            });
+            console.log(inputs);
+            form.reset();
+        });
+
+        function changeStep(btn) {
+            let index = 0;
+            const active = document.querySelector(".active");
+            index = steps.indexOf(active);
+            steps[index].classList.remove("active");
+            if (btn === "next") {
+                index++;
+            } else if (btn === "prev") {
+                index--;
+            }
+            steps[index].classList.add("active");
+        }
     </script>
 
     <!--------------------------------------------------------------------->
 
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>
