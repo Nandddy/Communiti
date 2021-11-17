@@ -41,7 +41,6 @@
             bottom: 0;
             width: 90%;
             height: auto;
-            border-radius: 3.5em;
         }
     </style>
 
@@ -114,14 +113,19 @@
         <!-- Add map thing here -->
 
         <div class="map-container">
-            <div id="map"
-                style="border: 1px solid white; display: flex; margin-top: 13em; margin-bottom: 8em; height: 40%;">
+            <div id="map" style="margin-top: 10em; margin-bottom: 8em; height: 40%;" class="container">
             </div>
         </div>
 
-        <div id="volunteering-listing" style="margin-top: 26em; overflow: auto; height: 300px; border: 1px solid black">
-
+        <div id="volunteering-listing" class="container overflow-auto list-group"
+            style="margin-top: 18em; overflow: auto; height: 300px; border: 1px solid black; padding: 1em; ">
         </div>
+        <div class="container d-flex justify-content-center">
+            <button type="button" class="w-100 btn btn-primary btn-sm m-2">Make Request</button>
+        </div>
+
+
+
 
         <!-------------------------------------->
 
@@ -146,8 +150,10 @@
 
     </div>
 
-    <!-- Footer Navigation Bar -->
-    <footer class="navbar fixed-bottom py-3 bg-info m-3 rounded">
+
+
+    <!--Footer Navigation Bar -->
+   <!--  <footer class="navbar fixed-bottom py-3 bg-info m-3 rounded">
         <div class="container d-flex justify-content-around">
             <a href="main.html"><i class="material-icons">home</i></a>
             <a href="./html/saved.html" style="text-decoration:none;color:darkblue;" class="badge"><i
@@ -156,7 +162,7 @@
             <a href="./html/active.html"><i class="material-icons">map</i></a>
             <i class="material-icons">more_horiz</i>
         </div>
-    </footer>
+    </footer> -->
 
 
     <!----------------------------------------------->
