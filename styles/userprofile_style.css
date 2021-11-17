@@ -3,6 +3,7 @@
     border-width:thin;
     margin-top:5%;
     margin-bottom:5%;
+    border-radius:0.125rem;
     background-color:rgb(240,255,255);
 }
 
@@ -19,4 +20,17 @@
 }
 #notvax {
     display:none;
+}
+
+.headerstyle{
+    color:black;
+    border-radius:0.125rem;
+    width:calc(100% + 24.5px);
+    margin-left:-12px;
+    text-align:center;
+    padding: 25px 0;
+}
+
+.largerfont {
+    font-size:1.5rem;
 }

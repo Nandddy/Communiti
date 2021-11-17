@@ -117,6 +117,9 @@
     <div style="margin-left: 4em; margin-top: 19em;">
         <form action="">
             <div id="location-confirmation"></div>
+            <label id="title-label" for="reqTitle">Request Title</label><br>
+            <input type="text" id="req-title" name="reqTitle"><br>
+            <span style="margin:0;" id="title-error"></span><br>
             <label for="">Category</label>
             <select name="" id="volunteering-category">
                 <option value="animals">animals</option>
@@ -139,7 +142,7 @@
     </div>
 
     <!-- Footer Navigation Bar -->
-    <footer class="navbar fixed-bottom py-3 bg-info m-3 rounded">
+<!--     <footer class="navbar fixed-bottom py-3 bg-info m-3 rounded">
         <div class="container d-flex justify-content-around">
             <a href="main.html"><i class="material-icons">home</i></a>
             <a href="./html/saved.html"><i class="material-icons">star</i></a>
@@ -147,7 +150,7 @@
             <a href="./html/active.html"><i class="material-icons">map</i></a>
             <i class="material-icons">more_horiz</i>
         </div>
-    </footer>
+    </footer> -->
 
 
     <!----------------------------------------------->
@@ -261,8 +264,14 @@
                 let numVolunteers = document.getElementById("num-volunteering").value;
                 let description = document.getElementById("volunteering-description").value;
                 let address = document.getElementById("location-confirmation").innerText;
+                let title = document.getElementById("req-title").value;
 
                 //Checking if the form is filled out
+                if (title == "") {
+                    document.getElementById("title-error").innerText = "Please enter a title."
+                    document.getElementById("title-error").style.color = "red";
+                    document.getElementById("title-label").style.color = "red";
+                }
                 if (description == "") {
                     document.getElementById("desc-error").innerText = "Please enter a description."
                     document.getElementById("desc-error").style.color = "red";
@@ -275,8 +284,8 @@
                 if (numVolunteers == "") {
                     numVolunteers = 1;
                 }
-                if (!(address == "" || address == "Please select the location of your request") && !(description == "")) {
-                    sendToDB(category, numVolunteers, description, address, name, vax, about);
+                if (!(address == "" || address == "Please select the location of your request") && !(description == "") && !(title == "")) {
+                    sendToDB(category, numVolunteers, description, address, name, vax, about, title);
                 }
 
             })
@@ -287,7 +296,7 @@
 
 
 
-        function sendToDB(cat, num, desc, addr, name, vax, about) {
+        function sendToDB(cat, num, desc, addr, name, vax, about, title) {
             let volCategory = cat;
             let numVolunteers = num;
             let volDescription = desc;
@@ -308,6 +317,7 @@
                         .doc("volunteering_profile: " + date)
                         // you set the fields here
                         .set({
+                            title: title,
                             category: cat,
                             number_volunteers: numVolunteers,
                             description: volDescription,
@@ -340,6 +350,7 @@
                         //.doc("volunteering_profile: " + date)
                         // you set the fields here
                         .set({
+                            title: title,
                             category: cat,
                             number_volunteers: numVolunteers,
                             description: volDescription,

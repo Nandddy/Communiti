@@ -62,7 +62,7 @@
                 aboutUser: userDesc
             })
                 .then(() => {
-                    //done
+                    document.getElementById("name").innerText = userName;
                 })
 
             document.getElementById('personalInfoFields').disabled = true;

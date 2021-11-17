@@ -49,11 +49,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <a class="navbar-brand" href="../main.html">Communiti</a>
-
-            <a class="nav-link disabled" href="edit_profile.html" aria-disabled="true">
-                <span id="name">Name</span> <i class="material-icons">person_outline</i>
-            </a>
+            <a class="navbar-brand" style="text-align:center;" href="../main.html">Communiti</a>
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
@@ -71,30 +67,30 @@
                     </li>
                 </ul>
             </div>
+            <a class="nav-link disabled" href="edit_profile.html" aria-disabled="true">
+                <span id="name">Name</span> <i class="material-icons">person_outline</i>
+            </a>
         </div>
     </nav>
 
     <!-- Content -->
     <div id="content" class="container">
-        <br>
-        <h1>Your Profile </h1>
-        <br>
-
-        <div id="studentdiv">Student Number:<br>A<span id="stuNum"></span></div>
-        <div id="publicdiv">Phone number:<br><span id="phoneNum"></span></div> <br>
-        <div id="vaxxeddiv">You are vaccinated.</div> 
-        <b id="notvax">You are not vaccinated.</b>
+        <h1 class="headerstyle bg-info">Your Profile </h1><br>
+        <div class="largerfont" id="studentdiv">Student Number:</div>A<span id="stuNum"></span><br>
+        <div class="largerfont" id="publicdiv">Phone number:</div><span id="phoneNum"></span> <br>
+        <div id="vaxxeddiv" style="color:green;">You are vaccinated.</div> 
+        <b id="notvax" style="color:red;">You are not vaccinated.</b>
         <br>
 
         <form>
             <fieldset class="mb-3" id="personalInfoFields" disabled>
                 <div class="form-group">
-                    <label>Name</label>
+                    <label class="largerfont">Name</label>
                     <input type="text" id="nameInput" class="form-control" placeholder="Enter your name">
                 </div>
                 <br>
                 <div class="form-group">
-                    <label>About you:</label>
+                    <label class="largerfont">About you:</label>
                     <textarea type="text" id="userAbout" class="form-control" rows="5" placeholder="Enter a description about you"></textarea>
                 </div>
             </fieldset>
@@ -110,7 +106,7 @@
 
 
     <!-- Footer Navigation Bar -->
-    <footer class="navbar fixed-bottom py-3 mt-auto bg-info m-3 rounded">
+<!--     <footer class="navbar fixed-bottom py-3 mt-auto bg-info m-3 rounded">
         <div class="container d-flex justify-content-around">
             <a href="../main.html"><i class="material-icons">home</i></a>
             <a href="saved.html"><i class="material-icons">star</i></a>
@@ -118,7 +114,7 @@
             <a href="active.html"><i class="material-icons">map</i></a>
             <i class="material-icons">more_horiz</i>
         </div>
-    </footer>
+    </footer> -->
 
 </body>
 
