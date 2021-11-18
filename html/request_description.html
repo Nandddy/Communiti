@@ -130,9 +130,8 @@
 
     </div>
 
-
-    <div id="volunteering-listing" style="margin-top: 26em; overflow: auto; height: 300px; border: 1px solid black">
-
+    <div>
+        <button id="sign-up">Click to sign-up</button>
     </div>
 
     <!-- Footer Navigation Bar -->
@@ -223,6 +222,13 @@
             }
         }
         view();
+
+        document.getElementById("sign-up").addEventListener("click", () => {
+            window.location.assign("form_confirmation.html");
+        })
+
+
+
     </script>
 
     <!--------------------------------------------------------------------->
