@@ -23,6 +23,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
         </script>
+
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
@@ -43,42 +44,79 @@
     <!-------------------------------------->
     <!-- Header Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-info m-3">
-        <div class="container-fluid d-flex justify-content-lg-evenly">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <a class="navbar-brand" style="text-align:center;" href="../main.html">Communiti</a>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="../main.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">About Us</a>
-                    </li>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link active" href="../login.html">Login/Signup</a>
-                    </li> -->
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Contact Us</a>
-                    </li>
-                </ul>
+        <div class="container-fluid d-flex">
+            <div>
+                <a class="btn btn-info position-relative start-0" data-bs-toggle="collapse" href="#collapseLinks" role="button"
+                    aria-expanded="false" aria-controls="collapseExample">
+                    <i class="material-icons">menu</i>
+                </a>
             </div>
-            <a class="nav-link disabled" href="edit_profile.html" aria-disabled="true">
+
+            <a class="navbar-brand" style="margin-left:11%;" href="../main.html">Communiti</a>
+            <a class="nav-link disabled nav-bar-right" href="edit_profile.html" aria-disabled="true">
                 <span id="name">Name</span> <i class="material-icons">person_outline</i>
             </a>
         </div>
     </nav>
+
+    <div class="collapse" id="collapseLinks">
+        <div class="card card-body" style="margin-left:20px;width:80%;">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="../main.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../html/request/1_location.html">Make a new request</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../html/active.html">View your active/saved requests</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- <nav class="navbar navbar-expand-lg navbar-info bg-info">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>-->
 
     <!-- Content -->
     <div id="content" class="container">
         <h1 class="headerstyle bg-info">Your Profile </h1><br>
         <div class="largerfont" id="studentdiv">Student Number:</div>A<span id="stuNum"></span><br>
         <div class="largerfont" id="publicdiv">Phone number:</div><span id="phoneNum"></span> <br>
-        <div id="vaxxeddiv" style="color:green;">You are vaccinated.</div> 
+        <div id="vaxxeddiv" style="color:green;">You are vaccinated.</div>
         <b id="notvax" style="color:red;">You are not vaccinated.</b>
         <br>
 
@@ -91,7 +129,8 @@
                 <br>
                 <div class="form-group">
                     <label class="largerfont">About you:</label>
-                    <textarea type="text" id="userAbout" class="form-control" rows="5" placeholder="Enter a description about you"></textarea>
+                    <textarea type="text" id="userAbout" class="form-control" rows="5"
+                        placeholder="Enter a description about you"></textarea>
                 </div>
             </fieldset>
             <div class="d-flex justify-content-end mt-5">
@@ -106,7 +145,7 @@
 
 
     <!-- Footer Navigation Bar -->
-<!--     <footer class="navbar fixed-bottom py-3 mt-auto bg-info m-3 rounded">
+    <!--     <footer class="navbar fixed-bottom py-3 mt-auto bg-info m-3 rounded">
         <div class="container d-flex justify-content-around">
             <a href="../main.html"><i class="material-icons">home</i></a>
             <a href="saved.html"><i class="material-icons">star</i></a>
@@ -115,7 +154,6 @@
             <i class="material-icons">more_horiz</i>
         </div>
     </footer> -->
-
 </body>
 
 </html>
