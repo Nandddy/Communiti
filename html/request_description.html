@@ -101,6 +101,7 @@
             </div>
             <div>
                 <h2 class="card-title" id="address">Address: <span id="address-goes-here"></span></h2>
+                <h2 id="link-goes-here"></h2>
             </div>
             <div>
                 <h2 class="card-title" id="category">Category: <span id="category-goes-here"></span></h2>
@@ -215,6 +216,10 @@
                 document.getElementById("name-goes-here").innerHTML = requestInfo.person_name;
                 document.getElementById("vac-goes-here").innerHTML = requestInfo.vaccine_status;
                 document.getElementById("profile-goes-here").innerHTML = requestInfo.user_description;
+
+                var address = "<a href=\"https://google.com/maps/dir//";
+                address += requestInfo.lat + "," + requestInfo.lng + "/@" + requestInfo.lat + "," + requestInfo.lng +"z\">Link to google maps</a>"
+                document.getElementById("link-goes-here").innerHTML = address;
             }
         }
         view();
