@@ -267,7 +267,12 @@ function locationList(data) {
 
     const heading = listing.appendChild(document.createElement("h5"));
     heading.className = 'mb-1';
-    heading.innerHTML = `<b>Request:</b> ${data.description}`;
+    heading.innerHTML = `<b>Title:</b> ${data.title}`;
+
+    // add request snippet
+    const request = link.appendChild(document.createElement("p"));
+    request.className = 'mb-1';
+    request.innerHTML = `<b>Request:</b> ${data.description}`;
 
     const location = link.appendChild(document.createElement("p"));
     location.className = "mb-1";
@@ -398,9 +403,10 @@ function createPopUp(data) {
 
     const popup = new mapboxgl.Popup({ closeOnClick: false, offset: [0, -35], className: 'my-class' })
         .setLngLat([data.lng, data.lat])
-        .setHTML(`<div>${data.person_name} made this request. </div>`
+        .setHTML(`<div>${data.title}</div>`
             + `<br>`
-            + `<div>About me: <br> ${data.user_description}</div>`
+            + `<div>${data.person_name} made this request.</div>`
+            
         )
         .addTo(map);
 }
