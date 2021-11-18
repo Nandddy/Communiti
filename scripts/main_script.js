@@ -403,10 +403,16 @@ function createPopUp(data) {
 
     const popup = new mapboxgl.Popup({ closeOnClick: false, offset: [0, -35], className: 'my-class' })
         .setLngLat([data.lng, data.lat])
+<<<<<<< HEAD
         .setHTML(`<div>${data.title}</div>`
             + `<br>`
             + `<div>${data.person_name} made this request.</div>`
             
+=======
+        .setHTML(`<b>${data.title} </b><br><br>`
+            +`<div>${data.person_name} made this request. </div>`
+            + `<div>About me: <br> ${data.user_description}</div>`
+>>>>>>> 6059b55 (update color theme)
         )
         .addTo(map);
 }
