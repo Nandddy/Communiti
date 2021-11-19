@@ -18,6 +18,7 @@
 
     <!-- Optional styles and scripts of your own -->
     <link type="text/css" href="../styles/my_style.css">
+    <link type="text/css" rel="stylesheet" href="../styles/color_theme.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 </head>
@@ -28,48 +29,51 @@
     <!-- The following is HTML for layout -->
     <!-------------------------------------->
     <!-- Header Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-info m-3">
-        <div class="container-fluid d-flex justify-content-lg-evenly">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <a class="navbar-brand" href="#">Communiti</a>
-
-            <i class="material-icons">person_outline</i>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.html">Login/Signup</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li>
-                </ul>
+    <nav class="navbar navbar-expand-lg navbar-light bg-header m-3">
+        <div class="container-fluid d-flex">
+            <div>
+                <a class="btn bg-header position-relative start-0" data-bs-toggle="collapse" href="#collapseLinks"
+                    role="button" aria-expanded="false" aria-controls="collapseExample">
+                    <i class="material-icons">menu</i>
+                </a>
             </div>
+
+            <a class="navbar-brand" style="margin-left:11%;" href="../main.html">Communiti</a>
+            <a class="nav-link blacktext nav-bar-right" href="edit_profile.html" aria-disabled="true">
+                <span id="name">Name</span> <i class="material-icons">person_outline</i>
+            </a>
         </div>
-        <span id="name-verification"></span>
     </nav>
 
+    <div class="collapse" id="collapseLinks">
+        <div class="card card-body" style="margin-left:20px;width:80%;">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="../main.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../html/request/1_location.html">Make a new request</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../html/active.html">View your active/saved requests</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!--------------------Content-------------------->
     <div class="container">
         <div class="row">
             <div class="col">
                 <div id="volunteering-listing">
-                    <h1 class="bg-info m-3 p-2">Your Requests</h1>
+                    <h1 class="bg-header m-3 p-2">Your Requests</h1>
                 </div>
             </div>
             <div class="col">
                 <div id="saved-listings">
-                    <h1 class="bg-info m-3 p-2">Saved Requests</h1>
-                    
+                    <h1 class="bg-header m-3 p-2">Saved Requests</h1>
+
                 </div>
             </div>
         </div>
@@ -185,7 +189,12 @@
 
             const heading = listing.appendChild(document.createElement("h5"));
             heading.className = 'mb-1';
-            heading.innerHTML = `<b>Request:</b> ${data.description}`;
+            heading.innerHTML = `<b>Title:</b> ${data.title}`;
+
+            // add request snippet
+            const request = link.appendChild(document.createElement("p"));
+            request.className = 'mb-1';
+            request.innerHTML = `<b>Request:</b> ${data.description}`;
 
             const location = link.appendChild(document.createElement("p"));
             location.className = "mb-1";
@@ -199,16 +208,12 @@
             volunteerNeeded.className = "mb-1";
             volunteerNeeded.innerHTML = `<b>Volunteers needed:</b> ${data.number_volunteers}`;
 
-            const personName = link.appendChild(document.createElement("p"));
-            personName.className = "mb-1";
-            personName.innerHTML = `${data.name_person} made this request`;
-
             const detailsBtn = document.createElement("button");
 
             // andy wrote this dont delete
             // const saveBtn = document.createElement("button");
 
-            detailsBtn.className = "btn btn-primary btn-sm";
+            detailsBtn.className = "btn bg-important whitetext btn-sm";
             detailsBtn.type = "button";
             detailsBtn.innerText = "View Request";
 
@@ -262,22 +267,22 @@
 
             // details.innerHTML += `<br>`;
             // details.innerHTML += `<button>View more</button>`;
-
-            link.addEventListener('click', function (e) {
-
-                // for (const feature of stores.features) {
-                //     if (this.id === `link-${feature.properties.id}`) {
-                flyToLocation(data);
-                createPopUp(data);
-                clearCurrStyling();
-                //     }
-                // }
-                // const activeItem = document.getElementsByClassName('active');
-                // if (activeItem[0]) {
-                //     activeItem[0].classList.remove('active');
-                // }
-                // this.parentNode.classList.add('active');
-            });
+            /* 
+                        link.addEventListener('click', function (e) {
+            
+                            // for (const feature of stores.features) {
+                            //     if (this.id === `link-${feature.properties.id}`) {
+                            flyToLocation(data);
+                            createPopUp(data);
+                            clearCurrStyling();
+                            //     }
+                            // }
+                            // const activeItem = document.getElementsByClassName('active');
+                            // if (activeItem[0]) {
+                            //     activeItem[0].classList.remove('active');
+                            // }
+                            // this.parentNode.classList.add('active');
+                        }); */
 
         }
 
@@ -432,7 +437,12 @@
 
             const heading = listing.appendChild(document.createElement("h5"));
             heading.className = 'mb-1';
-            heading.innerHTML = `<b>Request:</b> ${data.description}`;
+            heading.innerHTML = `<b>Title:</b> ${data.title}`;
+
+            // add request snippet
+            const request = link.appendChild(document.createElement("p"));
+            request.className = 'mb-1';
+            request.innerHTML = `<b>Request:</b> ${data.description}`;
 
             const location = link.appendChild(document.createElement("p"));
             location.className = "mb-1";
@@ -445,13 +455,12 @@
             const volunteerNeeded = link.appendChild(document.createElement("p"));
             volunteerNeeded.className = "mb-1";
             volunteerNeeded.innerHTML = `<b>Volunteers needed:</b> ${data.number_volunteers}`;
-
             const detailsBtn = document.createElement("button");
 
             // andy wrote this dont delete
             // const saveBtn = document.createElement("button");
 
-            detailsBtn.className = "btn btn-primary btn-sm";
+            detailsBtn.className = "btn bg-important whitetext btn-sm";
             detailsBtn.type = "button";
             detailsBtn.innerText = "View Request";
 
@@ -477,7 +486,7 @@
 
             detailsBtn.addEventListener("click", () => {
                 localStorage.setItem("t1", JSON.stringify(data));
-                window.location.assign("html/request_description.html")
+                window.location.assign("request_description.html")
             })
 
             // Andy wrote thid, don'd delete
@@ -506,21 +515,21 @@
             // details.innerHTML += `<br>`;
             // details.innerHTML += `<button>View more</button>`;
 
-            link.addEventListener('click', function (e) {
-
-                // for (const feature of stores.features) {
-                //     if (this.id === `link-${feature.properties.id}`) {
-                flyToLocation(data);
-                createPopUp(data);
-                clearCurrStyling();
-                //     }
-                // }
-                // const activeItem = document.getElementsByClassName('active');
-                // if (activeItem[0]) {
-                //     activeItem[0].classList.remove('active');
-                // }
-                // this.parentNode.classList.add('active');
-            });
+            /*             link.addEventListener('click', function (e) {
+            
+                            // for (const feature of stores.features) {
+                            //     if (this.id === `link-${feature.properties.id}`) {
+                            flyToLocation(data);
+                            createPopUp(data);
+                            clearCurrStyling();
+                            //     }
+                            // }
+                            // const activeItem = document.getElementsByClassName('active');
+                            // if (activeItem[0]) {
+                            //     activeItem[0].classList.remove('active');
+                            // }
+                            // this.parentNode.classList.add('active');
+                        }); */
 
         }
 
@@ -550,7 +559,7 @@
                             var user_Name = userDoc.data().name;
                             //console.log(user_Name);
                             //method #1:  insert with html only
-                            document.getElementById("name-verification").innerText = userDoc.data().name;    //using javascript
+                            document.getElementById("name").innerText = userDoc.data().name;    //using javascript
                             //method #2:  insert using jquery
                             //$("#name-verification").text(user_Name);                         //using jquery
                         })

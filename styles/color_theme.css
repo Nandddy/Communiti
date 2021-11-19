@@ -17,3 +17,19 @@
 .bg-window {
     background-color: #D6E3F8;
 }
+
+.redtext {
+    color:red;
+}
+
+.greentext{
+    color:green;
+}
+
+.whitetext{
+    color:white;
+}
+
+.blacktext{
+    color:black;
+}
