@@ -42,7 +42,6 @@
             width: 90%;
             min-height: 20em;
             height: auto;
-            border-radius: 3.5em;
         }
     </style>
 
@@ -102,19 +101,90 @@
                     </button>
                 </div>
             </div> -->
-        <!-- </section> -->
+    <!-- </section> -->
 
-        <!-------------------------------------->
-        <!-- Add map thing here -->
+    <!-------------------------------------->
+    <!-- Add map thing here -->
 
-        <div class="map-container">
-            <div id="map" style="border: 1px solid white; display: flex; margin-top: 10em; margin-bottom: 450px;">
-            </div>
-        </div>
+
+    <div id="map" style="border: 1px solid black; display: flex; margin-top: 10em; margin-bottom: 450px;"></div>
+
 
     <!-- </div> -->
 
-    <div style="margin-left: 4em; margin-top: 19em;">
+    <div class="container" style="margin-top: 19em;">
+        <!-- Content here -->
+
+        <!-- <form>
+            <div id="location-confirmation"></div>
+            <label id="title-label" for="reqTitle">Request Title</label><br>
+            <input type="text" id="req-title" name="reqTitle"><br>
+            <span style="margin:0;" id="title-error"></span><br>
+            <label for="">Category</label>
+            <br>
+            <select name="" id="volunteering-category">
+                <option value="animals">General</option>
+                <option value="children">Education</option>
+                <option value="computers">Computers</option>
+                <option value="education">Education</option>
+                <option value="other">Other</option>
+            </select>
+            <br>
+            <br>
+            <label for="">Volunteers needed</label>
+            <br>
+            <input type="text" id="num-volunteering" placeholder="1">
+            <br>
+            <br>
+            <label id="desc-label" for="">Write a description of your request</label>
+            <br>
+            <textarea name="" id="volunteering-description" cols="45" rows="2.5"></textarea><br>
+            <span style="margin:0;" id="desc-error"></span>
+            <br>
+            <input type="submit" id="volunteer-info">
+        </form> -->
+
+        <form>
+            <div id="location-confirmation"></div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Request Title</label>
+                <input type="input" class="form-control" id="req-title" placeholder="I need help with something!">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Number Of Volunteers</label>
+                <select class="form-control" id="num-volunteering">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5+</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect2">Category</label>
+                <select multiple class="form-control" id="volunteering-category">
+                    <option value="Animals & Environment">Animals & Environment</option>
+                    <option value="Arts, Culture & Heritage">Arts, Culture & Heritage</option>
+                    <option value="Education & Schools">Education & Schools</option>
+                    <option value="Fundraising">Fundraising</option>
+                    <option value="Health & Medical">Health & Medical</option>
+                    <option value="Religion">Religion</option>
+                    <option value="Sports & Recreation">Sports & Recreation</option>
+                    <option value="Social & Community Services">Social & Community Services</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Request Description</label>
+                <textarea class="form-control" id="volunteering-description" rows="3"></textarea>
+            </div>
+            <br>
+            <input  type="submit" id="volunteer-info" class="btn btn-primary">
+        </form>
+
+    </div>
+
+    <!-- <div style="margin-left: 4em; margin-top: 19em;">
         <form action="">
             <div id="location-confirmation"></div>
             <label id="title-label" for="reqTitle">Request Title</label><br>
@@ -139,10 +209,10 @@
             <br>
             <input type="submit" id="volunteer-info">
         </form>
-    </div>
+    </div> -->
 
     <!-- Footer Navigation Bar -->
-<!--     <footer class="navbar fixed-bottom py-3 bg-info m-3 rounded">
+    <!--     <footer class="navbar fixed-bottom py-3 bg-info m-3 rounded">
         <div class="container d-flex justify-content-around">
             <a href="main.html"><i class="material-icons">home</i></a>
             <a href="./html/saved.html"><i class="material-icons">star</i></a>
@@ -284,7 +354,7 @@
                 if (numVolunteers == "") {
                     numVolunteers = 1;
                 }
-                if (!(address == "" || address == "Please select the location of your request") && !(description == "") && !(title == "")) {
+                if (!(address == "" || address == "Please select the location of your request" || address == "Please select a location from the map!") && !(description == "") && !(title == "")) {
                     sendToDB(category, numVolunteers, description, address, name, vax, about, title);
                 }
 
@@ -375,6 +445,18 @@
             });
         }
         //sendToDB();
+
+        function displayEmptyLocation() {
+            let test = document.getElementById("location-confirmation");
+            if(test.childNodes.length == 0 ) {
+                //console.log("is this working");
+                test.innerHTML = "<b>Please select a location from the map!</b>";
+            }
+            //test.innerHTML = "<b>Please select a location from the map!</b>";
+            //console.log(document.getElementById("location-confirmation"));
+        }
+        displayEmptyLocation();
+        
 
 
     </script>
