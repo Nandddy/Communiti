@@ -87,7 +87,7 @@ function locationList(data) {
     // andy wrote this dont delete
     // const saveBtn = document.createElement("button");
 
-    detailsBtn.className = "btn btn-primary btn-sm";
+    detailsBtn.className = "btn bg-important whitetext btn-sm";
     detailsBtn.type = "button";
     detailsBtn.innerText = "View Request";
 
