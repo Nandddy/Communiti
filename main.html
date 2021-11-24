@@ -22,7 +22,8 @@
 
 
     <!-- Optional styles and scripts of your own -->
-    <link type=" text/css" href="styles/my_style.css">
+    <!-- <link type=" text/css" href="styles/my_style.css"> -->
+    <link rel="stylesheet" href="./styles/main_style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
@@ -30,41 +31,9 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
 
-    <style>
-        #map {
-            position: absolute;
-            margin-left: auto;
-            margin-right: auto;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            width: 90%;
-            height: auto;
-        }
-
-        .mapboxgl-marker:hover {
-            cursor: pointer;
-        }
-
-        /* darken the marker on hover */
-        .mapboxgl-marker:hover svg>g>g:nth-child(2) {
-            fill: #7993a5;
-        }
-    </style>
-
 </head>
 
 <body>
-
-    <style>
-        .mapboxgl-popup-content {
-            border: 1px solid black;
-            max-width: 400px;
-            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-
-        }
-    </style>
 
     <!-------------------------------------->
     <!-- The following is HTML for layout -->
@@ -103,59 +72,19 @@
 
     <!-- welcome and main part of the page -->
     <div class="container" id="searchbar">
-        <section class="w-100 p-4 pb-4 d-flex justify-content-center align-items-center flex-column">
-            <!-- <div>
-                <div class="input-group rounded">
-                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                        aria-describedby="search-addon">
-                    <span class="input-group-text border-0" id="search-addon">
-                        <a href=""><i class="material-icons">search</i></a>
-                    </span>
-                    <button class="input-group-text border-0" id="search-addon" type="submit">
-                        <i class="material-icons">search</i>
-                    </button>
-                </div>
-            </div> -->
-        </section>
+        <section class="w-100 p-4 pb-4 d-flex justify-content-center align-items-center flex-column"></section>
 
         <!-------------------------------------->
         <!-- Add map thing here -->
 
-        <div class="map-container">
-            <div id="map" style="margin-top: 10em; margin-bottom: 8em; height: 40%;" class="container">
-            </div>
-        </div>
+        <div id="map"></div>
 
-        <div id="volunteering-listing" class="container overflow-auto list-group"
-            style="margin-top: 24em; overflow: auto; height: 300px; border: 1px solid black; padding: 1em; ">
+        <div class="volunteering-box">
+            <div id="volunteering-listing"></div>
         </div>
         <div class="container d-flex justify-content-center">
             <button type="button" class="w-100 btn btn-primary btn-sm m-2">Make Request</button>
         </div>
-
-
-
-
-        <!-------------------------------------->
-
-        <!-- these are the debugging buttons for some of the js functions  -->
-        <!-- <div style="display: grid; grid-template-columns: 100%; width: 10%">
-            <button id="retrieve-from-db">
-                click to retrieve from database
-            </button>
-            <button id="populate-to-map">
-                click to populate onto map
-            </button>
-        </div> -->
-
-        <!-- search debugging bar -->
-        <!-- <div>
-            <form>
-                <label for="location-search">Enter search query</label>
-                <input type="text" id="location-search" name="location-search">
-                <input type="submit" value="Search">
-            </form>
-        </div> -->
 
     </div>
 
@@ -178,9 +107,6 @@
     <!-- JS: Boostrap, Firebase, API related, add Jquery    -->
     <!----------------------------------------------->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
-        </script> -->
     <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
@@ -193,8 +119,6 @@
     <link rel="stylesheet"
         href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css"
         type="text/css">
-
-    <!-- <script src='https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js'></script> -->
 
     <!--------------------------------------------------------------------->
     <!-- JS files: Your own JavaScript functions included here    -->
