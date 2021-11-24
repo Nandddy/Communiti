@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>My BCIT Project</title>
+    <title>Communiti</title>
     <meta name="comp1800 boilerplate code" content="my bcit project">
     <meta name="author" content="BCIT">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,6 +14,7 @@
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
     <!-- <script src="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.js%22%3E"> </script> -->
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.css" />
+    <link rel="stylesheet" href="/styles/request_style.css">
 
 
     <!--database stuff goes here -->
@@ -29,21 +30,6 @@
     <!--Mapbox Stuff-->
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
-
-    <style>
-        #map {
-            position: absolute;
-            margin-left: auto;
-            margin-right: auto;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            width: 90%;
-            min-height: 20em;
-            height: auto;
-        }
-    </style>
 
 </head>
 
@@ -87,63 +73,13 @@
     </nav>
 
     <!-- welcome and main part of the page -->
-    <!-- <div class="container" id="searchbar">
-        <section class="w-100 p-4 pb-4 d-flex justify-content-center align-items-center flex-column">
-            <!-- <div>
-                <div class="input-group rounded">
-                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                        aria-describedby="search-addon">
-                    <span class="input-group-text border-0" id="search-addon">
-                        <a href=""><i class="material-icons">search</i></a>
-                    </span>
-                    <button class="input-group-text border-0" id="search-addon" type="submit">
-                        <i class="material-icons">search</i>
-                    </button>
-                </div>
-            </div> -->
-    <!-- </section> -->
 
-    <!-------------------------------------->
     <!-- Add map thing here -->
+    <div class="container">
+        <div id="map"></div>
+    </div>
 
-
-    <div id="map" style="border: 1px solid black; display: flex; margin-top: 10em; margin-bottom: 450px;"></div>
-
-
-    <!-- </div> -->
-
-    <div class="container" style="margin-top: 19em;">
-        <!-- Content here -->
-
-        <!-- <form>
-            <div id="location-confirmation"></div>
-            <label id="title-label" for="reqTitle">Request Title</label><br>
-            <input type="text" id="req-title" name="reqTitle"><br>
-            <span style="margin:0;" id="title-error"></span><br>
-            <label for="">Category</label>
-            <br>
-            <select name="" id="volunteering-category">
-                <option value="animals">General</option>
-                <option value="children">Education</option>
-                <option value="computers">Computers</option>
-                <option value="education">Education</option>
-                <option value="other">Other</option>
-            </select>
-            <br>
-            <br>
-            <label for="">Volunteers needed</label>
-            <br>
-            <input type="text" id="num-volunteering" placeholder="1">
-            <br>
-            <br>
-            <label id="desc-label" for="">Write a description of your request</label>
-            <br>
-            <textarea name="" id="volunteering-description" cols="45" rows="2.5"></textarea><br>
-            <span style="margin:0;" id="desc-error"></span>
-            <br>
-            <input type="submit" id="volunteer-info">
-        </form> -->
-
+    <div class="container">
         <form>
             <div id="location-confirmation"></div>
             <div class="form-group">
@@ -179,57 +115,14 @@
                 <textarea class="form-control" id="volunteering-description" rows="3"></textarea>
             </div>
             <br>
-            <input  type="submit" id="volunteer-info" class="btn btn-primary">
+            <input type="submit" id="volunteer-info" class="btn btn-primary">
         </form>
-
     </div>
-
-    <!-- <div style="margin-left: 4em; margin-top: 19em;">
-        <form action="">
-            <div id="location-confirmation"></div>
-            <label id="title-label" for="reqTitle">Request Title</label><br>
-            <input type="text" id="req-title" name="reqTitle"><br>
-            <span style="margin:0;" id="title-error"></span><br>
-            <label for="">Category</label>
-            <select name="" id="volunteering-category">
-                <option value="animals">animals</option>
-                <option value="children">children</option>
-                <option value="computers">computers</option>
-                <option value="education">education</option>
-                <option value="other">other</option>
-            </select>
-            <br>
-            <label for="">Volunteers needed</label>
-            <input type="text" id="num-volunteering" placeholder="1">
-            <br>
-            <label id="desc-label" for="">Write a description of your request</label>
-            <br>
-            <textarea name="" id="volunteering-description" cols="45" rows="2.5"></textarea><br>
-            <span style="margin:0;" id="desc-error"></span>
-            <br>
-            <input type="submit" id="volunteer-info">
-        </form>
-    </div> -->
-
-    <!-- Footer Navigation Bar -->
-    <!--     <footer class="navbar fixed-bottom py-3 bg-info m-3 rounded">
-        <div class="container d-flex justify-content-around">
-            <a href="main.html"><i class="material-icons">home</i></a>
-            <a href="./html/saved.html"><i class="material-icons">star</i></a>
-            <a href="./html/request/1_location.html"><i class="material-icons">add_circle</i></a>
-            <a href="./html/active.html"><i class="material-icons">map</i></a>
-            <i class="material-icons">more_horiz</i>
-        </div>
-    </footer> -->
-
 
     <!----------------------------------------------->
     <!-- JS: Boostrap, Firebase, API related, add Jquery    -->
     <!----------------------------------------------->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
-        </script> -->
     <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
@@ -243,225 +136,7 @@
         href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css"
         type="text/css">
 
-    <!-- <script src='https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js'></script> -->
-
-    <!--------------------------------------------------------------------->
-    <!-- JS files: Your own JavaScript functions included here    -->
-
-    <script>
-        mapboxgl.accessToken = 'pk.eyJ1Ijoidndnb2xmZ3RpIiwiYSI6ImNrcHJhcHhwOTAyM28ydXBpMWlranpwOGkifQ.JtdxQSekLtejtN-cjEIg_A';
-        const map = new mapboxgl.Map({
-            container: 'map', // container ID
-            style: 'mapbox://styles/mapbox/streets-v11', // style URL
-            center: [-123.11, 49.24], // starting position [lng, lat]
-            zoom: 10 // starting zoom
-        });
-
-        map.addControl(
-            new MapboxGeocoder({
-                accessToken: mapboxgl.accessToken,
-                mapboxgl: mapboxgl
-            })
-        );
-
-
-        map.on('style.load', function () {
-            map.on('click', function (e) {
-                var coordinates = e.lngLat;
-                //console.log(coordinates);
-                reverseGetAddress(coordinates);
-                //popUpBox();
-                // new mapboxgl.Popup()
-                //     .setLngLat(coordinates)
-                //     .setHTML('there is a volunteering opportunity here <br>' + coordinates)
-                //     .addTo(map);
-            });
-        });
-
-        let latitude;
-        let longitude;
-
-        function reverseGetAddress(coordinates) {
-            latitude = coordinates.lat;
-            longitude = coordinates.lng;
-            //console.log({ latitude, longitude });
-
-            $.ajax({
-                url: "https://api.mapbox.com/geocoding/v5/mapbox.places/" + longitude + "," + latitude + ".json?access_token=pk.eyJ1Ijoidndnb2xmZ3RpIiwiYSI6ImNrcHJhcHhwOTAyM28ydXBpMWlranpwOGkifQ.JtdxQSekLtejtN-cjEIg_A",
-                contentType: "application/json",
-                dataType: 'json',
-                success: function (result) {
-                    let box = document.getElementById("location-confirmation");
-                    box.style.color = "black";
-                    box.innerText = result.features[0].place_name
-                    //console.log(result.features[0].place_name);
-                }
-            })
-        }
-
-
-        function insertName() {
-            firebase.auth().onAuthStateChanged(user => {
-                // Check if user is signed in:
-                if (user) {
-                    // Do something for the current logged-in user here: 
-                    //console.log(user.uid);
-                    //go to the correct user document by referencing to the user uid
-                    currentUser = db.collection("users").doc(user.uid);
-                    //get the document for current user.
-                    currentUser.get()
-                        .then(userDoc => {
-                            //console.log(userDoc.data());
-                            var user_Name = userDoc.data().name;
-                            getFormInfo(userDoc.data().name, userDoc.data().vaxStatus, userDoc.data().aboutUser);
-                            //console.log(user_Name);
-                            //method #1:  insert with html only
-                            //document.getElementById("name-goes-here").innerText = n;    //using javascript
-                            //method #2:  insert using jquery
-                            $("#name").text(user_Name);                         //using jquery
-                        })
-                } else {
-                    // No user is signed in.
-                }
-            });
-        }
-        insertName();
-
-        const getFormInfo = (name, vax, about) => {
-            document.querySelector("form").addEventListener("submit", (e) => {
-                e.preventDefault();
-                let category = document.getElementById("volunteering-category").value;
-                let numVolunteers = document.getElementById("num-volunteering").value;
-                let description = document.getElementById("volunteering-description").value;
-                let address = document.getElementById("location-confirmation").innerText;
-                let title = document.getElementById("req-title").value;
-
-                //Checking if the form is filled out
-                if (title == "") {
-                    document.getElementById("title-error").innerText = "Please enter a title."
-                    document.getElementById("title-error").style.color = "red";
-                    document.getElementById("title-label").style.color = "red";
-                }
-                if (description == "") {
-                    document.getElementById("desc-error").innerText = "Please enter a description."
-                    document.getElementById("desc-error").style.color = "red";
-                    document.getElementById("desc-label").style.color = "red";
-                }
-                if (address == "") {
-                    document.getElementById("location-confirmation").innerText = "Please select the location of your request";
-                    document.getElementById("location-confirmation").style.color = "red";
-                }
-                if (numVolunteers == "") {
-                    numVolunteers = 1;
-                }
-                if (!(address == "" || address == "Please select the location of your request" || address == "Please select a location from the map!") && !(description == "") && !(title == "")) {
-                    sendToDB(category, numVolunteers, description, address, name, vax, about, title);
-                }
-
-            })
-        }
-        getFormInfo();
-
-
-
-
-
-        function sendToDB(cat, num, desc, addr, name, vax, about, title) {
-            let volCategory = cat;
-            let numVolunteers = num;
-            let volDescription = desc;
-            let volAddress = addr;
-            let date = Date().toString().substring(0, 25);
-
-            //console.log(cat);
-
-            firebase.auth().onAuthStateChanged(user => {
-                // Check if user is signed in:
-                if (user) {
-                    // Do something for the current logged-in user here: 
-                    //console.log(user);
-                    //go to the correct user document by referencing to the user uid
-                    currentUser = db.collection("users").doc(user.uid).collection("volunteering_made");
-                    currentUser
-                        // .doc sets the name for the sub collection
-                        .doc("volunteering_profile: " + date)
-                        // you set the fields here
-                        .set({
-                            title: title,
-                            category: cat,
-                            number_volunteers: numVolunteers,
-                            description: volDescription,
-                            address: volAddress,
-                            lat: latitude,
-                            lng: longitude
-                        })
-                        .then(function () {
-                            console.log("Document added");
-                        })
-                        .catch(function error() {
-                            console.log("Error");
-                        })
-                }
-                //console.log(currentUser);
-                //get the document for current user.
-                // currentUser.set({
-                //     name: "did this work one",
-                //     email: "did this work 3"
-                // }).then(function() {
-                //     console.log("added to firebase");
-
-                if (user) {
-                    // Do something for the current logged-in user here: 
-                    //console.log(user.uid);
-                    //go to the correct user document by referencing to the user uid
-                    currentUser = db.collection("all_volunteering").doc();
-                    currentUser
-                        // .doc sets the name for the sub collection
-                        //.doc("volunteering_profile: " + date)
-                        // you set the fields here
-                        .set({
-                            title: title,
-                            category: cat,
-                            number_volunteers: numVolunteers,
-                            description: volDescription,
-                            address: volAddress,
-                            lat: latitude,
-                            lng: longitude,
-                            uid: user.uid,
-                            vaccine_status: true,
-                            user_description: about,
-                            person_name: name
-                        })
-                        .then(function () {
-                            console.log("Document added");
-                            window.location.assign("../../main.html");
-                        })
-                        .catch(function error() {
-                            console.log("Error");
-                        })
-                } else {
-                    // No user is signed in.
-                }
-            });
-        }
-        //sendToDB();
-
-        function displayEmptyLocation() {
-            let test = document.getElementById("location-confirmation");
-            if(test.childNodes.length == 0 ) {
-                //console.log("is this working");
-                test.innerHTML = "<b>Please select a location from the map!</b>";
-            }
-            //test.innerHTML = "<b>Please select a location from the map!</b>";
-            //console.log(document.getElementById("location-confirmation"));
-        }
-        displayEmptyLocation();
-        
-
-
-    </script>
-
-    <!--------------------------------------------------------------------->
+    <script src="/scripts/1_location_script.js"></script>
 
 </body>
 
