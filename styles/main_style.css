@@ -1,0 +1,35 @@
+body { 
+    margin:0; 
+    padding:0;
+    }
+
+
+#map {
+    margin-left: auto;
+    margin-right: auto;
+    height: 500px;
+    width: 100%;
+}
+
+.mapboxgl-marker:hover {
+    cursor: pointer;
+}
+
+/* darken the marker on hover */
+.mapboxgl-marker:hover svg>g>g:nth-child(2) {
+    fill: #7993a5;
+}
+
+.mapboxgl-popup-content {
+    border: 1px solid black;
+    max-width: 400px;
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+
+}
+
+.volunteering-box {
+    overflow: auto;
+    height: 500px;
+    margin-top: 2em;
+}
+
