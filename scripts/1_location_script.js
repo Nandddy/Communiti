@@ -23,10 +23,23 @@ map.on('style.load', function () {
 
 let latitude;
 let longitude;
+var currentMarkers = [];
 
+//On click, get the address and put a pin at that location
 function reverseGetAddress(coordinates) {
     latitude = coordinates.lat;
     longitude = coordinates.lng;
+    
+
+    if (currentMarkers != null){
+        for (var i = currentMarkers.length - 1; i >= 0; i--) {
+            currentMarkers[i].remove();
+          }
+      }
+    const marker = new mapboxgl.Marker()
+        .setLngLat([longitude, latitude])
+        .addTo(map);
+    currentMarkers.push(marker);
 
     $.ajax({
         url: "https://api.mapbox.com/geocoding/v5/mapbox.places/" + longitude + "," + latitude + ".json?access_token=pk.eyJ1Ijoidndnb2xmZ3RpIiwiYSI6ImNrcHJhcHhwOTAyM28ydXBpMWlranpwOGkifQ.JtdxQSekLtejtN-cjEIg_A",
@@ -194,3 +207,7 @@ function displayEmptyLocation() {
 }
 displayEmptyLocation();
 
+
+/* const marker = new mapboxgl.Marker()
+.setLngLat([d.data().lng, d.data().lat])
+.addTo(map); */
