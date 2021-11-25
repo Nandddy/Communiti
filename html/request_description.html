@@ -25,6 +25,7 @@
     <link type=" text/css" href="../styles/my_style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="../scripts/main_script.js"></script>
+    <link rel="stylesheet" href="../styles/color_theme.css">
 
 
     <!--Mapbox Stuff-->
@@ -56,34 +57,98 @@
             background-color: #D6E3F8;
             min-height: 40em;
             width: 100%;
+            border-radius: 1em;
         }
 
-        .description-body{
+        .description-body {
             display: grid;
             justify-content: center;
-            margin-top: 2em;
+            margin: 2em;
+        }
+
+        #request-title {
+            margin-left: 60px;
         }
 
         #category {
             font-size: 1.2em;
+            margin-bottom: 2em;
+            margin-left: 60px;
         }
 
-        #volunteer-num{
+        #volunteer-num {
             font-size: 1.2em;
+            margin-left: 2em;
+            margin-bottom: 1.5em;
         }
 
         #description {
+            margin: 1em;
+            margin-top: 2em;
             border: 1px black solid;
+            border-radius: 1em;
+            font-size: 1em;
+        }
+
+        #description-goes-here {
+            margin: 1.5em;
+        }
+
+        #address-card {
+            display: grid;
+            grid-template-columns: 82% auto;
+            background-color: #FCF7FF;
             border-radius: 1em;
         }
 
-        #user-info {
+        #address {
+            margin-top: 1.2em;
+            font-size: 1.2em;
+            margin-left: 2em;
+            margin-right: 1em;
+        }
+
+        #link-goes-here {
+            font-size: 18px;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+        }
+
+        #contact {
             display: flex;
             justify-content: center;
         }
-        
-        #user-name, #vac-stat, #user-profile, #address{
+
+        #user-info {
+            margin: 3em;
+            margin-top: 0;
+            display: grid;
+            justify-content: center;
+            justify-items: center;
+            width: auto;
+            border: 1px solid black;
+            border-radius: 1em;
+        }
+
+        #user-name {
             font-size: 1.5em;
+            margin-top: 1.5em;
+        }
+
+        #user-profile {
+            margin: 1.5em;
+            margin-bottom: 3em;
+        }
+
+        #user-name,
+        #vac-stat,
+        #user-profile {
+            font-size: 1.2em;
+        }
+
+        #vac-stat {
+            font-size: 1em;
         }
     </style>
 
@@ -107,8 +172,8 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-header m-3">
         <div class="container-fluid d-flex">
             <div>
-                <a class="btn bg-header position-relative start-0" data-bs-toggle="collapse" href="#collapseLinks" role="button"
-                    aria-expanded="false" aria-controls="collapseExample">
+                <a class="btn bg-header position-relative start-0" data-bs-toggle="collapse" href="#collapseLinks"
+                    role="button" aria-expanded="false" aria-controls="collapseExample">
                     <i class="material-icons">menu</i>
                 </a>
             </div>
@@ -143,35 +208,37 @@
                 <h1 class="card-title" id="request-title"><span id="title-goes-here"></span></h1>
             </div>
             <div>
-                <h2 class="card-title" id="category">Category: <span id="category-goes-here"></span></h2>
+                <div class="card-title" id="category">Category: <span id="category-goes-here"></span></div>
             </div>
-            <div>
-                <h2 class="card-title" id="address">Address: <span id="address-goes-here"></span></h2>
-                <h2 id="link-goes-here"></h2>
-            </div>
-
-            <div>
+            <div id="address-card">
+                <div class="card-title" id="address">Address: <span id="address-goes-here"></span></div>
+                <div id="link-goes-here"></div>
                 <h2 class="card-title" id="volunteer-num">Number of Volunteers Needed: <span
                         id="numvol-goes-here"></span>
                 </h2>
             </div>
             <div>
-                <h2 class="card-title" id="description"></h2>
+                <div class="card-title" id="description">
+                    <div id="description-goes-here"></div>
+                </div>
             </div>
-            <div>
+            <div id="contact">
+                <button id="save-btn"></button>
                 <button id="sign-up">Contact Now</button>
+                
+                <!-- <a class="w-100" id="saveBtn" href="../main.html"> <button type="button"></button></a> -->
             </div>
         </div>
 
         <div class="container" id="user-info">
-            <div>
-                <h2 class="card-title" id="user-name">Request From: <span id="name-goes-here"></span></h2>
+            <div class="card-title" id="user-name">
+                <h4>Requested By: <span id="name-goes-here"></span></h4>
             </div>
-            <div>
-                <h2 class="card-title" id="vac-stat">Vaccine Status: <span id="vac-goes-here"></span></h2>
+            <div class="card-title" id="vac-stat">
+                Vaccinated: <span id="vac-goes-here"></span>
             </div>
-            <div>
-                <h2 class="card-title" id="user-profile">About Me: <span id="profile-goes-here"></span></h2>
+            <div class="card-title" id="user-profile">
+                About Me: <span id="profile-goes-here"></span>
             </div>
         </div>
 
@@ -182,7 +249,7 @@
     <br>
 
     <!-- Footer Navigation Bar -->
-<!--     <footer class="navbar fixed-bottom py-3 bg-info m-3 rounded">
+    <!--     <footer class="navbar fixed-bottom py-3 bg-info m-3 rounded">
         <div class="container d-flex justify-content-around">
             <a href="main.html"><i class="material-icons">home</i></a>
             <a href="./html/saved.html"><i class="material-icons">star</i></a>
@@ -233,7 +300,7 @@
                 document.getElementById("address-goes-here").innerHTML = requestInfo.address;
                 document.getElementById("numvol-goes-here").innerHTML = requestInfo.number_volunteers;
                 document.getElementById("category-goes-here").innerHTML = requestInfo.category;
-                document.getElementById("numvol-goes-here").innerHTML = requestInfo.address;
+                document.getElementById("description-goes-here").innerHTML = requestInfo.description;
 
                 document.getElementById("name-goes-here").innerHTML = requestInfo.person_name;
                 document.getElementById("vac-goes-here").innerHTML = requestInfo.vaccine_status;
@@ -241,7 +308,7 @@
 
                 var address = "<a href=\"https://google.com/maps/dir//";
                 address += requestInfo.lat + "," + requestInfo.lng + "/@" + requestInfo.lat + "," + requestInfo.lng +
-                    "z\">Link to google maps</a>"
+                    "z\">Directions</a>"
                 document.getElementById("link-goes-here").innerHTML = address;
             }
         }
@@ -250,6 +317,57 @@
         document.getElementById("sign-up").addEventListener("click", () => {
             window.location.assign("form_confirmation.html");
         })
+
+
+        const saveBtn = document.createElement("button");
+        const save = listing.appendChild(document.createElement('div'));
+
+        listing.appendChild(saveBtn);
+        saveBtn.innerText = "Save";
+
+        alreadySaved(data, saveBtn);
+
+        saveBtn.addEventListener("click", () => {
+            saveRequest(data);
+            saveBtn.disabled = true;
+            saveBtn.innerText = "Saved!";
+        })
+
+        function saveRequest(data) {
+
+            currentUser.collection("volunteering_saved").add({
+                    title: data.title,
+                    address: data.address,
+                    category: data.category,
+                    description: data.description,
+                    lat: data.lat,
+                    lng: data.lng,
+                    number_volunteers: data.number_volunteers,
+                    uid: data.uid,
+                    person_name: data.person_name,
+                    user_description: data.aboutUser
+                })
+                .then(() => {
+                    //done
+                })
+        }
+
+        function alreadySaved(data, saveBtn) {
+
+            var returnVal = currentUser.collection("volunteering_saved").where("lat", "==", data.lat)
+                .get()
+                .then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        if (doc.data().lng == data.lng) {
+                            saveBtn.disabled = true;
+                            saveBtn.innerText = "Saved!";
+                        }
+                    });
+                })
+                .catch((error) => {
+                    console.log("Error getting documents: ", error);
+                });
+        }
     </script>
 
     <!--------------------------------------------------------------------->
