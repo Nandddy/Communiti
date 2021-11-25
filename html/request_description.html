@@ -22,8 +22,7 @@
 
 
     <!-- Optional styles and scripts of your own -->
-    <link type="text/css" href="/styles/my_style.css">
-    <link type="text/css" rel="stylesheet" href="../styles/color_theme.css">
+    <link type=" text/css" href="../styles/my_style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="../scripts/main_script.js"></script>
 
@@ -44,6 +43,47 @@
             width: 90%;
             height: auto;
             border-radius: 3.5em;
+        }
+
+        #request-description {
+            display: grid;
+            grid-template-columns: auto, auto;
+            grid-template-rows: auto;
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 2em;
+            background-color: #D6E3F8;
+            min-height: 40em;
+            width: 100%;
+        }
+
+        .description-body{
+            display: grid;
+            justify-content: center;
+            margin-top: 2em;
+        }
+
+        #category {
+            font-size: 1.2em;
+        }
+
+        #volunteer-num{
+            font-size: 1.2em;
+        }
+
+        #description {
+            border: 1px black solid;
+            border-radius: 1em;
+        }
+
+        #user-info {
+            display: flex;
+            justify-content: center;
+        }
+        
+        #user-name, #vac-stat, #user-profile, #address{
+            font-size: 1.5em;
         }
     </style>
 
@@ -100,24 +140,28 @@
     <div class="container" id="request-description">
         <div class="description-body">
             <div>
-                <h1 class="card-title" id="request-title">Request Title: <span id="title-goes-here"></span></h1>
-            </div>
-            <div>
-                <h2 class="card-title" id="address">Address: <span id="address-goes-here"></span></h2>
-                <h2 id="link-goes-here"></h2>
+                <h1 class="card-title" id="request-title"><span id="title-goes-here"></span></h1>
             </div>
             <div>
                 <h2 class="card-title" id="category">Category: <span id="category-goes-here"></span></h2>
             </div>
             <div>
-                <h2 class="card-title" id="volunteer-num">Number of Volunteers: <span id="numvol-goes-here"></span>
+                <h2 class="card-title" id="address">Address: <span id="address-goes-here"></span></h2>
+                <h2 id="link-goes-here"></h2>
+            </div>
+
+            <div>
+                <h2 class="card-title" id="volunteer-num">Number of Volunteers Needed: <span
+                        id="numvol-goes-here"></span>
                 </h2>
             </div>
             <div>
                 <h2 class="card-title" id="description"></h2>
             </div>
+            <div>
+                <button id="sign-up">Contact Now</button>
+            </div>
         </div>
-
 
         <div class="container" id="user-info">
             <div>
@@ -133,9 +177,9 @@
 
     </div>
 
-    <div>
-        <button id="sign-up">Click to sign-up</button>
-    </div>
+    <br>
+    <br>
+    <br>
 
     <!-- Footer Navigation Bar -->
 <!--     <footer class="navbar fixed-bottom py-3 bg-info m-3 rounded">
@@ -196,7 +240,8 @@
                 document.getElementById("profile-goes-here").innerHTML = requestInfo.user_description;
 
                 var address = "<a href=\"https://google.com/maps/dir//";
-                address += requestInfo.lat + "," + requestInfo.lng + "/@" + requestInfo.lat + "," + requestInfo.lng +"z\">Link to google maps</a>"
+                address += requestInfo.lat + "," + requestInfo.lng + "/@" + requestInfo.lat + "," + requestInfo.lng +
+                    "z\">Link to google maps</a>"
                 document.getElementById("link-goes-here").innerHTML = address;
             }
         }
@@ -205,9 +250,6 @@
         document.getElementById("sign-up").addEventListener("click", () => {
             window.location.assign("form_confirmation.html");
         })
-
-
-
     </script>
 
     <!--------------------------------------------------------------------->
