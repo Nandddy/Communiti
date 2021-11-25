@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>My BCIT Project</title>
+    <title>Communiti</title>
     <meta name="comp1800 boilerplate code" content="my bcit project">
     <meta name="author" content="BCIT">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,14 +17,13 @@
 
 
     <!--database stuff goes here -->
-    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+<!--     <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-
+ -->
 
     <!-- Optional styles and scripts of your own -->
     <link type=" text/css" href="../styles/my_style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script src="../scripts/main_script.js"></script>
     <link rel="stylesheet" href="../styles/color_theme.css">
 
 
@@ -274,101 +273,13 @@
 
     <!-- Link to the api keys for your firebase project -->
     <script src="../scripts/firebaseAPI.js"></script>
-
+    <script src="/scripts/request_description.js"></script>
     <!-- <script src='https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js'></script> -->
 
     <!--------------------------------------------------------------------->
     <!-- JS files: Your own JavaScript functions included here    -->
 
-    <script>
-        var currentUser //put this right after you start script tag before writing any functions.
 
-        insertName();
-
-        // get local storage string
-        const localInfo = window.localStorage.getItem('t1');
-        // console.log(window.localStorage.getItem('t1'));
-
-        // parse the local storage string into useable objects
-        const requestInfo = JSON.parse(localInfo);
-        // console.log(requestInfo);
-
-        // fill specific divs with object information
-        function view() {
-            if (localStorage.getItem('t1') != null) {
-                document.getElementById("title-goes-here").innerHTML = requestInfo.title;
-                document.getElementById("address-goes-here").innerHTML = requestInfo.address;
-                document.getElementById("numvol-goes-here").innerHTML = requestInfo.number_volunteers;
-                document.getElementById("category-goes-here").innerHTML = requestInfo.category;
-                document.getElementById("description-goes-here").innerHTML = requestInfo.description;
-
-                document.getElementById("name-goes-here").innerHTML = requestInfo.person_name;
-                document.getElementById("vac-goes-here").innerHTML = requestInfo.vaccine_status;
-                document.getElementById("profile-goes-here").innerHTML = requestInfo.user_description;
-
-                var address = "<a href=\"https://google.com/maps/dir//";
-                address += requestInfo.lat + "," + requestInfo.lng + "/@" + requestInfo.lat + "," + requestInfo.lng +
-                    "z\">Directions</a>"
-                document.getElementById("link-goes-here").innerHTML = address;
-            }
-        }
-        view();
-
-        document.getElementById("sign-up").addEventListener("click", () => {
-            window.location.assign("form_confirmation.html");
-        })
-
-
-        const saveBtn = document.createElement("button");
-        const save = listing.appendChild(document.createElement('div'));
-
-        listing.appendChild(saveBtn);
-        saveBtn.innerText = "Save";
-
-        alreadySaved(data, saveBtn);
-
-        saveBtn.addEventListener("click", () => {
-            saveRequest(data);
-            saveBtn.disabled = true;
-            saveBtn.innerText = "Saved!";
-        })
-
-        function saveRequest(data) {
-
-            currentUser.collection("volunteering_saved").add({
-                    title: data.title,
-                    address: data.address,
-                    category: data.category,
-                    description: data.description,
-                    lat: data.lat,
-                    lng: data.lng,
-                    number_volunteers: data.number_volunteers,
-                    uid: data.uid,
-                    person_name: data.person_name,
-                    user_description: data.aboutUser
-                })
-                .then(() => {
-                    //done
-                })
-        }
-
-        function alreadySaved(data, saveBtn) {
-
-            var returnVal = currentUser.collection("volunteering_saved").where("lat", "==", data.lat)
-                .get()
-                .then((querySnapshot) => {
-                    querySnapshot.forEach((doc) => {
-                        if (doc.data().lng == data.lng) {
-                            saveBtn.disabled = true;
-                            saveBtn.innerText = "Saved!";
-                        }
-                    });
-                })
-                .catch((error) => {
-                    console.log("Error getting documents: ", error);
-                });
-        }
-    </script>
 
     <!--------------------------------------------------------------------->
 
