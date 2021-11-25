@@ -13,6 +13,7 @@ function insertName() {
                 .then(userDoc => {
                     var user_Name = userDoc.data().name;
                     $("#name").text(user_Name); //using jquery
+                    document.getElementById("fname").value = user_Name;
                 })
         }
     });
@@ -22,3 +23,33 @@ insertName();
 document.getElementById("submit_form").addEventListener("click", () => {
     window.location.assign("submitted.html");
 })
+
+
+function validate(field){
+    console.log("field: " + field);
+    if(field == 1) {
+        let firstName = document.getElementById("fname")
+        if (firstName.value == "") {
+            document.getElementById("fname-label").style.color = "red";
+        } else {
+            document.getElementById("fname-label").style.color = "black";
+        }
+    }
+    if(field == 2) {
+        let lastName = document.getElementById("lname")
+        console.log(lastName.value);
+        if (lastName.value == "") {
+            document.getElementById("lname-label").style.color = "red";
+        } else {
+            document.getElementById("lname-label").style.color = "black";
+        }
+    }
+    if(field == 3) {
+        let phone = document.getElementById("mob")
+        if (phone.value == "") {
+            document.getElementById("phone-label").style.color = "red";
+        } else {
+            document.getElementById("phone-label").style.color = "black";
+        }
+    }
+}
