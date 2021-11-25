@@ -1,4 +1,5 @@
 
+        //Adds the information of the user into the boxes
         function populateInfo() {
             firebase.auth().onAuthStateChanged(user => {
                 // Check if user is signed in:
@@ -48,11 +49,13 @@
         //call the function to run it 
         populateInfo();
 
+        //Edit the information of the user
         function editUserInfo() {
             //Enable the form fields
             document.getElementById('personalInfoFields').disabled = false;
         }
 
+        //Saves changes on the form to the database
         function saveUserInfo() {
             userName = document.getElementById('nameInput').value;
             userDesc = document.getElementById('userAbout').value;
@@ -68,6 +71,7 @@
             document.getElementById('personalInfoFields').disabled = true;
         }
 
+        //Log out
         function logout() {
             firebase.auth().signOut().then(() => {
                 // Sign-out successful.

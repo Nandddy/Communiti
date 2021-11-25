@@ -159,7 +159,7 @@ function sendToDB(cat, num, desc, addr, name, vax, about, title) {
                     lat: latitude,
                     lng: longitude,
                     uid: user.uid,
-                    vaccine_status: true,
+                    vaccine_status: vax,
                     user_description: about,
                     person_name: name
                 })

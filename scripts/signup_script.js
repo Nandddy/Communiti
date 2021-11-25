@@ -1,5 +1,5 @@
 
-        //Printing name for DB to check if its connected
+        //Inserts the name in the navigation bar
         function insertName() {
             firebase.auth().onAuthStateChanged(user => {
                 // Check if user is signed in:
@@ -44,7 +44,7 @@
         });
 
 
-
+        //Student form submission
         function studentSubmit() {
             console.log("Hello!");
             let stuNum = document.getElementById("student_number").value;
@@ -95,6 +95,7 @@
         }
 
 
+        //Not-student form submission
         function publicSubmit() {
             console.log("Hello!");
             let phoneNum = document.getElementById("phoneNumber1").value;
@@ -139,6 +140,7 @@
 
         }
 
+        //Checks the student form for errors or missing required fields
         function studentFormChecker(toCheckNum, toCheckVax) {
             var error = document.getElementById("errorS");
             var numLabel = document.getElementById("stu_num_label");
@@ -174,6 +176,7 @@
             return returnVal;
         }
 
+        //Checks the not-student form for errors or missing required fields
         function publicFormChecker(toCheckNum, toCheckVax) {
             var error = document.getElementById("errorP");
             var numLabel = document.getElementById("pub_phone_label");
