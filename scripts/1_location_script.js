@@ -53,7 +53,7 @@ function reverseGetAddress(coordinates) {
     })
 }
 
-
+//insert user name into navbar
 function insertName() {
     firebase.auth().onAuthStateChanged(user => {
         // Check if user is signed in:
@@ -81,6 +81,7 @@ function insertName() {
 }
 insertName();
 
+//form checking: if there is a missing required field, show error
 const getFormInfo = (name, vax, about) => {
     document.querySelector("form").addEventListener("submit", (e) => {
         e.preventDefault();
@@ -126,7 +127,7 @@ const getFormInfo = (name, vax, about) => {
 getFormInfo();
 
 
-
+//Send request information into the database
 function sendToDB(cat, num, desc, addr, name, vax, about, title) {
     let numVolunteers = num;
     let volDescription = desc;
@@ -199,6 +200,7 @@ function sendToDB(cat, num, desc, addr, name, vax, about, title) {
 }
 
 
+//On page load, ask for a location on the map
 function displayEmptyLocation() {
     let test = document.getElementById("location-confirmation");
     if (test.childNodes.length == 0) {
@@ -206,8 +208,3 @@ function displayEmptyLocation() {
     }
 }
 displayEmptyLocation();
-
-
-/* const marker = new mapboxgl.Marker()
-.setLngLat([d.data().lng, d.data().lat])
-.addTo(map); */

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>My BCIT Project</title>
+    <title>Communiti</title>
     <meta name="comp1800 boilerplate code" content="my bcit project">
     <meta name="author" content="BCIT">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,12 +17,13 @@
 
 
     <!--database stuff goes here -->
-    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+<!--     <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-
+ -->
 
     <!-- Optional styles and scripts of your own -->
     <link rel="stylesheet" href="/styles/form_styling.css">
+    <link type="text/css" rel="stylesheet" href="/styles/color_theme.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
@@ -71,7 +72,7 @@
         </div>
     </div>
 
-    <!-- welcome and main part of the page -->
+    <!-- Application for the request -->
 
     <div class="container-fluid px-1 py-5 mx-auto">
         <div class="row d-flex justify-content-center">
@@ -82,11 +83,11 @@
                     <form class="form-card" onsubmit="event.preventDefault()">
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex"> <label
-                                    class="form-control-label px-3">First name<span class="text-danger">
+                                    id="fname-label" class="form-control-label px-3">First name<span class="text-danger">
                                         *</span></label> <input type="text" id="fname" name="fname"
                                     placeholder="Enter your first name" onblur="validate(1)"> </div>
                             <div class="form-group col-sm-6 flex-column d-flex"> <label
-                                    class="form-control-label px-3">Last name<span class="text-danger"> *</span></label>
+                                    id="lname-label" class="form-control-label px-3">Last name<span class="text-danger"> *</span></label>
                                 <input type="text" id="lname" name="lname" placeholder="Enter your last name"
                                     onblur="validate(2)">
                             </div>
@@ -94,9 +95,9 @@
                         <div class="row justify-content-between text-left">
                             
                             <div class="form-group col-sm-6 flex-column d-flex"> <label
-                                    class="form-control-label px-3">Phone number<span class="text-danger">
+                                    id="phone-label" class="form-control-label px-3">Phone number<span class="text-danger">
                                         *</span></label> <input type="text" id="mob" name="mob" placeholder=""
-                                    onblur="validate(4)"> </div>
+                                    onblur="validate(3)"> </div>
                         </div>
                         <div class="row justify-content-between text-left">
                             
@@ -104,11 +105,11 @@
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-12 flex-column d-flex"> <label
                                     class="form-control-label px-3">Is there any additional information you would like to add?<span
-                                        class="text-danger"> *</span></label> <input type="text" id="ans" name="ans"
-                                    placeholder="" onblur="validate(6)"> </div>
+                                        class="text-danger"></span></label> <input type="text" id="ans" name="ans"
+                                    placeholder="" onblur="validate(4)"> </div>
                         </div>
                         <div class="row justify-content-end">
-                            <div class="form-group col-sm-6"> <button type="submit" class="btn-primary"
+                            <div class="form-group col-sm-6"> <button type="submit" class="bg-important whitetext"
                                     id="submit_form">Submit</button> </div>
                         </div>
                     </form>
