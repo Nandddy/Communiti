@@ -76,20 +76,29 @@ const getFormInfo = (name, vax, about) => {
         let description = document.getElementById("volunteering-description").value;
         let address = document.getElementById("location-confirmation").innerText;
         let title = document.getElementById("req-title").value;
-
+        console.log(category);
+        document.getElementById("title-label").style.color = "black";
+        document.getElementById("desc-label").style.color = "black";
+        document.getElementById("cat-label").style.color = "black";
+        document.getElementById("location-confirmation").style.color = "black";
         //Checking if the form is filled out
         if (title == "") {
-            document.getElementById("title-error").innerText = "Please enter a title."
-            document.getElementById("title-error").style.color = "red";
+            document.getElementById("error").innerText = "Please enter the required fields."
+            document.getElementById("error").style.color = "red";
             document.getElementById("title-label").style.color = "red";
         }
         if (description == "") {
-            document.getElementById("desc-error").innerText = "Please enter a description."
-            document.getElementById("desc-error").style.color = "red";
+            document.getElementById("error").innerText = "Please enter the required fields."
+            document.getElementById("error").style.color = "red";
             document.getElementById("desc-label").style.color = "red";
         }
-        if (address == "") {
-            document.getElementById("location-confirmation").innerText = "Please select the location of your request";
+        if (category == "") {
+            document.getElementById("error").innerText = "Please enter the required fields."
+            document.getElementById("error").style.color = "red";
+            document.getElementById("cat-label").style.color = "red";
+        }
+        if (address == "" || address == "Please select a location from the map!") {
+            document.getElementById("error").innerText = "Please enter the required fields."
             document.getElementById("location-confirmation").style.color = "red";
         }
         if (numVolunteers == "") {
