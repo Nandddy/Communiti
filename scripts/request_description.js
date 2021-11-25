@@ -35,7 +35,7 @@ document.getElementById("sign-up").addEventListener("click", () => {
     window.location.assign("form_confirmation.html");
 })
 
-
+//Insert user's name into navbar
 function insertName() {
     firebase.auth().onAuthStateChanged(user => {
         // Check if user is signed in:
@@ -73,6 +73,7 @@ saveBtn.addEventListener("click", () => {
     saveBtn.innerText = "Saved!";
 })
 
+//Save the request to the user's volunteering_saved collection.
 function saveRequest(data) {
 
     currentUser.collection("volunteering_saved").add({
@@ -85,13 +86,15 @@ function saveRequest(data) {
         number_volunteers: data.number_volunteers,
         uid: data.uid,
         person_name: data.person_name,
-        user_description: data.user_description
+        user_description: data.user_description,
+        vaccine_status: data.vaccine_status
     })
         .then(() => {
             //done
         })
 }
 
+//On load, if this request is already in the saved or made list, disable saving
 function alreadySaved(lat, lng, saveBtn) {
     var returnVal = currentUser.collection("volunteering_saved").where("lat", "==", lat)
         .get()
@@ -106,4 +109,30 @@ function alreadySaved(lat, lng, saveBtn) {
         .catch((error) => {
             console.log("Error getting documents: ", error);
         });
+
+        returnVal = currentUser.collection("volunteering_made").where("lat", "==", lat)
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                if (doc.data().lng == lng) {
+                    saveBtn.disabled = true;
+                    saveBtn.innerText = "Saved!";
+                }
+            });
+        })
+        .catch((error) => {
+            console.log("Error getting documents: ", error);
+        });
 }
+
+//If the requester information cannot be found, it is a saved request made from the
+//user; hide the requester info and replace it with appropriate text.
+function hideRequester(data){
+    if (data.vaccine_status == undefined || data.person_name == undefined || data.user_description == undefined) {
+        document.getElementById("user-name").style.display = "none";
+        document.getElementById("vac-stat").style.display = "none";
+        document.getElementById("user-profile").style.display = "none";
+        document.getElementById("user-info").innerHTML = "<br><h3>You made this request!</h3><br>";
+    }
+}
+hideRequester(requestInfo);
