@@ -67,9 +67,12 @@ function locationList(data) {
 
     // add request snippet
     const request = link.appendChild(document.createElement("p"));
-    request.className = 'mb-1';
-    request.innerHTML = `<b>Request:</b> ${data.description}`;
-
+    if (data.description.length > 50) {
+        //console.log(data.description);
+        request.innerHTML = `<b>Request:</b> ${data.description.substring(0, 50)} ...`;
+    } else {
+        request.innerHTML = `<b>Request:</b> ${data.description}`;
+    }
     const location = link.appendChild(document.createElement("p"));
     location.className = "mb-1";
     location.innerHTML = `<b>Location:</b> ${data.address}`;
