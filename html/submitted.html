@@ -8,12 +8,13 @@
     <meta name="author" content="BCIT">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap, firebase-auth-ui -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
-    <!-- <script src="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.js%22%3E"> </script> -->
+    <!-- Bootstrap CSS and styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link type="text/css" rel="stylesheet" href="../styles/color_theme.css" />
 
 
     <!--database stuff goes here -->
@@ -40,36 +41,40 @@
     <!-- The following is HTML for layout -->
     <!-------------------------------------->
     <!-- Header Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-info m-3">
-        <div class="container-fluid d-flex justify-content-lg-evenly">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <a class="navbar-brand" href="#">Communiti</a>
-            <span id="name"></span>
-
-            <i class="material-icons">person_outline</i>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.html">Login/Signup</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact Us</a>
-                    </li>
-                </ul>
+    <nav class="navbar navbar-expand-lg navbar-light bg-header m-3">
+        <div class="container-fluid d-flex">
+            <div>
+                <a class="btn bg-header position-relative start-0" data-bs-toggle="collapse" href="#collapseLinks"
+                    role="button" aria-expanded="false" aria-controls="collapseExample">
+                    <i class="material-icons">menu</i>
+                </a>
             </div>
+
+            <a class="navbar-brand" style="margin-left:11%;" href="../main.html">Communiti</a>
+            <a class="nav-link disabled nav-bar-right" href="edit_profile.html" aria-disabled="true">
+                <span id="name">Name</span> <i class="material-icons">person_outline</i>
+            </a>
         </div>
     </nav>
+
+    <div class="collapse" id="collapseLinks">
+        <div class="card card-body">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="../main.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../html/request/1_location.html">Make a new request</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../html/active.html">View your active/saved requests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="logout()">Sign out</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 
     <!-- welcome and main part of the page -->
 
