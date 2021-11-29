@@ -23,7 +23,7 @@
 
 
     <!-- Optional styles and scripts of your own -->
-    <link type=" text/css" href="/styles/my_style.css">
+    <link type=" text/css" href="../styles/my_style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
@@ -31,7 +31,32 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
 
+    <style>
+        body,
+        html {
+            background-color: #FCF7FF;
+        }
 
+        .contain {
+            position: absolute;
+            top: 20%;
+            right: 0;
+            left: 0;
+            margin-left: auto;
+            margin-right: auto;
+            width: 80%;
+            background-color: #D6E3F8;
+            height: auto;
+            border-radius: 1rem;
+            text-align: center;
+
+        }
+
+        .newjumbo {       
+            margin: 12%;
+            margin-bottom: 10%;
+        }
+    </style>
 
 </head>
 
@@ -77,22 +102,21 @@
     </div>
 
     <!-- welcome and main part of the page -->
-
-    <div class="jumbotron text-center">
-        <h1 class="display-3">Thank You!</h1>
-        <p class="lead"><strong>You'll be contacted soon regarding the volunteering information!</strong>
-        </p>
-        <hr>
-        <p class="lead">
-            <a class="btn btn-primary btn-sm" href="/main.html" role="button" id="back-to-home">Continue to
-                homepage</a>
-        </p>
+    <div class="contain">
+        <div class="newjumbo">
+            <h1 class="thanks">Thank You!</h1>
+            <h3>Your application was successfully submitted.</h3>
+            <p>You will be contacted when a decision is made!</p>
+            <br>
+            <p class="lead">
+                <a class="btn btn-primary btn-sm" href="/main.html" role="button" id="back-to-home">Return</a>
+            </p>
+        </div>
     </div>
 
 
-
     <!-- Footer Navigation Bar -->
-    <footer class="navbar fixed-bottom py-3 bg-info m-3 rounded">
+    <!-- <footer class="navbar fixed-bottom py-3 bg-info m-3 rounded">
         <div class="container d-flex justify-content-around">
             <a href="main.html"><i class="material-icons">home</i></a>
             <a href="./html/saved.html"><i class="material-icons">star</i></a>
@@ -100,7 +124,7 @@
             <a href="./html/active.html"><i class="material-icons">map</i></a>
             <i class="material-icons">more_horiz</i>
         </div>
-    </footer>
+    </footer> -->
 
 
     <!----------------------------------------------->
