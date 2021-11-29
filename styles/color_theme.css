@@ -41,3 +41,11 @@
 .purpletext{
     color:#5E239D;
 }
+
+.opacity8 {
+    opacity: 85%;
+}
+
+.opaque {
+    opacity: 100%;
+}

@@ -1,10 +1,16 @@
 #login_centerheader {
     text-align:center;
-    font-size:32pt;
+    font-size:2em;
     margin:5%;
 }
 
 .largecentertext {
-    font-size:32pt;
+    font-size:2em;
     text-align:center;
+} 
+
+.welcome {
+    margin: 10%;
+    margin-top: 5%;
+    text-align: center;
 }
