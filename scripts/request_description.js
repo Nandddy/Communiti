@@ -95,6 +95,7 @@ function saveRequest(data) {
 }
 
 //On load, if this request is already in the saved or made list, disable saving
+//Uses a query on the database to match latitude and longitude to check.
 function alreadySaved(lat, lng, saveBtn) {
     var returnVal = currentUser.collection("volunteering_saved").where("lat", "==", lat)
         .get()
