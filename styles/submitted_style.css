@@ -1,0 +1,24 @@
+body,
+html {
+    background-color: #FCF7FF;
+}
+
+.contain {
+    position: absolute;
+    top: 20%;
+    right: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    background-color: #D6E3F8;
+    height: auto;
+    border-radius: 1rem;
+    text-align: center;
+
+}
+
+.newjumbo {
+    margin: 12%;
+    margin-bottom: 10%;
+}

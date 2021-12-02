@@ -27,6 +27,7 @@
         insertName();
 
 
+        //On confirming the user is a student, show user form
         document.querySelector("#is_student").addEventListener("click", function (e) {
             e.preventDefault();
             let studentForm = document.getElementById("student-form");
@@ -35,6 +36,7 @@
             formDiv.style.display = "none";
         });
 
+        //On confirming the user is not a student, show the public form
         document.querySelector("#not_student").addEventListener("click", function (e) {
             e.preventDefault();
             let studentForm = document.getElementById("student-form");
@@ -68,6 +70,8 @@
             }
 
 
+            //Checks the details of the form for errors, submit if
+            //everything is fine.
             if (studentFormChecker(stuNum, vaxx)) {
                 firebase.auth().onAuthStateChanged(user => {
                     // Check if user is signed in:
@@ -113,10 +117,13 @@
 
             }
 
+            //Default value if no input in description
             if (pub_description == "") {
                 pub_description = "Hello, nice to meet you!";
             }
 
+            //Checks the details of the form for errors, submit if
+            //everything is fine.
             if (publicFormChecker(phoneNum,vaxx)) {
                 firebase.auth().onAuthStateChanged(user => {
                 // Check if user is signed in:

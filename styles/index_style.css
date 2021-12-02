@@ -1,0 +1,37 @@
+body,
+html {
+  background-color: #FCF7FF;
+}
+
+.contain {
+  position: absolute;
+  top: 22%;
+  right: 0;
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+  background-color: #D6E3F8;
+  height: auto;
+  border-radius: 1rem;
+  text-align: center;
+
+}
+
+.newjumbo {
+  margin: 12%;
+  margin-bottom: 10%;
+}
+
+.joinbtn {
+  background-color: #5E239D;
+  border: none;
+  color: white;
+  padding: 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  width: 14rem;
+  font-size: 1.3rem;
+  border-radius: 4rem;
+}

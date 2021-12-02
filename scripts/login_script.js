@@ -60,20 +60,28 @@ var uiConfig = {
 ui.start('#firebaseui-auth-container', uiConfig);
 
 
+/* 
+
+Preliminary testing code below to try to make a non-prebuilt UI for login.
+Abandoned due to time constraints.
+
+*/
+
+
 //Credits to C.Lee on Stackoverflow
 //checks to make sure email is in the form anystring@anystring.anystring
-function validateEmail(email) {
-    var re = /\S+@\S+\.\S+/;
-    return re.test(email);
-}
+//function validateEmail(email) {
+//    var re = /\S+@\S+\.\S+/;
+//    return re.test(email);
+//}
 
-function validatePassword(password) {
-    return (password.length > 5);
-}
+//function validatePassword(password) {
+//    return (password.length > 5);
+//}
 
 
 //THIS FUNCTION CURRENTLY DOES NOT WORK.
-function createNewUser() {
+/* function createNewUser() {
     //var displayName = document.getElementById("typeDisplayName");
     var displayName = "Test";
     var email = document.getElementById("typeEmailX").value;
@@ -94,5 +102,5 @@ function createNewUser() {
             });
 
     }
-}
+} */
 //create new user

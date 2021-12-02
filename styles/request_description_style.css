@@ -1,0 +1,117 @@
+#map {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 90%;
+    height: auto;
+    border-radius: 3.5em;
+}
+
+#request-description {
+    display: grid;
+    grid-template-columns: auto, auto;
+    grid-template-rows: auto;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+    background-color: #D6E3F8;
+    min-height: 40em;
+    width: 100%;
+    border-radius: 1em;
+}
+
+.description-body {
+    display: grid;
+    justify-content: center;
+    margin: 2em;
+}
+
+#request-title {
+    margin-left: 60px;
+}
+
+#category {
+    font-size: 1.2em;
+    margin-bottom: 2em;
+    margin-left: 60px;
+}
+
+#volunteer-num {
+    font-size: 1.2em;
+    margin-left: 2em;
+    margin-bottom: 1.5em;
+}
+
+#description {
+    margin: 1em;
+    margin-top: 2em;
+    border: 1px black solid;
+    border-radius: 1em;
+    font-size: 1em;
+}
+
+#description-goes-here {
+    margin: 1.5em;
+}
+
+#address-card {
+    display: grid;
+    grid-template-columns: 82% auto;
+    background-color: #FCF7FF;
+    border-radius: 1em;
+}
+
+#address {
+    margin-top: 1.2em;
+    font-size: 1.2em;
+    margin-left: 2em;
+    margin-right: 1em;
+}
+
+#link-goes-here {
+    font-size: 18px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+#contact {
+    display: flex;
+    justify-content: center;
+}
+
+#user-info {
+    margin: 3em;
+    margin-top: 0;
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    width: auto;
+    border: 1px solid black;
+    border-radius: 1em;
+}
+
+#user-name {
+    font-size: 1.5em;
+    margin-top: 1.5em;
+}
+
+#user-profile {
+    margin: 1.5em;
+    margin-bottom: 3em;
+}
+
+#user-name,
+#vac-stat,
+#user-profile {
+    font-size: 1.2em;
+}
+
+#vac-stat {
+    font-size: 1em;
+}

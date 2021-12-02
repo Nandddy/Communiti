@@ -1,5 +1,6 @@
 let currentUser;
 
+//Add the user's name to the navbar
 function insertName() {
     firebase.auth().onAuthStateChanged(user => {
         // Check if user is signed in:
@@ -20,11 +21,13 @@ function insertName() {
 }
 insertName();
 
+//On click of the submission button, move page.
 document.getElementById("submit_form").addEventListener("click", () => {
     window.location.assign("submitted.html");
 })
 
-
+//Check if the fields have data in them; if not, change label to red.
+//Currently does not stop the user from submitting.
 function validate(field){
     console.log("field: " + field);
     if(field == 1) {
