@@ -7,6 +7,7 @@ const map = new mapboxgl.Map({
     zoom: 10 // starting zoom
 });
 
+// Add map
 map.addControl(
     new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
@@ -14,7 +15,6 @@ map.addControl(
     })
 );
 
-let tempCoorStorage = [];
 
 // get data from firebase
 function getData() {
@@ -97,68 +97,16 @@ function locationList(data) {
     link.appendChild(detailsBtn);
 
 
-
-    /* Add details to the individual listing. */
-
-
-    /*  const details = listing.appendChild(document.createElement('div'));
-     const save = listing.appendChild(document.createElement('div'));
-     listing.appendChild(detailsBtn);
-     listing.appendChild(saveBtn);
-     detailsBtn.innerText = "view more";
-     saveBtn.innerText = "Save"; */
-
-    // Andy wrote this, dont delete
-    //  alreadySaved(data, saveBtn); 
-
-
-    //let arr = [data];
-
     detailsBtn.addEventListener("click", () => {
         localStorage.setItem("t1", JSON.stringify(data));
         window.location.assign("html/request_description.html")
     })
 
-    // Andy wrote thid, don'd delete
-    /* saveBtn.addEventListener("click", () => {
-        saveRequest(data);
-        saveBtn.disabled = true;
-        saveBtn.innerText = "Saved!";
-    }) */
-
-    // const volCategory = data.category;
-    // const volDescript = data.description;
-    // const numVol = data.number_volunteers;
-
-    //const volContainer = document.createElement("div");
-    //volContainer.innerText = volCategory;
-
-    //listing.appendChild(volCategory);
-
-
-    /* details.innerHTML = `Description: ${data.description}`;
-    details.innerHTML += `<br>`;
-    details.innerHTML += `Category: ${data.category}`;
-    details.innerHTML += `<br>`;
-    details.innerHTML += `Volunteers Needed: ${data.number_volunteers}`; */
-
-    // details.innerHTML += `<br>`;
-    // details.innerHTML += `<button>View more</button>`;
-
     link.addEventListener('click', function (e) {
 
-        // for (const feature of stores.features) {
-        //     if (this.id === `link-${feature.properties.id}`) {
         flyToLocation(data);
         createPopUp(data);
         clearCurrStyling();
-        //     }
-        // }
-        // const activeItem = document.getElementsByClassName('active');
-        // if (activeItem[0]) {
-        //     activeItem[0].classList.remove('active');
-        // }
-        // this.parentNode.classList.add('active');
     });
 
 }
@@ -168,22 +116,12 @@ function getRequestID() {
         if (d) {
             currentId = db.collection("all_volunteering");
             console.log(d);
-
-            // currentId.get()
-            // .then(a => {
-            //     console.log({a});
-            // })
         }
     })
 }
 
-// structure of coordinates
-//"coordinates": [
-//  -77.049766,
-//  38.900772
-// ]
+
 function flyToLocation(data) {
-    //console.log({data});
     let tempArr = [];
     tempArr.push(data.lng);
     tempArr.push(data.lat);
@@ -194,9 +132,9 @@ function flyToLocation(data) {
 }
 
 function createPopUp(data) {
-    //console.log(data)
 
     const popUps = document.getElementsByClassName('mapboxgl-popup');
+
     /** Check if there is already a popup on the map and if so, remove it */
     if (popUps[0]) popUps[0].remove();
 
@@ -223,11 +161,7 @@ function insertName() {
             currentUser.get()
                 .then(userDoc => {
                     var user_Name = userDoc.data().name;
-                    //console.log(user_Name);
-                    //method #1:  insert with html only
-                    //document.getElementById("name-goes-here").innerText = n;    //using javascript
-                    //method #2:  insert using jquery
-                    $("#name").text(user_Name);                         //using jquery
+                    $("#name").text(user_Name);                         
                 })
         } else {
             // No user is signed in.
@@ -271,11 +205,6 @@ function clearAllStyling(data) {
         }
     }
 
-    //console.log(listing);
-
-    //let defaultStyle = listing.getAttribute("style");
-    //console.log(defaultStyle);
-    //console.log(defaultStyle === "border: 1px solid black; margin: 1em;");
 }
 
 function clearCurrStyling() {
@@ -299,11 +228,6 @@ function clearCurrStyling() {
         }
     }
 
-    //console.log(listing);
-
-    //let defaultStyle = listing.getAttribute("style");
-    //console.log(defaultStyle);
-    //console.log(defaultStyle === "border: 1px solid black; margin: 1em;");
 }
 
 
