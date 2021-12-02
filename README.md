@@ -1,4 +1,4 @@
-## My Web Application (Title)
+## Communiti
 
 * [General info](#general-info)
 * [Technologies](#technologies)
