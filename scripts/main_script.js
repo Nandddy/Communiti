@@ -7,7 +7,7 @@ const map = new mapboxgl.Map({
     zoom: 10 // starting zoom
 });
 
-// Add map
+// Add map to application
 map.addControl(
     new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
@@ -43,6 +43,7 @@ function getData() {
 }
 getData();
 
+// Dynamically build location list and attach new requests to html
 function locationList(data) {
     const listings = document.getElementById('volunteering-listing');
 
@@ -87,9 +88,6 @@ function locationList(data) {
 
     const detailsBtn = document.createElement("button");
 
-    // andy wrote this dont delete
-    // const saveBtn = document.createElement("button");
-
     detailsBtn.className = "btn bg-important whitetext btn-sm";
     detailsBtn.type = "button";
     detailsBtn.innerText = "View Request";
@@ -111,6 +109,7 @@ function locationList(data) {
 
 }
 
+// Get request ID
 function getRequestID() {
     firebase.auth().onAuthStateChanged(d => {
         if (d) {
@@ -120,7 +119,7 @@ function getRequestID() {
     })
 }
 
-
+// MapBox function to fly to each pin on the map
 function flyToLocation(data) {
     let tempArr = [];
     tempArr.push(data.lng);
@@ -131,6 +130,7 @@ function flyToLocation(data) {
     });
 }
 
+// Creates popup data on pin click
 function createPopUp(data) {
 
     const popUps = document.getElementsByClassName('mapboxgl-popup');
@@ -148,7 +148,7 @@ function createPopUp(data) {
 }
 
 
-
+// Inserts name onto HTML header
 function insertName() {
     firebase.auth().onAuthStateChanged(user => {
         // Check if user is signed in:
@@ -171,6 +171,7 @@ function insertName() {
 
 insertName();
 
+// Searches list for current item, highlights it
 function searchList(data) {
 
     const listing = document.getElementById(
@@ -184,6 +185,7 @@ function searchList(data) {
 
 }
 
+// Clears all list styling on every click of the map pin
 function clearAllStyling(data) {
 
     const listing = document.getElementById(
@@ -191,15 +193,10 @@ function clearAllStyling(data) {
     );
 
     let children = listing.children;
-    //console.log(children);
 
     for (let i = 0; i < children.length; i++) {
         let child = children[i];
-        //console.log(child.children[0].getAttribute("class"));
         let defaultStyle = child.children[0].getAttribute("class");
-
-        //console.log(defaultStyle);
-
         if (defaultStyle === "d-flex w-100 justify-content-between list-group-item active") {
             child.children[0].setAttribute("class", "d-flex w-100 justify-content-between");
         }
@@ -207,6 +204,7 @@ function clearAllStyling(data) {
 
 }
 
+// Clears current list styling
 function clearCurrStyling() {
 
     const listing = document.getElementById(
@@ -214,14 +212,11 @@ function clearCurrStyling() {
     );
 
     let children = listing.children;
-    //console.log(children);
 
     for (let i = 0; i < children.length; i++) {
         let child = children[i];
-        //console.log(child.children[0].getAttribute("class"));
         let defaultStyle = child.children[0].getAttribute("class");
 
-        //console.log(defaultStyle);
 
         if (defaultStyle === "d-flex w-100 justify-content-between list-group-item active") {
             child.children[0].setAttribute("class", "d-flex w-100 justify-content-between");
@@ -230,7 +225,7 @@ function clearCurrStyling() {
 
 }
 
-
+// Saves pin request to Firebase
 function saveRequest(data) {
 
     currentUser.collection("volunteering_saved").add({
@@ -250,7 +245,8 @@ function saveRequest(data) {
         })
 }
 
-
+// Determines if this volunteering request has already been saved to Firebase
+// Disables the button is already saved
 function alreadySaved(data, saveBtn) {
 
     var returnVal = currentUser.collection("volunteering_saved").where("lat", "==", data.lat)
