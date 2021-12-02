@@ -1,4 +1,6 @@
 mapboxgl.accessToken = 'pk.eyJ1Ijoidndnb2xmZ3RpIiwiYSI6ImNrcHJhcHhwOTAyM28ydXBpMWlranpwOGkifQ.JtdxQSekLtejtN-cjEIg_A';
+
+// Load map from MapBox
 const map = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/mapbox/streets-v11', // style URL
@@ -6,6 +8,7 @@ const map = new mapboxgl.Map({
     zoom: 10 // starting zoom
 });
 
+// Import Map layer and allow control
 map.addControl(
     new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
@@ -13,7 +16,7 @@ map.addControl(
     })
 );
 
-
+// Call function to convert coordinate to address
 map.on('style.load', function () {
     map.on('click', function (e) {
         var coordinates = e.lngLat;
@@ -21,6 +24,7 @@ map.on('style.load', function () {
     });
 });
 
+// Variable declarations
 let latitude;
 let longitude;
 var currentMarkers = [];

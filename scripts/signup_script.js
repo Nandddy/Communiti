@@ -70,8 +70,6 @@
             }
 
 
-            //Checks the details of the form for errors, submit if
-            //everything is fine.
             if (studentFormChecker(stuNum, vaxx)) {
                 firebase.auth().onAuthStateChanged(user => {
                     // Check if user is signed in:
@@ -122,8 +120,8 @@
                 pub_description = "Hello, nice to meet you!";
             }
 
-            //Checks the details of the form for errors, submit if
-            //everything is fine.
+            //Checks the details of the form for errors, submit if everything
+            //is validated.
             if (publicFormChecker(phoneNum,vaxx)) {
                 firebase.auth().onAuthStateChanged(user => {
                 // Check if user is signed in:
