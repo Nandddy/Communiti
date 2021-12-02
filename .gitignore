@@ -5,3 +5,10 @@ boostrap.css
 bookpost.html
 firebaseAPI.js
 oldmain.js
+.firebase/
+.firebaserc
+404.html
+firebase.json
+firestore.indexes.json
+firestore.rules
+storage.rules
