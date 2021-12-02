@@ -1,5 +1,6 @@
 let currentUser;
 
+// Check if user is logged in and display their name in the header
 function insertName() {
     firebase.auth().onAuthStateChanged(user => {
         // Check if user is signed in:
@@ -20,14 +21,15 @@ function insertName() {
 }
 insertName();
 
+// Event listner for form submission
 document.getElementById("submit_form").addEventListener("click", () => {
     window.location.assign("submitted.html");
 })
 
-
-function validate(field){
+// Validate if form entries have been inputted correctly
+function validate(field) {
     console.log("field: " + field);
-    if(field == 1) {
+    if (field == 1) {
         let firstName = document.getElementById("fname")
         if (firstName.value == "") {
             document.getElementById("fname-label").style.color = "red";
@@ -35,7 +37,7 @@ function validate(field){
             document.getElementById("fname-label").style.color = "black";
         }
     }
-    if(field == 2) {
+    if (field == 2) {
         let lastName = document.getElementById("lname")
         console.log(lastName.value);
         if (lastName.value == "") {
@@ -44,7 +46,7 @@ function validate(field){
             document.getElementById("lname-label").style.color = "black";
         }
     }
-    if(field == 3) {
+    if (field == 3) {
         let phone = document.getElementById("mob")
         if (phone.value == "") {
             document.getElementById("phone-label").style.color = "red";
