@@ -5,7 +5,7 @@
 * [Contents](#content)
 
 ## General Info
-This browser based web application to make an interactive map that helps people find requests.
+This browser based web application uses an interactive map that helps people find requests.
 * This project was initially built for COMP 1800.
 * Made by Andy, Edmond, and Jason of team BBY03.
 	
