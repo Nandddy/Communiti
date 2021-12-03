@@ -31,6 +31,7 @@ Content of the project folder:
 
 It has the following subfolders and files:
 ├── .git                     	# Folder for git repo
+├── .firebase                   # Folder for firebase
 ├── html                     	# Folder for additional supporting html pages
     ├── /request                     # Folder for html pages relating to making a request
         /1_location.html             # the html page where users make a request
@@ -45,8 +46,12 @@ It has the following subfolders and files:
     /NAME_style.css             # the style file for [NAME]. 
 
 Firebase hosting files: 
-├── .firebaserc...
-
+├── .firebaserc
+├── 404.html
+├── firebase.joson
+├── firestore.indexes.json
+├── firestore.rules
+├── storage.rules
 
 ```
 
