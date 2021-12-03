@@ -1,5 +1,6 @@
 let currentUser; //put this right after you start script tag before writing any functions.
 
+//Insert the user name into the navbar
 function insertName() {
     firebase.auth().onAuthStateChanged(user => {
         // Check if user is signed in:

@@ -81,6 +81,7 @@ function logout() {
     });
 }
 
+//Insert the user name into the navbar
 function insertName2() {
     firebase.auth().onAuthStateChanged(user => {
         // Check if user is signed in:
