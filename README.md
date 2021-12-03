@@ -48,7 +48,7 @@ It has the following subfolders and files:
 Firebase hosting files: 
 ├── .firebaserc
 ├── 404.html
-├── firebase.joson
+├── firebase.json
 ├── firestore.indexes.json
 ├── firestore.rules
 ├── storage.rules
